@@ -3,6 +3,20 @@
 version: "3"
 
 services: 
+
+  frontend:
+    build: ./frontend
+    command: ["npm", "start"]
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:8000
+    ports:
+      - 3000:3000
+    networks:
+      - photoon
+    volumes:
+      - ./frontend:/frontend
+    tty: true
+
   backend:
     build:
     # context : 현재 폴더의 backend 폴더에 있는 도커파일을 쓰겠다.
