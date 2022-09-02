@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    rgb(207, 158, 149) 30%,
+    rgb(253, 221, 200)
+  );
+  background-size: cover;
+  background-position: top;
+}
