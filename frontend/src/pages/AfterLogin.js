@@ -3,7 +3,8 @@ import style from "./MainPage.module.css";
 import MainButton from "../components/MainButton";
 import Slider from "../components/Slider";
 import { Link } from "react-router-dom";
-export default function MainPage() {
+// import { Link } from "react-router-dom";
+export default function AfterLogin() {
   return (
     <>
       <div className={`${style.box1}`}>
@@ -14,33 +15,13 @@ export default function MainPage() {
       </div>
       <div className={`${style.box3}`}>
         <Link
-          to="/afterlogin"
+          to="/"
           className="block m-auto"
           style={{ textDecoration: "none" }}
         >
-          <MainButton text="LOGIN" />
+          <MainButton text="START" />
         </Link>
       </div>
     </>
   );
 }
-// [
-//   {
-//     id: 1,
-//     src: "images/ice-1.jpg",
-//     text: "첫 번쩨 슬라이드 버튼",
-//     alt: "첫 번째 슬라이드",
-//   },
-//   {
-//     id: 2,
-//     src: "images/ice-2.jpg",
-//     text: "두번째 슬라이드 버튼",
-//     alt: "두번째 슬라이드",
-//   },
-//   {
-//     id: 3,
-//     src: "images/background.jpg",
-//     text: "세번째 슬라이드 버튼",
-//     alt: "세번째 슬라이드",
-//   },
-// ];
