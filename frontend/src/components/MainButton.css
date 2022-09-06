@@ -1,0 +1,97 @@
+.buttonBox {
+  display: block;
+  margin: auto;
+}
+.mainbutton {
+  display: block;
+  margin: auto;
+  font-size: 1.3rem;
+  width: 10rem;
+  height: 2.5rem;
+  border: 0px;
+  border-radius: 50px;
+  background: rgba(213, 190, 198, 1);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.mainbutton:hover {
+  background: rgb(203, 101, 137);
+  font-weight: 700;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  -webkit-transition-delay: 0.3s;
+  transition-delay: 0.3s;
+}
+
+.btn {
+  display: block;
+  width: 10rem;
+  height: 2.8rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  border: 1px rgba(213, 190, 198, 1) solid;
+  margin: 15px auto;
+  background-color: rgba(213, 190, 198, 1);
+  /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+  text-align: center;
+  cursor: pointer;
+  color: white;
+  transition: all 0.9s, color 0.3;
+}
+.btn:hover {
+  color: #fff;
+}
+.hover1:hover {
+  /* box-shadow: 200px 0 0 0 rgba(156, 27, 27, 0.5) inset; */
+  /*box-shadow: 0 80px 0 0 rgba(156, 27, 27, 0.5) inset,
+    0 -80px 0 0 rgba(187, 64, 64, 0.5) inset; */
+  box-shadow: 0 80px 0 0 rgba(0, 0, 0, 0.25) inset,
+    0 -80px 0 0 rgba(0, 0, 0, 0.25) inset;
+}
+
+/* GENERAL BUTTON STYLING */
+/* button,
+button::after {
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+button {
+  background: none;
+  border: 3px solid #fff;
+  border-radius: 5px;
+  color: #fff;
+  display: block;
+  font-size: 1.6em;
+  font-weight: bold;
+  margin: 1em auto;
+  padding: 2em 6em;
+  position: relative;
+  text-transform: uppercase;
+}
+
+button::before,
+button::after {
+  background: #fff;
+  content: "";
+  position: absolute;
+  z-index: -1;
+}
+
+button:hover {
+  color: #2ecc71;
+}
+
+/* BUTTON 2 
+.btn-2::after {
+  height: 100%;
+  left: 0;
+  top: 0;
+  width: 0;
+}
+
+.btn-2:hover:after {
+  width: 100%;
+} */
