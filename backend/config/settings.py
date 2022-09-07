@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'photoon',
     'rest_framework', # django rest framework
     'corsheaders',   # cors 오류 해결(도메인 이름이 서로 다른 사이트끼리 API 요청할 때 공유를 설정하지 않으면 CORS 오류가 발생함), 장고는 8000이지만 리액트는 3000이기 때문에 발생함
     'drf_yasg', # DRF swagger
