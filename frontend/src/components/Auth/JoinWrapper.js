@@ -8,12 +8,14 @@ const Positioner = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    
+    
 `;
 
 // 너비, 그림자 설정
 const ShadowedBox = styled.div`
-    width: 500px;
-    
+    width: 580px;
+
 `;
 
 // 로고
@@ -37,19 +39,22 @@ const Contents = styled.div`
     background: white;
     padding: 2rem;
     height: auto;
+    
 `;
 
 const JoinWrapper = ({children}) => (
+    
     <Positioner>
-        <ShadowedBox>
-            <LogoWrapper>
-                <Logo to="/">JOIN</Logo>
+        <ShadowedBox >
+            <LogoWrapper >
+                <Logo to="/Join">SIGN UP</Logo>
             </LogoWrapper>
             <Contents>
                 {children}
             </Contents>
         </ShadowedBox>
     </Positioner>
+    
 );
 
 export default JoinWrapper;
