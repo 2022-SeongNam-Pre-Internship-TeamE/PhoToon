@@ -14,7 +14,7 @@ export default function MainPage() {
       </div>
       <div className={`${style.box3}`}>
         <Link
-          to="/afterlogin"
+          to="/Login"
           className="block m-auto"
           style={{ textDecoration: "none" }}
         >
