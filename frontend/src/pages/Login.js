@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
-import { LoginWrapper, InputWithLabel, RightAlignedLink } from '../components/Auth';
+import { LoginWrapper, LoginInput, RightAlignedLink } from '../components/Auth';
 import MainButton from "../components/MainButton";
+import style from "./MainPage.module.css";
 
 class Login extends Component {
     
     render() {
         return (
+        <div>
+            <div className={`${style.box1}`}>
+                <img className={`${style.logo}`} src="images/logo.png" alt="logo" />
+            </div>
             <LoginWrapper>
-                <InputWithLabel name="email" placeholder="이메일"/>
-                <InputWithLabel name="password" placeholder="비밀번호" type="password"/>
+                <LoginInput name="email" placeholder="E-MAIL"/>
+                <LoginInput name="password" placeholder="PASSWORD" type="password"/>
                 <div style= {{marginTop : '35px'}}>
                     <MainButton text="LOGIN"></MainButton>
                 </div>
-                <RightAlignedLink to="/Join">회원가입</RightAlignedLink>
+                <RightAlignedLink to="/Join">SIGN UP →</RightAlignedLink>
             </LoginWrapper>
-            
+        </div>    
         );
     }
 }
