@@ -387,3 +387,30 @@ a:focus {
   -webkit-transform: rotate3d(0, 0, 1, 0deg);
   transform: rotate3d(0, 0, 1, 0deg);
 }
+/* 모달창 버튼 */
+.parent{
+  width: 90%;
+  margin: 10px auto;
+}
+
+.first {
+  border: 1px solid red;
+  float: left;
+  width:30%;
+  box-sizing: border-box;
+}
+
+.second{
+  border: 1px solid green;
+  float: left;
+  margin-left: 5%;
+  width:30%;
+  box-sizing: border-box;
+}
+
+.third{
+  border: 1px solid blue;
+  float: right;
+  width:30%;
+  box-sizing: border-box;
+}
