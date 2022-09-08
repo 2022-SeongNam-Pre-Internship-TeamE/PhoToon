@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+
 // 화면의 중앙에 위치시킨다
 const Positioner = styled.div`
     position: absolute;
@@ -13,7 +14,7 @@ const Positioner = styled.div`
 // 너비, 그림자 설정
 const ShadowedBox = styled.div`
     width: 580px;
-    
+
 `;
 
 // 로고
@@ -23,6 +24,8 @@ const LogoWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
 `;
 
 const Logo = styled(Link)`
@@ -37,19 +40,24 @@ const Contents = styled.div`
     background: white;
     padding: 2rem;
     height: auto;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
 `;
 
 const LoginWrapper = ({children}) => (
     <Positioner>
         <ShadowedBox>
+            
             <LogoWrapper>
                 <Logo to="/">LOGIN</Logo>
             </LogoWrapper>
             <Contents>
                 {children}
             </Contents>
+            
         </ShadowedBox>
     </Positioner>
+    
 );
 
 export default LoginWrapper;

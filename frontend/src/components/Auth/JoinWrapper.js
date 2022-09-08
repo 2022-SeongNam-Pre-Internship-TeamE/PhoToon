@@ -25,6 +25,8 @@ const LogoWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
 `;
 
 const Logo = styled(Link)`
@@ -39,7 +41,8 @@ const Contents = styled.div`
     background: white;
     padding: 2rem;
     height: auto;
-    
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
 `;
 
 const JoinWrapper = ({children}) => (
