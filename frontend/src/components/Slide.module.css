@@ -1,3 +1,7 @@
-.SlideImg {
-  width: 70%;
+.slideImg {
+  width: 60vw;
+  height: 40vw;
+  max-width: 40rem;
+  max-height: 22rem;
+  border-radius: 6px;
 }
