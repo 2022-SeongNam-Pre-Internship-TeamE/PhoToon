@@ -14,6 +14,7 @@ export default function AfterLogin() {
         <Slider />
       </div>
       <div className={`${style.box3}`}>
+        {/* 임시로 시작 페이지 라우팅 */}
         <Link
           to="/"
           className="block m-auto"

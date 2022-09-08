@@ -9,14 +9,14 @@ import Mypage from "./pages/Mypage";
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/Join" element={<Join />} />
-        <Route path="/Mypage" element={<Mypage />} />
-        <Route path="/Mainpage" element={<MainPage />} />
-        <Route path="/afterlogin" element={<AfterLogin />} />
-      </Routes>
+    <Routes>
+      <Route path="/" element={<MainPage />} />
+      <Route path="/Login" element={<Login />} />
+      <Route path="/afterlogin" element={<AfterLogin />} />
+      <Route path="/Join" element={<Join />} />
+      <Route path="/Mypage" element={<Mypage />} />
+    </Routes>
     </BrowserRouter>
   );
-}
+  }
 export default App;
