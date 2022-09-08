@@ -7,7 +7,6 @@ import Login from "./pages/Login";
 import Join from "./pages/Join";
 import Mypage from "./pages/Mypage";
 function App() {
-  
   return (
     <BrowserRouter>
     <Routes>

@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import { LoginWrapper, LoginInput, RightAlignedLink } from '../components/Auth';
+import React, { Component } from "react";
+import { LoginWrapper, LoginInput, RightAlignedLink } from "../components/Auth";
 import MainButton from "../components/MainButton";
 import style from "./MainPage.module.css";
 import { Link } from "react-router-dom";
 
 class Login extends Component {
+
     
     render() {
         return (
@@ -25,6 +26,7 @@ class Login extends Component {
         </div>    
         );
     }
+
 }
 
 export default Login;

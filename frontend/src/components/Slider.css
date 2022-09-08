@@ -20,10 +20,10 @@
   transform-origin: center;
   transform-style: preserve-3d;
   transform: translateZ(-30vw) rotateY(0);
-  animation: carousel 10s infinite cubic-bezier(0.77, 0, 0.175, 1) forwards;
+  animation: carousel 15s infinite cubic-bezier(0.77, 0, 0.175, 1) forwards;
 }
 .icon-cards__content.step-animation {
-  animation: carousel 8s infinite steps(1) forwards;
+  animation: carousel 10s infinite steps(1) forwards;
 }
 .icon-cards__item {
   position: absolute;
@@ -71,4 +71,13 @@
   100% {
     transform: translateZ(-35vw) rotateY(-360deg);
   }
+}
+.txt {
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  font-size: 1.3rem;
+  color: black;
+  font-weight: 500;
 }

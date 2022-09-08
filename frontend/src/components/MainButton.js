@@ -3,7 +3,12 @@ import "./MainButton.css";
 export default function MainButton({ text }) {
   return (
     <div className="buttonBox">
-      <button className="mainbutton">{text}</button>
+      <button
+        className="button button--saqui button--round-l button--text-thick"
+        data-text={text}
+      >
+        {text}
+      </button>{" "}
     </div>
   );
 }
