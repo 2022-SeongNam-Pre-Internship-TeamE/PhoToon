@@ -389,28 +389,41 @@ a:focus {
 }
 /* 모달창 버튼 */
 .parent{
-  width: 90%;
+  width: 87%;
   margin: 10px auto;
 }
 
 .first {
-  border: 1px solid red;
   float: left;
-  width:30%;
+  width:29%;
   box-sizing: border-box;
 }
 
 .second{
-  border: 1px solid green;
   float: left;
   margin-left: 5%;
-  width:30%;
+  width:29%;
   box-sizing: border-box;
 }
 
 .third{
-  border: 1px solid blue;
   float: right;
   width:30%;
   box-sizing: border-box;
+}
+.modal-button {
+  float: left;
+  min-width: 80px;
+  max-width: 200px;
+  display: block;
+  margin: 0.8em;
+  padding: 0.5em 1.5em;
+  border: none;
+  background: none;
+  color: inherit;
+  vertical-align: middle;
+  position: relative;
+  z-index: 1;
+  -webkit-backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
 }
