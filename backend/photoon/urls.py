@@ -8,11 +8,11 @@ router.register(r'api/v1/origins', OriginViewset)
 router.register(r'api/v1/results', ResultViewset)
 router.register(r'api/v1/styles', StyleViewset)
 router.register(r'api/v1/speech-bubbles', SpeechViewset)
-router.register('list', UserViewSet)
+router.register(r'api/v1/list', UserViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path("register/", RegisterAPIView.as_view()), # post - 회원가입
-    path("auth/", AuthAPIView.as_view()),
-    path("auth/refresh/", TokenRefreshView.as_view()), # jwt 토큰 재발급
+    path("api/v1/register/", RegisterAPIView.as_view()), # post - 회원가입
+    path("api/v1/auth/", AuthAPIView.as_view()),
+    path("api/v1/auth/refresh/", TokenRefreshView.as_view()), # jwt 토큰 재발급
 ]
