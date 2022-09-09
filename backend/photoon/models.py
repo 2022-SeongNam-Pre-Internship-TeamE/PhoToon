@@ -39,12 +39,26 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     email = models.EmailField(default='', max_length=100, null=False, blank=False, unique=True)
     is_deleted = models.BooleanField(default=False, null=False)
 
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True) 
     is_admin = models.BooleanField(default=False)
 
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
+    # True를 반환하여 권한이 있는 것을 알림
+    # Object 반환 시 해당 Object로 사용 권한을 확인하는 절차가 필요함
+    def has_perm(self, perm, obj=None):
+        return True
+
+    # True를 반환하여 주어진 App의 Model에 접근 가능하도록 함
+    def has_module_perms(self, app_label):
+        return True
+
+    # True 반환 시 Django의 관리자 화면에 로그인 가능
+    @property
+    def is_staff(self):
+        return self.is_admin
 
     def __str__(self):
         return self.email
