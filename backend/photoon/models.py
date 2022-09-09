@@ -4,7 +4,7 @@ from django.db import models
 from datetime import datetime
 
 
-class BaseModel(models.Model):  # base class should subclass 'django.db.models.Model'
+class BaseModel(models.Model):  # 수정시간, 생성시간 모델
 
     created_at = models.DateTimeField(default=datetime.now) # 해당 레코드 생성시 현재 시간 자동저장
     updated_at = models.DateTimeField(auto_now=True) # 해당 레코드 갱신시 현재 시간 자동저장
@@ -51,7 +51,7 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     def has_perm(self, perm, obj=None):
         return True
 
-    # True를 반환하여 주어진 App의 Model에 접근 가능하도록 함
+    # True를 반환하여 주어진 App의 Model에 접근 가능하도록 함 -> 없으면 접근 권한 없다고 뜬다.
     def has_module_perms(self, app_label):
         return True
 

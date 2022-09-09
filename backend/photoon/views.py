@@ -34,6 +34,7 @@ class RegisterAPIView(APIView):
             )
             
             # jwt 토큰 => 쿠키에 저장
+            # httponly -> javascript에서 쿠키 조회 불가능 XSS로부터 안전 그러나 csrf 해야함
             res.set_cookie("access", access_token, httponly=True)
             res.set_cookie("refresh", refresh_token, httponly=True)
             
