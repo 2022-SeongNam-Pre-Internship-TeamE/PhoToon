@@ -2,128 +2,7 @@
   display: block;
   margin: auto;
 }
-/*
-.mainbutton {
-  display: block;
-  margin: auto;
-  font-size: 1.3rem;
-  width: 10rem;
-  height: 2.5rem;
-  border: 0px;
-  border-radius: 50px;
-  background: rgba(213, 190, 198, 1);
-  color: white;
-  font-weight: 600;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  text-decoration: none;
-}
-.mainbutton:hover {
-  background: rgb(203, 101, 137);
-  font-weight: 700;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  -webkit-transition-delay: 0.3s;
-  transition-delay: 0.3s;
-} */
 
-/* .btn {
-  display: block;
-  width: 10rem;
-  height: 2.8rem;
-  font-size: 1.3rem;
-  font-weight: 600;
-  border: 1px rgba(213, 190, 198, 1) solid;
-  margin: 15px auto;
-  background-color: rgba(213, 190, 198, 1);
-  text-align: center;
-  cursor: pointer;
-  color: white;
-  transition: all 0.9s, color 0.3;
-}
-.btn:hover {
-  color: #fff;
-}
-.hover1:hover {
-  box-shadow: 0 80px 0 0 rgba(0, 0, 0, 0.25) inset,
-    0 -80px 0 0 rgba(0, 0, 0, 0.25) inset;
-} */
-
-/*This was all taken from https://tympanus.net/Development/ButtonStylesInspiration/ but I needed to see it in CodePen
-*/
-/* @import url(https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600);
-@font-face {
-  font-weight: normal;
-  font-style: normal;
-  font-family: "codropsicons";
-  src: url("../fonts/codropsicons/codropsicons.eot");
-  src: url("../fonts/codropsicons/codropsicons.eot?#iefix")
-      format("embedded-opentype"),
-    url("../fonts/codropsicons/codropsicons.woff") format("woff"),
-    url("../fonts/codropsicons/codropsicons.ttf") format("truetype"),
-    url("../fonts/codropsicons/codropsicons.svg#codropsicons") format("svg");
-} */
-/* *,
-*:after,
-*:before {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.cf:before,
-.cf:after {
-  content: "";
-  display: table;
-}
-.cf:after {
-  clear: both;
-}
-body {
-  background: #cfd8dc;
-  color: #37474f;
-  font-weight: 400;
-  font-size: 1em;
-  font-family: "Raleway", Arial, sans-serif;
-}
-.support {
-  font-weight: bold;
-  padding: 2em 0 0 0;
-  font-size: 1.4em;
-  color: #ee2563;
-  display: none;
-}
-a {
-  color: #7986cb;
-  text-decoration: none;
-  outline: none;
-}
-a:hover,
-a:focus {
-  color: #3f51b5;
-}
-.hidden {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-.container {
-  margin: 0 auto;
-  text-align: center;
-  overflow: hidden;
-}
-.content {
-  padding: 2em 1em 5em;
-  z-index: 1;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-.content h2 {
-  margin: 0 0 2em;
-}
-.content p { 
-  margin: 1em 0;
-  padding: 0 0 2em;
-  font-size: 0.85em;
-}*/
 .box {
   padding: 4.5em 0;
   display: -webkit-flex;
@@ -388,7 +267,7 @@ a:focus {
   transform: rotate3d(0, 0, 1, 0deg);
 }
 /* 모달창 버튼 */
-.parent{
+.parent {
   width: 90%;
   margin: 10px auto;
 }
@@ -396,21 +275,21 @@ a:focus {
 .first {
   border: 1px solid red;
   float: left;
-  width:30%;
+  width: 30%;
   box-sizing: border-box;
 }
 
-.second{
+.second {
   border: 1px solid green;
   float: left;
   margin-left: 5%;
-  width:30%;
+  width: 30%;
   box-sizing: border-box;
 }
 
-.third{
+.third {
   border: 1px solid blue;
   float: right;
-  width:30%;
+  width: 30%;
   box-sizing: border-box;
 }

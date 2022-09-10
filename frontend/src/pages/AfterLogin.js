@@ -16,7 +16,7 @@ export default function AfterLogin() {
       <div className={`${style.box3}`}>
         {/* 임시로 시작 페이지 라우팅 */}
         <Link
-          to="/"
+          to="/start"
           className="block m-auto"
           style={{ textDecoration: "none" }}
         >
