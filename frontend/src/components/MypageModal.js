@@ -1,5 +1,7 @@
 import ButtonThree from '../components/ButtonThree';
 import Modal from 'react-bootstrap/Modal';
+import Slide from "./Slide";
+
 
 function MypageModal(props) {
   return (
@@ -9,23 +11,19 @@ function MypageModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
+      <Modal.Header closeButton>
+      임시 이미지 삽입하였습니다.
+      </Modal.Header>
       
-      <Modal.Body>
-        <h4>Centered Modal</h4>
-        <p>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </p>
-        
-        <ButtonThree text="Delete"></ButtonThree>
-        
-        
-        {/* <MainButton text="Delete"></MainButton>
-        
-        <MainButton text="Delete"></MainButton> */}
-        
-        
+      <Modal.Body >
+      <closeButton/>
+        {/* 임시로 사진 넣음 */}
+        <div style={{textAlign: 'center'}}>
+          
+      <Slide img="images/ice-1.jpg" ></Slide>
+      </div>
+        <ButtonThree ></ButtonThree>
+
       </Modal.Body>
     </Modal>
   );
