@@ -1,6 +1,11 @@
 # Created by https://www.toptal.com/developers/gitignore/api/django,macos,windows
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,macos,windows
 
+# pth 파일 용량 큰거
+mask_rcnn.pth
+
+dlib/
+
 ### docker에서 rabbitmq 돌릴 때 나오는것 ###
 mnesia/
 .erlang.cookie
