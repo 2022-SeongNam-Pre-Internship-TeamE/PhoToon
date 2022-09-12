@@ -8,7 +8,7 @@ export default function MainButton({ text }) {
         data-text={text}
       >
         {text}
-      </button>{" "}
+      </button>
     </div>
   );
 }
