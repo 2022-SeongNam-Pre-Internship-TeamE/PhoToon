@@ -57,7 +57,7 @@ const rejectStyle = {
 export default function Previews(props) {
   const [files, setFiles] = useState([]);
   const cancelImage = () => {
-    setFiles(0);
+    setFiles([]);
   };
   const {
     getRootProps,
@@ -104,10 +104,10 @@ export default function Previews(props) {
     },
     [files]
   );
-
+  console.log(files.length);
   return (
-    <div className="block w-6/12 h-72 box-content p-4 border-0 m-auto rounded-2xl bg-gray-50 text-center">
-      <div className="text-center text-2xl py-2">사진을 선택하세요.</div>
+    <div className="block w-4/12 h-72 box-content p-4 border-0 m-auto rounded-2xl bg-gray-50 text-center">
+      <div className="text-center text-2xl pt-1 pb-2">사진을 선택하세요.</div>
 
       <div>
         {files.length > 0 ? (
@@ -169,7 +169,7 @@ export default function Previews(props) {
           </div>
         )}
       </div>
-      <div className="flex w-11/12 m-auto justify-end">
+      <div className="flex w-10/12 m-auto justify-end py-1">
         <button
           className="flex float-right w-28 border-2 rounded-3xl "
           style={{

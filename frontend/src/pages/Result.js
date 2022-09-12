@@ -2,7 +2,6 @@ import React from "react";
 import MoveButton from "../components/MoveButton";
 import style from "./MainPage.module.css";
 import UserPageButton from "../components/UserPageButton";
-import MainButton from "../components/MainButton";
 
 export default function Result() {
   return (
@@ -25,34 +24,40 @@ export default function Result() {
           </div>
           <div className="flex w-11/12 m-auto justify-end">
             <a href="images/ice-1.jpg" download>
-              <MainButton text="download" />
-              {/* <button
-              className="flex w-36 rounded-3xl mr-2 bg-red-300 hover:bg-sky-700 text-white text-xl font-medium leading-9"
-              // style={{
-              //   backgroundColor: "rgb(213,190,198)",
-              //   borderColor: "rgb(213,190,198)",
-              // }}
-            >
-              <span className="flex leading-6 m-auto">
-                <img
-                  src="images/download.svg"
-                  alt="download"
-                  className="w-7 mr-1"
-                />
-                Download
-              </span>
-            </button> */}
+              <button
+                className="flex w-36 h-full rounded-3xl mr-2"
+                style={{
+                  backgroundColor: "rgb(213,190,198)",
+                  borderColor: "rgb(213,190,198)",
+                }}
+              >
+                <span className="flex leading-6 m-auto">
+                  <img
+                    src="images/download.svg"
+                    alt="download"
+                    className="w-7 mr-1"
+                  />
+                  <p className="text-white text-xl font-medium leading-9">
+                    Download
+                  </p>
+                </span>
+              </button>
             </a>
 
-            {/* <button className="flex w-28 border-2 rounded-3xl hover:bg-pink-300">
+            <button
+              className="flex w-28 border-2 rounded-3xl"
+              style={{
+                backgroundColor: "rgb(213,190,198)",
+                borderColor: "rgb(213,190,198)",
+              }}
+            >
               <span className="flex leading-6 m-auto">
                 <img src="images/share.svg" alt="share" className="w-5 mr-2" />
                 <p className="text-white text-xl font-medium leading-9">
                   Share
                 </p>
               </span>
-            </button> */}
-            <MainButton text="share" />
+            </button>
           </div>
         </div>
         <span className="flex relative -translate-x-52 -translate-y-1/2">
