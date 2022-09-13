@@ -13,8 +13,10 @@ export default function Start() {
         </div>
         <UserPageButton className="float-left" />
       </div>
+      <div className="my-5">
+        <Previews />
+      </div>
 
-      <Previews />
       <MoveButton
         url1=""
         url2="/choicecartoon"

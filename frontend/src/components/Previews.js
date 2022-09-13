@@ -5,10 +5,10 @@ const thumb = {
   display: "inline-flex",
   borderRadius: 2,
   border: "1px solid #eaeaea",
-  // marginBottom: 8,
+  marginBottom: 10,
   // marginRight: 8,
-  width: 300,
-  height: 200,
+  width: "80%",
+  height: 250,
   // padding: 4,
   boxSizing: "border-box",
 };
@@ -17,13 +17,15 @@ const thumbInner = {
   display: "flex",
   minWidth: 0,
   overflow: "hidden",
+  width: "100%",
 };
 
 const img = {
   display: "block",
-  width: "200%",
+  width: "100%",
   height: "100%",
   borderRadius: 5,
+  backgroundSize: "cover",
 };
 
 const baseStyle = {
@@ -106,7 +108,7 @@ export default function Previews(props) {
   );
   console.log(files.length);
   return (
-    <div className="block w-4/12 h-72 box-content p-4 border-0 m-auto rounded-2xl bg-gray-50 text-center">
+    <div className="block w-4/12 h-5/12 box-content p-4 border-0 m-auto rounded-2xl bg-gray-50 text-center">
       <div className="text-center text-2xl pt-1 pb-2">사진을 선택하세요.</div>
 
       <div>
@@ -169,7 +171,7 @@ export default function Previews(props) {
           </div>
         )}
       </div>
-      <div className="flex w-10/12 m-auto justify-end py-1">
+      <div className="flex w-10/12 m-auto justify-end">
         <button
           className="flex float-right w-28 border-2 rounded-3xl "
           style={{

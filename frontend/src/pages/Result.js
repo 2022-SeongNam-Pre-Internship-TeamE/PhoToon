@@ -39,9 +39,9 @@ export default function Result() {
                   alt="download"
                   className="w-7 mr-1"
                 />
-                <p className="text-white text-xl font-medium leading-9">
+                <span className="items-center text-white text-xl font-medium leading-9">
                   Download
-                </p>
+                </span>
               </span>
             </button>
           </a>
@@ -55,7 +55,9 @@ export default function Result() {
           >
             <span className="flex leading-6 m-auto">
               <img src="images/share.svg" alt="share" className="w-5 mr-2" />
-              <p className="text-white text-xl font-medium leading-9">Share</p>
+              <span className="items-center text-white text-xl font-medium leading-9">
+                Share
+              </span>
             </span>
           </button>
         </div>
