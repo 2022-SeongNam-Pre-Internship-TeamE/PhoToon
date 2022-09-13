@@ -1,0 +1,35 @@
+.parent{
+    width: 90%;
+    margin: 10px auto;
+  }
+  
+  .first {
+    float: left;
+    width:30%;
+    box-sizing: border-box;
+  }
+  
+  .second{
+    float: left;
+    margin-left: 5%;
+    width:30%;
+    box-sizing: border-box;
+  }
+  
+  .third{
+    float: right;
+    width:30%;
+    box-sizing: border-box;
+  }
+  .Image {
+    display: block;
+    margin: 0px auto;
+    width : 340px;
+    height : 380px;
+    border-radius: 8%;
+  }
+
+  .text{
+    text-align: center;
+    font-size: x-large;
+  }

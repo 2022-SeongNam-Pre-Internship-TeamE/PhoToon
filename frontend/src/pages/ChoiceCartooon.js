@@ -4,7 +4,7 @@ import UserPageButton from "../components/UserPageButton";
 import style from "./MainPage.module.css";
 import CartoonSlider from "../components/CartoonSlider";
 
-export default function Start() {
+export default function ChoiceCartoon() {
   return (
     <>
       <div className="flex">
@@ -14,7 +14,7 @@ export default function Start() {
         <UserPageButton className="float-left" />
       </div>
       <CartoonSlider></CartoonSlider>
-      <MoveButton url1="/start" url2="" style1="w-12" style2="w-12" />
+      <MoveButton url1="/start" url2="/background" style1="w-12" style2="w-12" />
     </>
   );
 }
