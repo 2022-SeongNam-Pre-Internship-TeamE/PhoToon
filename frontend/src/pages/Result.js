@@ -27,18 +27,14 @@ export default function Result() {
         <div className="flex w-11/12 m-auto justify-end">
           <a href="images/ice-1.jpg" download>
             <button
-              className="flex w-36 h-full rounded-3xl mr-2"
+              className="flex w-36 h-full rounded-3xl mr-2 hover:"
               style={{
                 backgroundColor: "rgb(213,190,198)",
                 borderColor: "rgb(213,190,198)",
               }}
             >
               <span className="flex leading-6 m-auto">
-                <img
-                  src="images/download.svg"
-                  alt="download"
-                  className="w-7 mr-1"
-                />
+                <img src="images/download.svg" alt="download" className="w-7" />
                 <span className="items-center text-white text-xl font-medium leading-9">
                   Download
                 </span>
