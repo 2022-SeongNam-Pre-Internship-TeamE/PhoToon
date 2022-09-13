@@ -20,7 +20,9 @@ def imread(path):
     return image
 
 
-path = './images/hee.jpg'
+
+path = './images/face2.jpg'
+
 image = imread(path)
 plt.imshow(image)
 # plt.show()
