@@ -3,7 +3,7 @@
   /* background-color: red; */
   background-color: transparent;
   width: 100%;
-  height: 15rem;
+  height: 13rem;
 }
 .box2 {
   display: flex;
@@ -19,9 +19,16 @@
   width: 100%;
   height: 8rem;
 }
-.logo {
+.logo1 {
   display: block;
   margin: auto;
   width: 11rem;
   height: 9rem;
+}
+.logo2 {
+  display: flex;
+  margin: auto;
+  width: 11rem;
+  height: 9rem;
+  transform: translate(20%, 0);
 }
