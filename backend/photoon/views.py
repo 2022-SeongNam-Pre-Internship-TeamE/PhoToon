@@ -1,3 +1,4 @@
+from tkinter import Image
 from .serializers import *
 from .models import *
 from rest_framework import viewsets
@@ -10,6 +11,8 @@ from django.shortcuts import render, get_object_or_404
 import jwt
 from config.settings import SECRET_KEY
 from rest_framework.permissions import IsAuthenticated
+from .pagination import ImagesPageNumberPagination
+
 
 class RegisterAPIView(APIView):
     def post(self, request):
@@ -129,11 +132,13 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class OriginViewset(viewsets.ModelViewSet):
     queryset = OriginImage.objects.all()  
-    serializer_class = OriginSerializer  
+    serializer_class = OriginSerializer 
+    pagination_class = ImagesPageNumberPagination 
 
 class ResultViewset(viewsets.ModelViewSet):
     queryset = ResultImage.objects.all()  
     serializer_class = ResultSerializer    
+    pagination_class = ImagesPageNumberPagination
 
 class StyleViewset(viewsets.ModelViewSet):
     queryset = Style.objects.all()  
