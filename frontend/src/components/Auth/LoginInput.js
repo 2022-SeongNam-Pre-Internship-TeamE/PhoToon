@@ -9,11 +9,6 @@ const Wrapper = styled.div`
     }
 `;
 
-const Label = styled.div`
-    font-size: 1rem;
-    color: ${oc.gray[6]};
-    margin-bottom: 0.25rem;
-`;
 
 const Input = styled.input`
     width: 100%;
@@ -29,7 +24,7 @@ const Input = styled.input`
 // rest 쪽에는 onChange, type, name, value, placeholder 등의 input 에서 사용 하는 값들을 넣어줄수 있다.
 const LoginInput = ({label, ...rest}) => (
     <Wrapper>
-        <Label>{label}</Label>
+        
         <Input {...rest}/>
     </Wrapper>
 );

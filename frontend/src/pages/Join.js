@@ -1,19 +1,25 @@
-import React, { Component } from "react";
+import React from "react";
 import { JoinWrapper, JoinInput } from "../components/Auth";
 import MainButton from "../components/MainButton";
 import style from "./MainPage.module.css";
 import { Link } from "react-router-dom";
 
-class Join extends Component {
-  render() {
+export default function Join() {
+
     return (
       <div>
         <div className={`${style.box1}`}>
           <img className={`${style.logo1}`} src="images/logo.png" alt="logo" />
         </div>
         <JoinWrapper>
-          <JoinInput label="E-MAIL" name="email" />
-          <JoinInput label="PASSWORD" name="password" type="password" />
+          <JoinInput 
+            label="E-MAIL" 
+            name="email"
+            />
+          <JoinInput 
+            label="PASSWORD" 
+            name="password" 
+            type="password" />
           <JoinInput
             label="PASSWORD CHECK"
             name="password check"
@@ -29,6 +35,7 @@ class Join extends Component {
       </div>
     );
   }
-}
 
-export default Join;
+
+
+
