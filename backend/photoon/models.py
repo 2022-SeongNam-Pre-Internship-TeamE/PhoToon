@@ -36,7 +36,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin, BaseModel):
-    id = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)  # pk
     email = models.EmailField(default='', max_length=100, null=False, blank=False, unique=True)
     is_deleted = models.BooleanField(default=False, null=False)
 
@@ -62,7 +62,8 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
         return self.is_admin
 
     def __str__(self):
-        return self.email
+        id = str(self.id)
+        return id
 
 
 class OriginImage(BaseModel):
@@ -87,9 +88,10 @@ class ResultImage(BaseModel):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=False)  # fk
     style = models.ForeignKey(Style, on_delete=models.CASCADE, null=False)  # fk
     speech_bubble = models.ForeignKey(SpeechBubble, on_delete=models.CASCADE, null=True)  # fk
-    #text = models.ForeignKey(SpeechBubble, on_delete=models.CASCADE, null=True)  # fk
+    # text = models.ForeignKey(SpeechBubble, on_delete=models.CASCADE, null=True)  # fk
     background = models.IntegerField(null=False, default='')
     is_converted = models.BooleanField(null=False, default='False')
     is_deleted = models.BooleanField(null=False, default='False')
     image_url = models.CharField(null=False, max_length=100)
+
 
