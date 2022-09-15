@@ -4,7 +4,7 @@ import "./CartoonOptions.css";
 export default function CartoonOptions()  {
   return (
     <div style={{marginRight: "6px"}}>
-    <div className="text">만화를 선택하세요.</div>
+    <div className="text">배경을 선택하세요.</div>
     <div className="parent">
       <div className="first">
       <img className= "Image" src="images/ice-2.jpg" alt="" />
