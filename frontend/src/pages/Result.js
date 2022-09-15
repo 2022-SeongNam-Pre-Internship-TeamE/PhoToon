@@ -5,7 +5,7 @@ import UserPageButton from "../components/UserPageButton";
 
 export default function Result() {
   return (
-    <>
+    <div className="min-h-screen">
       <div className="flex">
         <div className={`${style.box1}`}>
           <img className={`${style.logo2}`} src="images/logo.png" alt="logo" />
@@ -74,6 +74,6 @@ export default function Result() {
         style1="w-12"
         style2="hidden w-12"
       />
-    </>
+    </div>
   );
 }

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 export default function Join() {
   return (
-    <div>
+    <div className="min-h-screen">
       <div className={`${style.box1}`}>
         <img className={`${style.logo1}`} src="images/logo.png" alt="logo" />
       </div>

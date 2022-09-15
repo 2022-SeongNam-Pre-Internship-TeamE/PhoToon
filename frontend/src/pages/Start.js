@@ -6,15 +6,16 @@ import Previews from "../components/Previews";
 
 export default function Start() {
   return (
-    <>
+    <div className="min-h-screen">
       <div className="flex">
         <div className={`${style.box1}`}>
           <img className={`${style.logo2}`} src="images/logo.png" alt="logo" />
         </div>
         <UserPageButton className="float-left" />
       </div>
-
-      <Previews />
+      <div className={`${style.box2}`}>
+        <Previews />
+      </div>
 
       <MoveButton
         url1=""
@@ -22,6 +23,6 @@ export default function Start() {
         style1="hidden w-12"
         style2="w-12"
       />
-    </>
+    </div>
   );
 }

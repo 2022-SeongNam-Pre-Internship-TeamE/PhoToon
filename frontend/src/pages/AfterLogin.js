@@ -13,9 +13,10 @@ export default function AfterLogin() {
       <div className={`${style.box2}`}>
         <Slider />
       </div>
-
-      {/* 임시로 시작 페이지 라우팅 */}
-      <MainButton url="/start" text="START" />
+      <div className="flex">
+        {/* 임시로 시작 페이지 라우팅 */}
+        <MainButton url="/start" text="START" />
+      </div>
     </>
   );
 }

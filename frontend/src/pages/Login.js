@@ -5,7 +5,7 @@ import style from "./MainPage.module.css";
 
 export default function Login() {
   return (
-    <div>
+    <div className="min-h-screen">
       <div className={`${style.box1}`}>
         <img className={`${style.logo1}`} src="images/logo.png" alt="logo" />
       </div>
