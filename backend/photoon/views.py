@@ -1,4 +1,5 @@
 from tkinter import Image
+from winreg import QueryInfoKey
 from .serializers import *
 from .models import *
 from rest_framework import viewsets
@@ -12,7 +13,6 @@ import jwt
 from config.settings import SECRET_KEY
 from rest_framework.permissions import IsAuthenticated
 from .pagination import ImagesPageNumberPagination
-
 
 class RegisterAPIView(APIView):
     def post(self, request):
@@ -139,6 +139,16 @@ class ResultViewset(viewsets.ModelViewSet):
     queryset = ResultImage.objects.all()  
     serializer_class = ResultSerializer    
     pagination_class = ImagesPageNumberPagination
+
+    def get_queryset(self):
+        results = ResultImage.objects.filter(is_deleted = False)
+        return results
+
+    def get(self, request, *args, **kwargs):
+        results = self.get_queryset()
+        serializer = ResultSerializer(results, many=True)
+        return Response(serializer.data)
+
 
 class StyleViewset(viewsets.ModelViewSet):
     queryset = Style.objects.all()  
