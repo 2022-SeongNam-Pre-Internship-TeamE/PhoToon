@@ -12,19 +12,21 @@ import Background from "./pages/Background";
 import Result from "./pages/Result";
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/afterlogin" element={<AfterLogin />} />
-        <Route path="/join" element={<Join />} />
-        <Route path="/start" element={<Start />} />
-        <Route path="/choicecartoon" element={<ChoiceCartoon />} />
-        <Route path="/background" element={<Background />} />
-        <Route path="/result" element={<Result />} />
-        <Route path="/mypage" element={<Mypage />} />
-      </Routes>
-    </BrowserRouter>
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/afterlogin" element={<AfterLogin />} />
+          <Route path="/join" element={<Join />} />
+          <Route path="/start" element={<Start />} />
+          <Route path="/choicecartoon" element={<ChoiceCartoon />} />
+          <Route path="/background" element={<Background />} />
+          <Route path="/result" element={<Result />} />
+          <Route path="/mypage" element={<Mypage />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 export default App;

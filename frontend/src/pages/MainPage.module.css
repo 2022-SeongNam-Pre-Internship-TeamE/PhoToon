@@ -13,11 +13,12 @@
   height: 25rem;
 }
 .box3 {
-  display: flex;
-  /* background-color: yellow; */
+  display: block;
+  margin: auto;
   background-color: transparent;
-  width: 100%;
+  width: 12rem;
   height: 8rem;
+  padding-top: 1rem;
 }
 .logo1 {
   display: block;

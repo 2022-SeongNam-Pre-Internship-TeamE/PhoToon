@@ -4,10 +4,11 @@
   box-sizing: border-box;
 }
 body {
+  width: 100%;
   height: 100vh;
   background: linear-gradient(
     to bottom,
-    rgb(207, 158, 149) 30%,
+    rgb(208, 154, 144) 35%,
     rgb(253, 221, 200)
   );
   background-size: cover;

@@ -14,7 +14,7 @@ export default function Result() {
       </div>
       {/* <div className="block m-auto"> */}
       <div
-        className="block w-5/12 box-content p-3 border-0 m-auto rounded-2xl text-center mt-2"
+        className="block w-4/12 box-content p-3 border-0 m-auto rounded-2xl text-center mt-2"
         style={{ backgroundColor: "rgb(249,248,250)" }}
       >
         <div className="inline-block w-11/12 h-4/6 box-content justify-center items-center mt-3 mb-1">
