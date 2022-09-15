@@ -9,9 +9,9 @@ export default class CenterMode extends Component {
     const settings = {
       customPaging: function(i) {
         return (
-          <a>
-            <img src={'${baseUrl}/abstract0${i + 1}.png'}  />
-          </a>
+          <div style={{marginTop:"50px",  }}>
+            <img  src={`${baseUrl}/abstract0${i + 1}.jpg`} alt = "" />
+          </div>
         );
       },
       dots: true,
@@ -22,19 +22,17 @@ export default class CenterMode extends Component {
       slidesToScroll: 1
     };
     return (
-      <div>
+      
+      <div style={{width:"300px", height:"300px" , margin:'0 auto', marginTop:"30px" }}>
         <Slider {...settings}>
           <div>
-            <img src={baseUrl + "/abstract01.png"} />
+            <img src={baseUrl + "/abstract01.jpg"} alt = ""/>
           </div>
           <div>
-            <img src={baseUrl + "/abstract02.png"} />
+            <img src={baseUrl + "/abstract02.jpg"} alt = ""/>
           </div>
           <div>
-            <img src={baseUrl + "/abstract03.png"} />
-          </div>
-          <div>
-            <img src={baseUrl + "/abstract04.png"} />
+            <img src={baseUrl + "/abstract03.jpg"} alt = ""/>
           </div>
         </Slider>
       </div>
