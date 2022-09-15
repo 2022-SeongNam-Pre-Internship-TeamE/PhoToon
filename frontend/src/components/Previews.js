@@ -109,7 +109,7 @@ export default function Previews(props) {
   );
   console.log(files.length);
   return (
-    <div className="block w-4/12 h-4/12 box-content p-4 m-auto border-0 rounded-2xl bg-gray-50 text-center">
+    <div className="block w-4/12 h-1/12 box-content p-4 m-auto border-0 rounded-2xl bg-gray-50 text-center">
       <div className="text-center text-2xl pt-1 pb-2">사진을 선택하세요.</div>
 
       <div>
@@ -118,6 +118,7 @@ export default function Previews(props) {
             <div className="flex justify-center flex-column items-center">
               {thumbs}
             </div>
+
             <div className="flex w-4/5 m-auto justify-end">
               <button
                 className="flex float-right w-28 border-2 rounded-3xl "
@@ -150,13 +151,6 @@ export default function Previews(props) {
                       className="block w-14 m-auto"
                     />
                     <p className="mb-0">Drop the files here</p>
-                    {/* <input
-                      id="dropzone-file"
-                      className="cursor-pointer absolute w-2/4 h-48 block z-50 opacity-0 "
-                      name="imageUpload"
-                      type="file"
-                      accept="image/*"
-                    /> */}
                   </div>
                 </label>
               </div>
@@ -175,13 +169,6 @@ export default function Previews(props) {
                     <p className="mb-0">
                       Drag-drop some files here, or click to select files
                     </p>
-                    {/* <input
-                      id="dropzone-file"
-                      className="cursor-pointer absolute w-2/4 h-48 block z-50 opacity-0 "
-                      name="imageUpload"
-                      type="file"
-                      accept="image/*"
-                    /> */}
                   </div>
                 </label>
               </div>

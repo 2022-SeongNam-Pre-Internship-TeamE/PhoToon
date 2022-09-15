@@ -13,9 +13,8 @@ export default function Start() {
         </div>
         <UserPageButton className="float-left" />
       </div>
-      <div className={`${style.box2}`}>
-        <Previews />
-      </div>
+
+      <Previews />
 
       <MoveButton
         url1=""
