@@ -7,6 +7,7 @@ import numpy as np
 from torch import nn
 import torch.nn.functional as F
 import json
+import io
 
 ## init 코드는 #으로 분리해주세요
 #################################
@@ -179,7 +180,12 @@ def ai_execute(user_id, origin_id, origin_image, style, background):
     elif style == 3:
         output = hayao_v2_generator(pre_image).detach()
     else:
-        return (user_id, origin_id, origin_image, style, background, is_converted)
+        img_pil = Image.fromarray(origin_image)
+        buffer_ = io.BytesIO()
+        img_pil.save(buffer_, format='PNG')
+        buffer_.seek(0)
+        img_byte = buffer_.read()
+        return (user_id, origin_id, img_byte, style, background, is_converted)
     
     output = ( (((output[0].permute((1,2,0)).numpy()+1)/2)*255).astype('uint8') )
     
@@ -193,11 +199,21 @@ def ai_execute(user_id, origin_id, origin_image, style, background):
     elif background == 3: 
         result_image = output
     else:
-        return (user_id, origin_id, origin_image, style, background, is_converted)
+        img_pil = Image.fromarray(origin_image)
+        buffer_ = io.BytesIO()
+        img_pil.save(buffer_, format='PNG')
+        buffer_.seek(0)
+        img_byte = buffer_.read()
+        return (user_id, origin_id, img_byte, style, background, is_converted)
     
     is_converted = True
     
     result_image = result_image.astype('uint8')
+    img_pil = Image.fromarray(result_image)
+    buffer_ = io.BytesIO()
+    img_pil.save(buffer_, format='PNG')
+    buffer_.seek(0)
+    img_byte = buffer_.read()
 
-    return (user_id, origin_id, result_image, style, background, is_converted)
+    return (user_id, origin_id, img_byte, style, background, is_converted)
     
