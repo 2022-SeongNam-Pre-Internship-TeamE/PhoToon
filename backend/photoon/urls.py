@@ -36,6 +36,8 @@ urlpatterns = [
     path("auth", AuthAPIView.as_view()), # post - 로그인
     path("auth/refresh", TokenRefreshView.as_view()), # jwt 토큰 재발급
 
+    path("s3", s3API),
+
     # drf-yasg
     path('swagger<str:format>', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

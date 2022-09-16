@@ -183,7 +183,7 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # AWS
-AWS_S3_ACCESS_KEY_ID = DEBUG = env('AWS_S3_ACCESS_KEY_ID') # access key
+AWS_S3_ACCESS_KEY_ID = env('AWS_S3_ACCESS_KEY_ID') # access key
 AWS_S3_SECRET_ACCESS_KEY = env('AWS_S3_SECRET_ACCESS_KEY') # Secret access key
 AWS_REGION = 'ap-northeast-2'
 
