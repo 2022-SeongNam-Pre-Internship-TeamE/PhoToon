@@ -1,7 +1,12 @@
-from tkinter import Image
 from winreg import QueryInfoKey
+from s3bucket.s3_upload import s3_upload
+from s3bucket.s3_connection import s3_connection
+from config.settings import *
 from .serializers import *
 from .models import *
+from rest_framework.decorators import api_view
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, TokenRefreshSerializer
@@ -43,6 +48,25 @@ class RegisterAPIView(APIView):
             
             return res
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@csrf_exempt
+@api_view(['POST'])
+def s3API(request):
+    data = JSONParser().parse(request)
+    email = data['email'].split('@')[0]
+    status = data['status'] # origin인지 result인지
+    created_at = data['created_at']
+    image = data['image'] # byte file
+
+    if request.method == 'POST':
+        try:
+            s3_upload(status, email, created_at, image)
+            print('success!!')
+            # return Response에 어떤거 들어가야할지 연동해보고 결정
+            return Response({"status" : "성공"}, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_400_BAD_REQUEST)       
 
 class AuthAPIView(APIView):
     # 유저 정보 확인
@@ -157,3 +181,4 @@ class StyleViewset(viewsets.ModelViewSet):
 class SpeechViewset(viewsets.ModelViewSet):
     queryset = SpeechBubble.objects.all()  
     serializer_class = SpeechSerializer  
+
