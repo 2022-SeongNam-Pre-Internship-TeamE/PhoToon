@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import photoon_ai as ai
+from photoon_ai_execute import ai_execute
 import cv2
 from PIL import Image
 import io
@@ -18,7 +18,8 @@ image = imread(path)
 plt.imshow(image)
 plt.show()
 
-user_id, origin_id, result_image, style, background, is_converted = ai.ai_execute("ckdals","5931391",image,2,1)
+user_id, origin_id, result_image, style, background, is_converted = ai_execute("ckdals","5931391",image,2,1)
+#ai.ai_execute("ckdals","5931391",image,2,1)
 
 data_io = io.BytesIO(result_image)
 img = Image.open(data_io)
