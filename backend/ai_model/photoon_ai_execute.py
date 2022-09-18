@@ -1,5 +1,4 @@
 import torchvision.transforms as T
-from ai_init import  * # 나중에 빼면 됨.
 from PIL import Image
 import numpy as np
 import io

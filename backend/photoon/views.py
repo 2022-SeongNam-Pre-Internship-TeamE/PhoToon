@@ -1,4 +1,4 @@
-from winreg import QueryInfoKey
+from ai_model.photoon_ai_execute import ai_execute
 from s3bucket.s3_upload import s3_upload
 from s3bucket.s3_connection import s3_connection
 from config.settings import *
@@ -18,6 +18,25 @@ import jwt
 from config.settings import SECRET_KEY
 from rest_framework.permissions import IsAuthenticated
 from .pagination import ImagesPageNumberPagination
+
+@csrf_exempt
+@api_view(['POST'])
+def TransferAPIView(request):
+    data = JSONParser().parse(request)
+    user_id = data['user_id']
+    origin_id = data['origin_id']
+    origin_image = data['origin_image']
+    style = data['style']
+    background = data['background']
+
+    if request.method == 'POST':
+        try:
+            ai_execute(user_id, origin_id, origin_image, style, background)
+            
+            return Response({"status" : "성공"}, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class RegisterAPIView(APIView):
     def post(self, request):
@@ -51,7 +70,7 @@ class RegisterAPIView(APIView):
 
 @csrf_exempt
 @api_view(['POST'])
-def s3API(request):
+def S3APIView(request):
     data = JSONParser().parse(request)
     email = data['email'].split('@')[0]
     status = data['status'] # origin인지 result인지
