@@ -15,10 +15,10 @@ function Test() {
         <button text = "보내기"
           onClick={() => {
             const data = {
-                "user_id" : "1",
-                "origin_id" : "1",
-                
+                "created_at" : "22",
+                "email" : "test@naver.com",
                 "style" : "1",
+                // "origin_image" : origin_image, // 원본이미지 넘겨주기
                 "background" : "1"
               };
             axios

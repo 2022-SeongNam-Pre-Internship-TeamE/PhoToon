@@ -2,14 +2,18 @@ import torchvision.transforms as T
 from PIL import Image
 import numpy as np
 import io
-def ai_execute(user_id, origin_id, origin_image, style, background):
+from config.settings import AWS_REGION
+from config.settings import AWS_STORAGE_BUCKET_NAME
+from s3bucket.s3_connection import s3_connection
+
+def ai_execute(email, origin_image, style, background, uuid):
     """
     style: 만화 선택: 1,2,3 : 1: 신카이_v1, 2:신카이_v2, 3:미야자키_v2
     background: 배경선택 여부 : 1,2,3 : 1: 인물만, 2: 배경만, 3: 둘다.
     """
 
     origin_image = './images/face2.jpg'
-    result_image_path = './result_images/'+user_id+'_'+origin_id+'.jpg'
+    
     def get_prediction(img, threshold):
         transform = T.Compose([T.ToTensor()])
         img = transform(img)
@@ -59,7 +63,7 @@ def ai_execute(user_id, origin_id, origin_image, style, background):
         img_pil.save(buffer_, format='PNG')
         buffer_.seek(0)
         img_byte = buffer_.read()
-        return (user_id, origin_id, img_byte, style, background, is_converted)
+        return (img_byte, style, background, is_converted, uuid)
     
     output = ( (((output[0].permute((1,2,0)).numpy()+1)/2)*255).astype('uint8') )
     
@@ -78,9 +82,9 @@ def ai_execute(user_id, origin_id, origin_image, style, background):
         img_pil.save(buffer_, format='PNG')
         buffer_.seek(0)
         img_byte = buffer_.read()
-        return (user_id, origin_id, img_byte, style, background, is_converted)
+        return (img_byte, style, background, is_converted, uuid)
     
-    is_converted = True
+    is_converted = 1
     
     result_image = result_image.astype('uint8')
     img_pil = Image.fromarray(result_image)
@@ -89,4 +93,12 @@ def ai_execute(user_id, origin_id, origin_image, style, background):
     buffer_.seek(0)
     img_byte = buffer_.read()
 
-    return (user_id, origin_id, img_byte, style, background, is_converted)
+    s3_url = f'result/{email}/{uuid}.jpg'
+    s3_connection.put_object(Body=img_byte, Bucket=AWS_STORAGE_BUCKET_NAME, 
+              Key = s3_url)
+    result_url = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_REGION}.amazonaws.com/{s3_url}'
+    
+
+    return (img_byte, style, background, is_converted, result_url)
+
+

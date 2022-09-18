@@ -23,17 +23,21 @@ from .pagination import ImagesPageNumberPagination
 @api_view(['POST'])
 def TransferAPIView(request):
     data = JSONParser().parse(request)
-    user_id = data['user_id']
-    origin_id = data['origin_id']
-    # origin_image = data['origin_image']
+    email = data['email']
+    uuid = data['uuid']
     style = data['style']
+    origin_image = data['origin_image']
     background = data['background']
 
     if request.method == 'POST':
         
-        ai_execute(user_id, origin_id, './images/face2.jpg', style, background)
-
-        return Response({"status" : "성공"}, status=status.HTTP_201_CREATED)
+        img_byte, style, background, is_converted, result_url = ai_execute(email, origin_image, style, background, uuid)
+        
+        return Response({
+            "img_byte" : img_byte,
+            "result_url" : result_url,
+            "is_converted" : is_converted,
+        }, status=status.HTTP_201_CREATED)
         
 
 class RegisterAPIView(APIView):
