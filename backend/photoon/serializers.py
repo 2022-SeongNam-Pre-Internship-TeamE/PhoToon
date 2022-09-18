@@ -1,3 +1,4 @@
+from requests import Response
 from rest_framework import serializers
 from .models import *
 
@@ -32,6 +33,7 @@ class StyleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Style
         fields = '__all__'
+
 
 class SpeechSerializer(serializers.ModelSerializer):
     class Meta:

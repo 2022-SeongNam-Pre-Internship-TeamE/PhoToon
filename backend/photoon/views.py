@@ -129,10 +129,25 @@ class OriginViewset(viewsets.ModelViewSet):
     queryset = OriginImage.objects.all()
     serializer_class = OriginSerializer
 
+    def destroy(self, request, *args, **kwargs):
+        origin = self.get_object()
+        serializer = OriginSerializer(data=request.data)
+        origin.is_deleted = True
+        result_origin_id = ResultViewset.get_origin_id(origin.origin_id)
+        result = ResultImage.objects.filter(origin_id=result_origin_id)
+        result.is_deleted = True
+        origin.save()
+        result.save()
+
+        return Response(data='delete success')
+
 
 class ResultViewset(viewsets.ModelViewSet):
     queryset = ResultImage.objects.all()
     serializer_class = ResultSerializer
+
+    def get_origin_id(origin_origin_id):
+        return ResultImage.objects.get(origin_id=origin_origin_id)
 
 
 class StyleViewset(viewsets.ModelViewSet):

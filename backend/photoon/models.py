@@ -69,7 +69,7 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
 class OriginImage(BaseModel):
     origin_id = models.AutoField(primary_key=True)  # pk
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=False)  # fk
-    is_deleted = models.BooleanField(null=False, default='False')
+    is_deleted = models.BooleanField(null=False, default=False)
     image_url = models.CharField(max_length=100, null=False)
 
 
@@ -90,8 +90,8 @@ class ResultImage(BaseModel):
     speech_bubble = models.ForeignKey(SpeechBubble, on_delete=models.CASCADE, null=True)  # fk
     # text = models.ForeignKey(SpeechBubble, on_delete=models.CASCADE, null=True)  # fk
     background = models.IntegerField(null=False, default='')
-    is_converted = models.BooleanField(null=False, default='False')
-    is_deleted = models.BooleanField(null=False, default='False')
+    is_converted = models.BooleanField(null=False, default=False)
+    is_deleted = models.BooleanField(null=False, default=False)
     image_url = models.CharField(null=False, max_length=100)
 
 
