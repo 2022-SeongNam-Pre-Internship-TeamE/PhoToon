@@ -7,6 +7,8 @@ def ai_execute(user_id, origin_id, origin_image, style, background):
     style: 만화 선택: 1,2,3 : 1: 신카이_v1, 2:신카이_v2, 3:미야자키_v2
     background: 배경선택 여부 : 1,2,3 : 1: 인물만, 2: 배경만, 3: 둘다.
     """
+
+    origin_image = './images/face2.jpg'
     result_image_path = './result_images/'+user_id+'_'+origin_id+'.jpg'
     def get_prediction(img, threshold):
         transform = T.Compose([T.ToTensor()])

@@ -25,18 +25,16 @@ def TransferAPIView(request):
     data = JSONParser().parse(request)
     user_id = data['user_id']
     origin_id = data['origin_id']
-    origin_image = data['origin_image']
+    # origin_image = data['origin_image']
     style = data['style']
     background = data['background']
 
     if request.method == 'POST':
-        try:
-            ai_execute(user_id, origin_id, origin_image, style, background)
-            
-            return Response({"status" : "성공"}, status=status.HTTP_201_CREATED)
-        except Exception as e:
-            print(e)
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+        
+        ai_execute(user_id, origin_id, './images/face2.jpg', style, background)
+
+        return Response({"status" : "성공"}, status=status.HTTP_201_CREATED)
+        
 
 class RegisterAPIView(APIView):
     def post(self, request):
