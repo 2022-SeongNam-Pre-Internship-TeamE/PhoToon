@@ -100,9 +100,9 @@ class Generator(nn.Module):
         )
         return up_
         
-shinkai_v1_weight_path = './weight/shinkai_weight.pth' # 신카이 마코토 옵션1
-shinkai_v2_weight_path = './weight/shinkai_weightv2.pth' # 신카이 마코토 옵션2
-hayao_v2_weight_path   = './weight/hayao_v2_generator.pth' # 미야자키 하야오 옵션3
+shinkai_v1_weight_path = './ai_model/weight/shinkai_weight.pth' # 신카이 마코토 옵션1
+shinkai_v2_weight_path = './ai_model/weight/shinkai_weightv2.pth' # 신카이 마코토 옵션2
+hayao_v2_weight_path   = './ai_model/weight/hayao_v2_generator.pth' # 미야자키 하야오 옵션3
 
 shinkaiv1_model_weight = torch.load(shinkai_v1_weight_path, map_location=torch.device('cpu'))
 shinkaiv2_model_weight = torch.load(shinkai_v2_weight_path, map_location=torch.device('cpu'))
