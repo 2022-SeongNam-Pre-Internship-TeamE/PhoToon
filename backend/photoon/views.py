@@ -1,5 +1,12 @@
+from ai_model.photoon_ai_execute import ai_execute
+from s3bucket.s3_upload import s3_upload
+from s3bucket.s3_connection import s3_connection
+from config.settings import *
 from .serializers import *
 from .models import *
+from rest_framework.decorators import api_view
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, TokenRefreshSerializer
@@ -10,6 +17,28 @@ from django.shortcuts import render, get_object_or_404
 import jwt
 from config.settings import SECRET_KEY
 from rest_framework.permissions import IsAuthenticated
+from .pagination import ImagesPageNumberPagination
+
+@csrf_exempt
+@api_view(['POST'])
+def TransferAPIView(request):
+    data = JSONParser().parse(request)
+    email = data['email']
+    uuid = data['uuid']
+    style = data['style']
+    origin_image = data['origin_image']
+    background = data['background']
+
+    if request.method == 'POST':
+        
+        img_byte, style, background, is_converted, result_url = ai_execute(email, origin_image, style, background, uuid)
+        
+        return Response({
+            "img_byte" : img_byte,
+            "result_url" : result_url,
+            "is_converted" : is_converted,
+        }, status=status.HTTP_201_CREATED)
+        
 
 
 class RegisterAPIView(APIView):
@@ -42,6 +71,24 @@ class RegisterAPIView(APIView):
             return res
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@csrf_exempt
+@api_view(['POST'])
+def S3APIView(request):
+    data = JSONParser().parse(request)
+    email = data['email'].split('@')[0]
+    status = data['status'] # origin인지 result인지
+    created_at = data['created_at']
+    image = data['image'] # byte file
+
+    if request.method == 'POST':
+        try:
+            s3_upload(status, email, created_at, image)
+            print('success!!')
+            # return Response에 어떤거 들어가야할지 연동해보고 결정
+            return Response({"status" : "성공"}, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_400_BAD_REQUEST)       
 
 class AuthAPIView(APIView):
     # 유저 정보 확인
@@ -120,6 +167,11 @@ class AuthAPIView(APIView):
 # jwt 토근 인증 확인용 뷰셋
 # Header - Authorization : Bearer <발급받은토큰>
 class UserViewSet(viewsets.ModelViewSet):
+    """
+    User
+    ---
+    사용자를 생성합니다.
+    """
     permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -139,14 +191,22 @@ class OriginViewset(viewsets.ModelViewSet):
 
         return Response(data='change is_deleted = True')
 
-
 class ResultViewset(viewsets.ModelViewSet):
     queryset = ResultImage.objects.all()
     serializer_class = ResultSerializer
+    pagination_class = ImagesPageNumberPagination 
+
+    def get_queryset(self):
+        results = ResultImage.objects.filter(is_deleted = False)
+        return results
+
+    def get(self, request, *args, **kwargs):
+        results = self.get_queryset()
+        serializer = ResultSerializer(results, many=True)
+        return Response(serializer.data)
 
     def get_origin_id(origin_origin_id):
         return ResultImage.objects.get(origin_id=origin_origin_id)
-
 
 class StyleViewset(viewsets.ModelViewSet):
     queryset = Style.objects.all()

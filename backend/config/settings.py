@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from datetime import timedelta
 from pathlib import Path
 from .my_settings import *
+import environ
+import os
 
 # mac 용 mysql
 import pymysql  
@@ -21,6 +23,11 @@ pymysql.install_as_MySQLdb()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# django-environ
+env = environ.Env(DEBUG=(bool, True))
+environ.Env.read_env(
+    env_file=os.path.join(BASE_DIR, '.env')
+)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -29,7 +36,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = MY_SECRET['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ["*"]
 
@@ -48,6 +55,8 @@ INSTALLED_APPS = [
     'corsheaders',   # cors 오류 해결(도메인 이름이 서로 다른 사이트끼리 API 요청할 때 공유를 설정하지 않으면 CORS 오류가 발생함), 장고는 8000이지만 리액트는 3000이기 때문에 발생함
     'drf_yasg', # DRF swagger
     'rest_framework_simplejwt',
+    'storages', # S3
+    
 ]
 
 # user 앱에서 내가 설정한 User를 사용하겠다고 설정한다.
@@ -99,7 +108,7 @@ SIMPLE_JWT = {
 }
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware', # cors 설정, 제일 위에 있어야함
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -172,3 +181,18 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# AWS
+AWS_S3_ACCESS_KEY_ID = env('AWS_S3_ACCESS_KEY_ID') # access key
+AWS_S3_SECRET_ACCESS_KEY = env('AWS_S3_SECRET_ACCESS_KEY') # Secret access key
+AWS_REGION = 'ap-northeast-2'
+
+###S3 Storages
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME') # 설정한 버킷 이름
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_REGION) 
+AWS_S3_OBJECT_PARAMETERS = {
+    "CacheControl": "max-age=86400",
+}
+
+AWS_PUBLIC_MEDIA_LOCATION = 'media/public'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
