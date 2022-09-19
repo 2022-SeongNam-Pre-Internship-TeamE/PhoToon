@@ -72,14 +72,26 @@ class OriginImage(BaseModel):
     is_deleted = models.BooleanField(null=False, default=False)
     image_url = models.CharField(max_length=100, null=False)
 
+    def __str__(self):
+        origin_id = str(self.origin_id)
+        return origin_id
+
 
 class Style(BaseModel):
     style = models.AutoField(primary_key=True)  # pk
+
+    def __str__(self):
+        style = str(self.style)
+        return style
 
 
 class SpeechBubble(BaseModel):
     speech_bubble = models.AutoField(primary_key=True)  # pk
     text = models.CharField(max_length=10, null=True)
+
+    def __str__(self):
+        speech_bubble = str(self.speech_bubble)
+        return speech_bubble
 
 
 class ResultImage(BaseModel):
@@ -93,5 +105,9 @@ class ResultImage(BaseModel):
     is_converted = models.BooleanField(null=False, default=False)
     is_deleted = models.BooleanField(null=False, default=False)
     image_url = models.CharField(null=False, max_length=100)
+
+    def __str__(self):
+        result_id = str(self.result_id)
+        return result_id
 
 

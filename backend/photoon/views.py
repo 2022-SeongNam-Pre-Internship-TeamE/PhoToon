@@ -131,15 +131,13 @@ class OriginViewset(viewsets.ModelViewSet):
 
     def destroy(self, request, *args, **kwargs):
         origin = self.get_object()
-        serializer = OriginSerializer(data=request.data)
-        origin.is_deleted = True
-        result_origin_id = ResultViewset.get_origin_id(origin.origin_id)
-        result = ResultImage.objects.filter(origin_id=result_origin_id)
-        result.is_deleted = True
+        origin.is_deleted = True # 원본 이미지 is_deleted = true
+        result_origin_id = ResultViewset.get_origin_id(origin.origin_id) # origin_id에 따른 result 클래스 객체 가져오기
+        result_origin_id.is_deleted = True # result table의 is_deleted = true
         origin.save()
-        result.save()
+        result_origin_id.save()
 
-        return Response(data='delete success')
+        return Response(data='change is_deleted = True')
 
 
 class ResultViewset(viewsets.ModelViewSet):
