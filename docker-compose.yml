@@ -27,7 +27,7 @@ services:
         DJANGO_CORS_ORIGIN_WHITELIST: "*"
       
     # command : 컨테이너가 띄워질 때 실행하는 명령어 / 서버실행
-    command: sh -c "/wait & python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: sh -c "/wait & python ./ai_model/ai_init.py & python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     
     # restart : 실패하면 재시작
     restart: on-failure

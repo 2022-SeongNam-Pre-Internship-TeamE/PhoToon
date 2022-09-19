@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.27.2",
     "bootstrap": "^5.2.1",
     "mdb-react-ui-kit": "^4.2.0",
     "open-color": "^1.9.1",

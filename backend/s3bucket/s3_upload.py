@@ -12,3 +12,5 @@ def s3_upload(status, email, created_at, image):
         s3.upload_file(image, AWS_STORAGE_BUCKET_NAME, f"{email}/{status}/{status}{created_at}.jpg")
         # s3.upload_file("./ai_model/images/face2.jpg", AWS_STORAGE_BUCKET_NAME, "origin/face2.jpg") # 테스트 해본 예시 코드
     
+# s3.put_object(Body=byte_image, Bucket="test-chang-tutorial-bucket", 
+#               Key = 'test_byte.jpg')

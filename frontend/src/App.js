@@ -10,6 +10,8 @@ import Start from "./pages/Start";
 import ChoiceCartoon from "./pages/ChoiceCartooon";
 import Background from "./pages/Background";
 import Result from "./pages/Result";
+import Test from "./pages/test";
+
 function App() {
   return (
     <BrowserRouter>
@@ -23,6 +25,7 @@ function App() {
         <Route path="/background" element={<Background />} />
         <Route path="/result" element={<Result />} />
         <Route path="/mypage" element={<Mypage />} />
+        <Route path="/test" element={<Test />} />
       </Routes>
     </BrowserRouter>
   );
