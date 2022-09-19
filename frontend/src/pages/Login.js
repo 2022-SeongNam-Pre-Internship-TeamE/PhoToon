@@ -14,7 +14,9 @@ export default function Login() {
         <LoginInput name="email" placeholder="E-MAIL" />
         <LoginInput name="password" placeholder="PASSWORD" type="password" />
         <div style={{ marginTop: "35px" }}>
-          <MainButton url="/AfterLogin" text="LOGIN"></MainButton>
+          <div className="flex justify-center items-center">
+            <MainButton url="/AfterLogin" text="LOGIN" />
+          </div>
         </div>
         <RightAlignedLink to="/Join">SIGN UP →</RightAlignedLink>
       </LoginWrapper>

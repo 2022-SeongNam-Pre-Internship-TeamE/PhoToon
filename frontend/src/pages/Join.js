@@ -19,8 +19,10 @@ export default function Join() {
           type="password"
         />
         <div style={{ marginTop: "35px" }}>
+          <div className="flex justify-center items-center">
+            <MainButton url="/Login" text="SIGN UP" />
+          </div>
           {/* 임시로 로그인 페이지 라우팅 */}
-          <MainButton url="/Login" text="SIGN UP"></MainButton>
         </div>
       </JoinWrapper>
     </div>
