@@ -121,6 +121,7 @@ MIDDLEWARE = [
 CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:3000', 'http://localhost:3000', 'http://0.0.0.0:3000',
                          'http://127.0.0.1:8000', 'http://localhost:8000', 'http://0.0.0.0:8000',
                          'http://127.0.0.1:81', 'http://localhost:81', 'http://0.0.0.0:81',
+                         'http://127.0.0.1:80', 'http://localhost:80', 'http://0.0.0.0:80',
                          'http://localhost', 'http://0.0.0.0', 'http://127.0.0.1',]
 
 CORS_ALLOW_CREDENTIALS = True

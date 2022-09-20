@@ -4,18 +4,23 @@ version: "3"
 
 services: 
 
-  # frontend:
-  #   build: ./frontend
-  #   command: ["npm", "start"]
-  #   environment:
-  #     - REACT_APP_BACKEND_URL=http://localhost:8000
-  #   ports:
-  #     - 3000:3000
-  #   networks:
-  #     - photoon
-  #   volumes:
-  #     - ./frontend:/frontend
-  #   tty: true
+  frontend:
+    build: ./frontend
+    command: ["npm", "start"]
+  
+    container_name: photoon_frontend
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/frontend
+      - build_folder:/frontend/build
+      - ./frontend/node_modules/:/frontend/node_modules
+    environment:
+      - CI=true
+      - CHOKIDAR_USEPOLLING=true    # HMR을 위해 필요한 설정
+      - REACT_APP_BACKEND_URL=http://localhost:8000
+    stdin_open: true      # react-script 3.4.1 부터 필요
+    tty: true
 
   backend:
     build:
@@ -32,6 +37,7 @@ services:
     
     # restart : 실패하면 재시작
     restart: on-failure
+    container_name: photoon_backend
     ports:
     # 왼쪽이 도커 바깥(외부에서 접근할 포트번호) / 오른쪽이 도커 내부(컨테이너 내부)
       - 8000:8000
@@ -41,9 +47,6 @@ services:
      # 서로 바뀐 부분 적용됨
       - ./backend:/backend
       - static_volume:/backend/staticfiles
-    # 가상 네트워크 연결
-    networks:
-      - photoon
     depends_on:
       - photoon_mysql
     expose:
@@ -60,15 +63,13 @@ services:
       - MYSQL_USER = root
       - MYSQL_ROOT_PASSWORD=1234  # MYSQL 패스워드 설정 옵션
       - TZ=Asia/Seoul
-    # 가상 네트워크 연결
-    networks:
-      - photoon
+
   
   nginx:
     build: ./nginx
     container_name: nginx
     ports:
-      - 80:80
+      - 80:8080
     restart: unless-stopped
     volumes:
       - static_volume:/backend/staticfiles
@@ -76,10 +77,6 @@ services:
       - build_folder:/var/www/frontend
     depends_on:
       - backend
-
-networks:
-  photoon:
-    driver: bridge
 
 volumes:
   static_volume: null
