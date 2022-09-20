@@ -12,8 +12,8 @@
 } */
 .cropped-image {
   border-radius: 5px;
-  height: 30vh;
-  width: auto;
+  height: 1/4;
+  width: 1/4;
 }
 .cropped-image-container {
   margin-top: 20px;

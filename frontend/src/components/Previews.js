@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState } from "react";
 import Dropzone from "./Dropzone";
 import ImageCrop from "./Crop";
-import getCroppedImg from "./getCroppedImg";
 
-export default function Previews(props) {
+export default function Previews() {
   const [image, setImage] = useState("");
   const cancelImage = () => {
     setImage("");

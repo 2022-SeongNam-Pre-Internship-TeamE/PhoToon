@@ -12,6 +12,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.27.2",
     "bootstrap": "^5.2.1",
     "mdb-react-ui-kit": "^4.2.0",
     "open-color": "^1.9.1",
@@ -30,6 +31,7 @@
     "redux": "^4.2.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.5",
+    "uuid": "^9.0.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
