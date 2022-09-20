@@ -10,23 +10,24 @@ import Start from "./pages/Start";
 import ChoiceCartoon from "./pages/ChoiceCartooon";
 import Background from "./pages/Background";
 import Result from "./pages/Result";
+import Test from "./pages/test";
+
 function App() {
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/afterlogin" element={<AfterLogin />} />
-          <Route path="/join" element={<Join />} />
-          <Route path="/start" element={<Start />} />
-          <Route path="/choicecartoon" element={<ChoiceCartoon />} />
-          <Route path="/background" element={<Background />} />
-          <Route path="/result" element={<Result />} />
-          <Route path="/mypage" element={<Mypage />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/afterlogin" element={<AfterLogin />} />
+        <Route path="/join" element={<Join />} />
+        <Route path="/start" element={<Start />} />
+        <Route path="/choicecartoon" element={<ChoiceCartoon />} />
+        <Route path="/background" element={<Background />} />
+        <Route path="/result" element={<Result />} />
+        <Route path="/mypage" element={<Mypage />} />
+        <Route path="/test" element={<Test />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 export default App;
