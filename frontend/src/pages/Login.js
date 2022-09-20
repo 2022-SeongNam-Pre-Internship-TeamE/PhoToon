@@ -18,7 +18,7 @@ const checkUser = () => {
 }
 
 axios
-  .post('/api/v1/auth', {
+  .post('http://127.0.0.1:8000/api/v1/auth', {
     email: email,
     password: password,
   })
@@ -71,7 +71,7 @@ axios
 
 useEffect(() => {
   if (localStorage.getItem("token")){
-    navigate("/");
+    navigate("/login");
   }
 }, [])
 
@@ -99,7 +99,7 @@ useEffect(() => {
         placeholder="PASSWORD"  />
 
         <div style={{ marginTop: "35px" }}>
-          <button url="/AfterLogin" >Login</button>
+          <button url="/afterLogin" >Login</button>
         </div>
         <RightAlignedLink to="/Join">SIGN UP →</RightAlignedLink>
         
