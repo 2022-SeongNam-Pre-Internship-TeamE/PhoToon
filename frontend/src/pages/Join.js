@@ -3,6 +3,7 @@ import { useNavigate} from "react-router-dom";
 import { JoinWrapper, JoinInput } from "../components/Auth";
 import style from "./MainPage.module.css";
 import axios from 'axios';
+import MainButton from "../components/MainButton";
 
 export default function Join() {
 
@@ -64,12 +65,14 @@ export default function Join() {
           required
           label="PASSWORD CHECK"
         /> */}
-
-        <div style={{ marginTop: "35px" }}>
-          {/* 임시로 로그인 페이지 라우팅 */}
-          <button onClick={() => {
+        <div onClick={() => {
             user();
-          }}>Sign UP</button>
+          }}>
+        <div style={{ marginTop: "35px" }}>
+        <div className="flex justify-center items-center">
+          <MainButton  text = "SIGN UP" />
+          </div>
+        </div>
         </div>
         
       </JoinWrapper>

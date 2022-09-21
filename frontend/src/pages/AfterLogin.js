@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 // import { Link } from "react-router-dom";
 export default function AfterLogin() {
   return (
-    <>
+    <div className="min-h-screen">
       <div className={`${style.box1}`}>
         <img className={`${style.logo1}`} src="images/logo.png" alt="logo" />
       </div>
@@ -17,6 +17,6 @@ export default function AfterLogin() {
         {/* 임시로 시작 페이지 라우팅 */}
         <MainButton url="/start" text="START" />
       </div>
-    </>
+    </div>
   );
 }

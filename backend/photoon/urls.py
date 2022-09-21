@@ -28,6 +28,7 @@ router.register(r'styles', StyleViewset)
 router.register(r'speech-bubbles', SpeechViewset)
 router.register(r'users', UserViewSet) # header에 Authorize : Bearer <access 토큰> ### 테스트용
 
+
 # postman으로 router에 있는 것을 테스트할 때 '/' 유무 안 중요함
 # postman으로 urlpatterns에 있는 것을 테스트할 때 '/' 유무 중요함
 urlpatterns = [
@@ -35,6 +36,10 @@ urlpatterns = [
     path("join", RegisterAPIView.as_view()), # post - 회원가입
     path("auth", AuthAPIView.as_view()), # post - 로그인
     path("auth/refresh", TokenRefreshView.as_view()), # jwt 토큰 재발급
+
+    path("s3", S3APIView),
+
+    path("style_transfer", TransferAPIView),
 
     # drf-yasg
     path('swagger<str:format>', schema_view.without_ui(cache_timeout=0), name='schema-json'),

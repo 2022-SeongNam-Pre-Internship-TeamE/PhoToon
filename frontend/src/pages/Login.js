@@ -3,7 +3,7 @@ import { LoginWrapper, LoginInput, RightAlignedLink } from "../components/Auth";
 import style from "./MainPage.module.css";
 import axios from 'axios';
 import { useNavigate} from "react-router-dom";
-
+import MainButton from "../components/MainButton";
 
 export default function Login() {
 const [email, setEmail] = useState("")
@@ -84,7 +84,7 @@ useEffect(() => {
       <LoginWrapper>
         <LoginInput 
         type='email'
-        value={email}
+        value={email} 
         required
         onChange={(event) => {
           setEmail(event.target.value);
@@ -97,12 +97,14 @@ useEffect(() => {
         required
         onChange={e => setPassword(e.target.value)}
         placeholder="PASSWORD"  />
-
-        <div style={{ marginTop: "35px" }}>
-          <button url="/afterLogin" >Login</button>
+        <div onClick={() => {
+            checkUser();
+          }}>
+        <div className="flex justify-center items-center">
+          <MainButton text = "Login"/>
+        </div>
         </div>
         <RightAlignedLink to="/Join">SIGN UP →</RightAlignedLink>
-        
       </LoginWrapper>
     </div>
   );
