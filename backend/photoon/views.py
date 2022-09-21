@@ -76,13 +76,13 @@ class RegisterAPIView(APIView):
 def S3APIView(request):
     data = JSONParser().parse(request)
     email = data['email'].split('@')[0]
-    status = data['status'] # origin인지 result인지
-    created_at = data['created_at']
-    image = data['image'] # byte file
+    condition = data['condition'] # origin인지 result인지
+    uuid = data['uuid']
+    # image = data['image'] # byte file
 
     if request.method == 'POST':
         try:
-            s3_upload(status, email, created_at, image)
+            # s3_upload(condition, email, uuid, image)
             print('success!!')
             # return Response에 어떤거 들어가야할지 연동해보고 결정
             return Response({"status" : "성공"}, status=status.HTTP_201_CREATED)

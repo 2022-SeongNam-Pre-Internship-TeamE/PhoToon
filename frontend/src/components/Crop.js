@@ -3,8 +3,12 @@ import Slider from "@material-ui/core/Slider";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "./getCroppedImg";
 import "./Crop.css";
-
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import Start from "../pages/Start";
 const Crop = ({ image }) => {
+  const uuid = uuidv4();
+  console.log(uuid);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
@@ -33,6 +37,24 @@ const Crop = ({ image }) => {
     setCroppedImage(null);
   }, []);
 
+  // const uploadImg = () => {
+  //   console.log(croppedImage);
+  //   const data = {
+  //     email: "test@naver.com",
+  //     condition: "origin",
+  //     uuid: uuid,
+  //     // image: croppedImage,
+  //   };
+  //   axios
+  //     .post("http://127.0.0.1:8000/api/v1/s3", data)
+  //     .then(function (response) {
+  //       console.log(response);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // };
+  <Start value={croppedImage} />;
   return (
     <div className="h-1/12">
       <div
@@ -109,6 +131,7 @@ const Crop = ({ image }) => {
           </div>
         )}
       </div>
+      {/* <button onClick={uploadImg}>send</button> */}
     </div>
   );
 };

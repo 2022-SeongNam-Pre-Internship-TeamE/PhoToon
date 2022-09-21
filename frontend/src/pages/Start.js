@@ -6,30 +6,26 @@ import Previews from "../components/Previews";
 import axios from "axios";
 import Crop from "../components/Crop";
 import { v4 as uuidv4 } from "uuid";
-export default function Start({ croppedImage }) {
+export default function Start(props) {
   const uuid = uuidv4();
   console.log(uuid);
-  // const uploadImg = () => {
-  //     console.log(croppedImage);
-  //     const data={
-  //       "create_at":"",
-  //       "email": "test@naver.com",
-  //       "status":"origin",
-  //       "image":
-  //     }
-  //     axios
-  //       .post("http://127.0.0.1:8000/api/v1/s3", {
-  //         email: email,
-  // uuid:,
-
-  //         image: croppedImage, })
-  //       .then(function (response) {
-  //         console.log(response);
-  //       })
-  //       .catch(function (error) {
-  //         console.log(error);
-  //       });
-  //   };
+  const uploadImg = () => {
+    console.log(props);
+    const data = {
+      email: "test@naver.com",
+      condition: "origin",
+      uuid: uuid,
+      // image: croppedImage,
+    };
+    axios
+      .post("http://127.0.0.1:8000/api/v1/s3", data)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="min-h-screen">
@@ -47,7 +43,7 @@ export default function Start({ croppedImage }) {
         url2="/choicecartoon"
         style1="hidden w-12"
         style2="w-12"
-        // onClick={uploadImg}
+        saveFuc={uploadImg}
       />
     </div>
   );
