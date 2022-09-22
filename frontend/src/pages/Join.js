@@ -9,8 +9,7 @@ export default function Join() {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [passwordcheck, setPasswordcheck] = useState("")
-  const [errors, setErrors] = useState(false)
+  const [passwordConfirm, setPasswordConfirm] = useState("")
   const navigate = useNavigate();
  
   const user = () => {
@@ -60,11 +59,12 @@ export default function Join() {
 
          <JoinInput
           type="password"
-          value={passwordcheck}
-          //onChange={onChangePwd2}
+          value={passwordConfirm}
+          onChange={(e) => setPasswordConfirm(e.target.value)}
           required
           label="PASSWORD CHECK"
         /> 
+        {password !== passwordConfirm && <p>비밀번호가 일치하지 않습니다.</p>}
         <div onClick={() => {
             user();
           }}>
