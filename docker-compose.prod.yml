@@ -7,15 +7,19 @@ services:
   frontend:
     build: ./frontend
     command: ["npm", "start"]
+  
     container_name: photoon_frontend
-    environment:
-      - REACT_APP_BACKEND_URL=http://localhost:8000
     ports:
       - 3000:3000
-    networks:
-      - photoon
     volumes:
       - ./frontend:/frontend
+      - build_folder:/frontend/build
+      - ./frontend/node_modules/:/frontend/node_modules
+    environment:
+      - CI=true
+      - CHOKIDAR_USEPOLLING=true    # HMR을 위해 필요한 설정
+      - REACT_APP_BACKEND_URL=http://localhost:8000
+    stdin_open: true      # react-script 3.4.1 부터 필요
     tty: true
 
   backend:
@@ -26,12 +30,14 @@ services:
         DJANGO_ALLOWED_HOSTS: "*"
         DJANGO_SECRET_KEY: "*"
         DJANGO_CORS_ORIGIN_WHITELIST: "*"
-    container_name: photoon_backend  
+      
     # command : 컨테이너가 띄워질 때 실행하는 명령어 / 서버실행
-    command: sh -c "/wait & python ./ai_model/ai_init.py & python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: gunicorn config.wsgi --preload --bind 0.0.0.0:8000 --timeout 240
+    # ai_init.py, makemigrations, migrate 따로 해야함
     
     # restart : 실패하면 재시작
     restart: on-failure
+    container_name: photoon_backend
     ports:
     # 왼쪽이 도커 바깥(외부에서 접근할 포트번호) / 오른쪽이 도커 내부(컨테이너 내부)
       - 8000:8000
@@ -40,11 +46,11 @@ services:
      # 리눅스 컨테이너의 백엔드 폴더에 우리 컴퓨터의 백엔드 폴더를 공유하겠다.
      # 서로 바뀐 부분 적용됨
       - ./backend:/backend
-    # 가상 네트워크 연결
-    networks:
-      - photoon
+      - static_volume:/backend/staticfiles
     depends_on:
       - photoon_mysql
+    expose:
+      - 8000
 
   photoon_mysql:
     image: mysql
@@ -57,10 +63,22 @@ services:
       # - MYSQL_USER=${MYSQL_USER}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}  # MYSQL 패스워드 설정 옵션
       - TZ=${TZ}
-    # 가상 네트워크 연결
-    networks:
-      - photoon
 
-networks:
-  photoon:
-    driver: bridge
+  
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    ports:
+      - 80:8080
+    restart: unless-stopped
+    volumes:
+      - static_volume:/backend/staticfiles
+      - media_volume:/backend/mediafiles
+      - build_folder:/var/www/frontend
+    depends_on:
+      - backend
+
+volumes:
+  static_volume: null
+  media_volume: null
+  build_folder: null
