@@ -21,7 +21,7 @@ export default function Join() {
   })
   .then(response => {
     // Handle success.
-    console.log('Well done!');
+    console.log('회원가입 완료!');
     console.log('User profile', response.data.user);
     console.log('User token', response.data.jwt);
     localStorage.setItem('token', response.data.jwt);
@@ -58,13 +58,13 @@ export default function Join() {
         required
         label="PASSWORD"  />
 
-        {/* <JoinInput
+         <JoinInput
           type="password"
-          value={passwdcheck}
+          value={passwordcheck}
           //onChange={onChangePwd2}
           required
           label="PASSWORD CHECK"
-        /> */}
+        /> 
         <div onClick={() => {
             user();
           }}>

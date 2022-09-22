@@ -23,7 +23,7 @@ axios
   })
   .then(response => {
     // Handle success.
-    console.log('Well done!');
+    console.log('로그인 완료');
     console.log('User token', response.data.jwt);
     localStorage.setItem("token" , response.data.jwt);
   })
