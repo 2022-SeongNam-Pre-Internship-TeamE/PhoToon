@@ -16,7 +16,6 @@ const checkUser = () => {
     return;
   }
 }
-
 axios
   .post('http://127.0.0.1:8000/api/v1/auth', {
     email: email,
@@ -27,7 +26,6 @@ axios
     console.log('Well done!');
     console.log('User token', response.data.jwt);
     localStorage.setItem("token" , response.data.jwt);
-    navigate("/afterlogin");
   })
   .catch(error => {
     // Handle error.
@@ -73,7 +71,7 @@ useEffect(() => {
   if (localStorage.getItem("token")){
     navigate("/login");
   }
-}, [])
+}, []);
 
   return (
     <div className="min-h-screen">
@@ -99,8 +97,10 @@ useEffect(() => {
         placeholder="PASSWORD"  />
         <div onClick={() => {
             checkUser();
+            navigate("/afterlogin");
           }}>
         <div className="flex justify-center items-center">
+          
           <MainButton text = "Login"/>
         </div>
         </div>
