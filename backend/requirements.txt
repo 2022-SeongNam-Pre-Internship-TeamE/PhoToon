@@ -3,6 +3,7 @@ backports.zoneinfo==0.2.1
 boto3==1.24.66
 botocore==1.27.66
 certifi==2021.5.30
+celery==5.2.7
 cffi==1.15.1
 charset-normalizer==2.1.1
 coreapi==2.3.3
@@ -11,6 +12,7 @@ cryptography==37.0.4
 defusedxml==0.7.1
 Django==3.2
 django-allauth==0.51.0
+django-celery-results==2.4.0
 django-cors-headers==3.13.0
 django-environ==0.9.0
 django-storages==1.13.1

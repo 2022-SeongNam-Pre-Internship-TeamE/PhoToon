@@ -60,6 +60,42 @@ services:
     networks:
       - photoon
 
+#  rabbitmq:
+#    container_name: rabbitmq
+#    image: rabbitmq:3.7-alpine
+#    environment:
+#      - RABBITMQ_USER=photoon
+#      - RABBITMQ_PASSWORD=photoon123
+#      - RABBITMQ_DEFAULT_VHOST=photoon_host
+#    ports:
+#      - "5672:5672" # Default Port
+#      - "15672:15672" # For UI
+#    expose:
+#      - "15672"
+#
+#    celery_worker:
+#      container_name: celery_worker
+#      build:
+#        context: ./
+#      ports: [ ]
+#      depends_on:
+#        - backend
+#        - rabbitmq
+#      command: sh -c "celery -A config worker --loglevel=info"
+
+#    celery_beat:
+#      container_name: celery_beat
+#      build:
+#        context: ./
+#        dockerfile: Dockerfile.prod
+#        ports: [ ]
+#        depends_on:
+#        - web
+#        - rabbitmq
+#        - celery_worker
+#      command: sh -c "celery -A config beat --loglevel=info"
+
+
 networks:
   photoon:
     driver: bridge
