@@ -6,7 +6,7 @@ export default function CartoonOptions()  {
     <div style={{marginRight: "6px"}}>
     <div className="text" style={{
     marginBottom: '30px',
-    fontFamily: "fontthree"
+    fontFamily: "font"
   }}>만화를 선택하세요.</div>
     <div className="parent">
     <div className="first">

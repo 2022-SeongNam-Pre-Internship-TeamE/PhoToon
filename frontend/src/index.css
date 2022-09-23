@@ -10,22 +10,3 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-@font-face {
-  font-family: "font";
-  src: url(./font/AppleSDGothicNeoM.ttf);
-}
-
-.font{
-  font-family: "font";
-}
-.guideImg {
-  display: block;
-  margin: 0px auto;
-  width : 180px;
-  height : 180px;
-  border-radius: 25%;
-}

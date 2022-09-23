@@ -35,16 +35,9 @@
     font-family: fonttwo;
   }
 
+
   @font-face {
     font-family: font;
-    src: url(../font/AppleSDGothicNeoM.ttf);
-  }
-  @font-face {
-    font-family: fonttwo;
-    src: url(../font/space\ age.ttf);
-  }
-  @font-face {
-    font-family: fontthree;
     src: url(../font/CookieRun\ Regular.ttf);
   }
   
