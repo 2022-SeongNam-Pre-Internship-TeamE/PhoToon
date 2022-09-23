@@ -21,8 +21,12 @@ services:
       - REACT_APP_BACKEND_URL=http://localhost:8000
     stdin_open: true      # react-script 3.4.1 부터 필요
     tty: true
+    # 가상 네트워크 연결
+    networks:
+      - photoon
 
   backend:
+    container_name: photoon_backend
     build:
     # context : 현재 폴더의 backend 폴더에 있는 도커파일을 쓰겠다.
       context: ./backend
@@ -37,7 +41,6 @@ services:
     
     # restart : 실패하면 재시작
     restart: on-failure
-    container_name: photoon_backend
     ports:
     # 왼쪽이 도커 바깥(외부에서 접근할 포트번호) / 오른쪽이 도커 내부(컨테이너 내부)
       - 8000:8000
@@ -51,6 +54,9 @@ services:
       - photoon_mysql
     expose:
       - 8000
+    # 가상 네트워크 연결
+    networks:
+      - photoon
 
   photoon_mysql:
     image: mysql
@@ -63,6 +69,9 @@ services:
       # - MYSQL_USER=${MYSQL_USER}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}  # MYSQL 패스워드 설정 옵션
       - TZ=${TZ}
+    # 가상 네트워크 연결
+    networks:
+      - photoon
 
   
   nginx:
@@ -77,8 +86,40 @@ services:
       - build_folder:/var/www/frontend
     depends_on:
       - backend
+    # 가상 네트워크 연결
+    networks:
+      - photoon
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    container_name: photoon_prometheus
+    ports:
+      - 9090:9090
+    # 가상 네트워크 연결
+    networks:
+      - photoon
+
+
+  grafana:
+    image: grafana/grafana
+    container_name: photoon_grafana
+    ports:
+      - 3001:3001
+    depends_on:
+      - prometheus
+    # 가상 네트워크 연결
+    networks:
+      - photoon
+
+networks:
+  photoon:
+    driver: bridge
 
 volumes:
   static_volume: null
   media_volume: null
   build_folder: null
+  prometheus_data: {}
+  grafana_data: {}
