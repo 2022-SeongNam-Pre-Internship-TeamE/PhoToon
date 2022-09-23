@@ -2,7 +2,7 @@ import React from "react";
 import MoveButton from "../components/MoveButton";
 import UserPageButton from "../components/UserPageButton";
 import style from "./MainPage.module.css";
-import CartoonOptions from "../components/CartoonOptions";
+import CartoonOptions from "../components/BackgroundOptions";
 
 export default function Background() {
   return (
