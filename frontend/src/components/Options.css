@@ -32,4 +32,13 @@
   .text{
     text-align: center;
     font-size: x-large;
+    font-family: fonttwo;
   }
+
+
+  @font-face {
+    font-family: font;
+    src: url(../font/CookieRun\ Regular.ttf);
+  }
+  
+  

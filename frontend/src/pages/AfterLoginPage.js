@@ -6,23 +6,17 @@ import { Link } from "react-router-dom";
 // import { Link } from "react-router-dom";
 export default function AfterLogin() {
   return (
-    <>
+    <div className="min-h-screen">
       <div className={`${style.box1}`}>
         <img className={`${style.logo1}`} src="images/logo.png" alt="logo" />
       </div>
       <div className={`${style.box2}`}>
         <Slider />
       </div>
-      <div className={`${style.box3}`}>
+      <div className="flex">
         {/* 임시로 시작 페이지 라우팅 */}
-        <Link
-          to="/start"
-          className="block m-auto"
-          style={{ textDecoration: "none" }}
-        >
-          <MainButton text="START" />
-        </Link>
+        <MainButton url="/start" text="START" />
       </div>
-    </>
+    </div>
   );
 }

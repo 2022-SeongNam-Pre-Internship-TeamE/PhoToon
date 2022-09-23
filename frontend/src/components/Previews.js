@@ -1,177 +1,134 @@
-import React, { useEffect, useState } from "react";
-import { useDropzone } from "react-dropzone";
+import React, { useCallback, useState } from "react";
+import Slider from "@material-ui/core/Slider";
+import Cropper from "react-easy-crop";
+import getCroppedImg from "./getCroppedImg";
+import Dropzone from "./Dropzone";
+import ImageCrop from "./Crop";
+import "./Crop.css";
 
-const thumb = {
-  display: "inline-flex",
-  borderRadius: 2,
-  border: "1px solid #eaeaea",
-  marginBottom: 10,
-  // marginRight: 8,
-  width: "80%",
-  height: 250,
-  // padding: 4,
-  boxSizing: "border-box",
-};
+export default function Previews() {
+  const [image, setImage] = useState("");
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [rotation, setRotation] = useState(0);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [croppedImage, setCroppedImage] = useState(null);
 
-const thumbInner = {
-  display: "flex",
-  minWidth: 0,
-  overflow: "hidden",
-  width: "100%",
-};
-
-const img = {
-  display: "block",
-  width: "100%",
-  height: "100%",
-  borderRadius: 5,
-  backgroundSize: "cover",
-};
-
-const baseStyle = {
-  flex: 1,
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  padding: "20px",
-  borderWidth: 2,
-  borderRadius: 2,
-  borderColor: "#eeeeee",
-  borderStyle: "dashed",
-  backgroundColor: "#fafafa",
-  color: "#bdbdbd",
-  outline: "none",
-  transition: "border .24s ease-in-out",
-};
-
-const activeStyle = {
-  borderColor: "#2196f3",
-};
-
-const acceptStyle = {
-  borderColor: "#00e676",
-};
-
-const rejectStyle = {
-  borderColor: "#ff1744",
-};
-
-export default function Previews(props) {
-  const [files, setFiles] = useState([]);
   const cancelImage = () => {
-    setFiles([]);
+    setImage("");
   };
-  const {
-    getRootProps,
-    getInputProps,
-    isDragActive,
-    isDragAccept,
-    isDragReject,
-  } = useDropzone({
-    accept: "image/*",
-    onDrop: (acceptedFiles) => {
-      console.log("accepted", acceptedFiles);
-      setFiles(
-        acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        )
+  const onChangeImage = (uploadedImage) => {
+    setImage(URL.createObjectURL(uploadedImage));
+  };
+
+  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
+
+  const showCroppedImage = useCallback(async () => {
+    try {
+      const croppedImage = await getCroppedImg(
+        image,
+        croppedAreaPixels,
+        rotation
       );
-    },
-  });
+      console.log("donee", { croppedImage });
+      setCroppedImage(croppedImage);
+    } catch (e) {
+      console.error(e);
+    }
+  }, [croppedAreaPixels, rotation, image]);
 
-  const style = React.useMemo(
-    () => ({
-      ...baseStyle,
-      ...(isDragActive ? activeStyle : {}),
-      ...(isDragAccept ? acceptStyle : {}),
-      ...(isDragReject ? rejectStyle : {}),
-    }),
-    [isDragActive, isDragReject, isDragAccept]
-  );
+  const onClose = useCallback(() => {
+    setCroppedImage(null);
+  }, []);
 
-  const thumbs = files.map((file) => (
-    <div style={thumb} key={file.name}>
-      <div style={thumbInner}>
-        <img alt="selected" src={file.preview} style={img} />
-      </div>
-    </div>
-  ));
-
-  useEffect(
-    () => () => {
-      // Make sure to revoke the data uris to avoid memory leaks
-      files.forEach((file) => URL.revokeObjectURL(file.preview));
-    },
-    [files]
-  );
-  console.log(files.length);
   return (
-    <div className="block w-4/12 h-5/12 box-content p-4 border-0 m-auto rounded-2xl bg-gray-50 text-center">
+    <div className="block w-4/12 h-2/12 box-content p-4 m-auto border-0 rounded-2xl bg-gray-50 text-center">
       <div className="text-center text-2xl pt-1 pb-2">사진을 선택하세요.</div>
-
-      <div>
-        {files.length > 0 ? (
-          <div className="flex justify-center flex-column items-center">
-            {thumbs}
+      {image ? (
+        <div className="h-1/12">
+          <div
+            className="container"
+            style={{
+              display:
+                image === null || croppedImage !== null ? "none" : "block",
+            }}
+          >
+            <div className="crop-container">
+              <Cropper
+                image={image}
+                crop={crop}
+                rotation={rotation}
+                zoom={zoom}
+                zoomSpeed={4}
+                maxZoom={3}
+                zoomWithScroll={true}
+                showGrid={true}
+                aspect={4 / 3}
+                onCropChange={setCrop}
+                onCropComplete={onCropComplete}
+                onZoomChange={setZoom}
+                onRotationChange={setRotation}
+              />
+            </div>
+            <div className="controls">
+              <label className="label">
+                Rotate
+                <Slider
+                  value={rotation}
+                  min={0}
+                  max={360}
+                  step={1}
+                  aria-labelledby="rotate"
+                  onChange={(e, rotation) => setRotation(rotation)}
+                  className="range"
+                />
+              </label>
+              <label className="label">
+                Zoom
+                <Slider
+                  value={zoom}
+                  min={1}
+                  max={3}
+                  step={0.1}
+                  aria-labelledby="zoom"
+                  onChange={(e, zoom) => setZoom(zoom)}
+                  className="range"
+                />
+              </label>
+            </div>
           </div>
-        ) : (
-          <div {...getRootProps()}>
-            <input {...getInputProps()} />
-            {isDragActive ? (
-              <div className="inline-block w-9/12 h-36 box-content p-4 border-3 border-dashed border-red-400 rounded-2xl bg-gray justify-center items-center my-2">
-                <label
-                  htmlFor="dropzone-file"
-                  className="cursor-pointer block w-full h-36 m-auto my-4"
-                >
-                  <div className="flex justify-center flex-column items-center">
-                    <img
-                      src="images/imageupload.svg"
-                      alt="파일 아이콘"
-                      className="block w-14 m-auto"
-                    />
-                    <p className="mb-0">Drop the files here</p>
-                    {/* <input
-                      id="dropzone-file"
-                      className="cursor-pointer absolute w-2/4 h-48 block z-50 opacity-0 "
-                      name="imageUpload"
-                      type="file"
-                      accept="image/*"
-                    /> */}
-                  </div>
-                </label>
-              </div>
-            ) : (
-              <div className="inline-block w-9/12 h-36 box-content p-4 border-1 border-dashed border-black rounded-2xl bg-white justify-center items-center my-2">
-                <label
-                  htmlFor="dropzone-file"
-                  className="cursor-pointer block w-full h-36 m-auto my-4"
-                >
-                  <div className="flex justify-center flex-column items-center">
-                    <img
-                      src="images/imageupload.svg"
-                      alt="파일 아이콘"
-                      className="block w-14 m-auto"
-                    />
-                    <p className="mb-0">
-                      Drag-drop some files here, or click to select files
-                    </p>
-                    {/* <input
-                      id="dropzone-file"
-                      className="cursor-pointer absolute w-2/4 h-48 block z-50 opacity-0 "
-                      name="imageUpload"
-                      type="file"
-                      accept="image/*"
-                    /> */}
-                  </div>
-                </label>
+          <div className="flex justify-center">
+            <button
+              className="cropButton"
+              style={{
+                display:
+                  image === null || croppedImage !== null ? "none" : "block",
+              }}
+              onClick={showCroppedImage}
+            >
+              Crop
+            </button>
+          </div>
+
+          <div className="cropped-image-container">
+            {croppedImage && (
+              <img className="cropped-image" src={croppedImage} alt="cropped" />
+            )}
+            {croppedImage && (
+              <div className="flex justify-center">
+                <button onClick={onClose} className="cropButton">
+                  <p className="block m-auto">CANCEL</p>
+                </button>
               </div>
             )}
           </div>
-        )}
-      </div>
-      <div className="flex w-10/12 m-auto justify-end">
+        </div>
+      ) : (
+        <Dropzone onChangeImage={onChangeImage} />
+      )}
+      <div className="flex w-11/12 m-auto justify-end">
         <button
           className="flex float-right w-28 border-2 rounded-3xl "
           style={{
