@@ -4,20 +4,21 @@ version: "3"
 
 services: 
 
-  # frontend:
-  #   build: ./frontend
-  #   command: ["npm", "start"]
-  #   environment:
-  #     - REACT_APP_BACKEND_URL=http://localhost:8000
-  #   ports:
-  #     - 3000:3000
-  #   networks:
-  #     - photoon
-  #   volumes:
-  #     - ./frontend:/frontend
-  #   tty: true
+  photoon_frontend:
+    build: ./frontend
+    command: ["npm", "start"]
+    container_name: photoon_frontend
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:8000
+    ports:
+      - 3000:3000
+    networks:
+      - photoon
+    volumes:
+      - ./frontend:/frontend
+    tty: true
 
-  backend:
+  photoon_backend:
     build:
     # context : 현재 폴더의 backend 폴더에 있는 도커파일을 쓰겠다.
       context: ./backend
@@ -25,7 +26,7 @@ services:
         DJANGO_ALLOWED_HOSTS: "*"
         DJANGO_SECRET_KEY: "*"
         DJANGO_CORS_ORIGIN_WHITELIST: "*"
-      
+    container_name: photoon_backend  
     # command : 컨테이너가 띄워질 때 실행하는 명령어 / 서버실행
     command: sh -c "/wait & python ./ai_model/ai_init.py & python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     
@@ -52,48 +53,48 @@ services:
     ports:
       - "3306:3306"
     environment: # -e 옵션
-      - MYSQL_DATABASE=photoon
-      - MYSQL_USER = root
-      - MYSQL_ROOT_PASSWORD=1234  # MYSQL 패스워드 설정 옵션
-      - TZ=Asia/Seoul
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      # - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}  # MYSQL 패스워드 설정 옵션
+      - TZ=${TZ}
     # 가상 네트워크 연결
     networks:
       - photoon
 
-#  rabbitmq:
-#    container_name: rabbitmq
-#    image: rabbitmq:3.7-alpine
-#    environment:
-#      - RABBITMQ_USER=photoon
-#      - RABBITMQ_PASSWORD=photoon123
-#      - RABBITMQ_DEFAULT_VHOST=photoon_host
-#    ports:
-#      - "5672:5672" # Default Port
-#      - "15672:15672" # For UI
-#    expose:
-#      - "15672"
-#
-#    celery_worker:
-#      container_name: celery_worker
-#      build:
-#        context: ./
-#      ports: [ ]
-#      depends_on:
-#        - backend
-#        - rabbitmq
-#      command: sh -c "celery -A config worker --loglevel=info"
+  photoon_rabbitmq:
+    hostname: photoon_host
+    container_name: photoon_rabbitmq
+    image: rabbitmq:3-management
+    command: rabbitmq-server
+    environment:
+      - RABBITMQ_DEFAULT_USER=photoon
+      - RABBITMQ_DEFAULT_PASS=photoon123
+      - RABBITMQ_DEFAULT_VHOST=photoon_host
+    ports:
+      - "5672:5672" # Default Port
+      - "15672:15672" # For UI
+    volumes:
+      - ./backend:/backend
+    networks:
+      - photoon
+    depends_on:
+      - "photoon_backend"
+    expose:
+      - "15672"
 
-#    celery_beat:
-#      container_name: celery_beat
-#      build:
-#        context: ./
-#        dockerfile: Dockerfile.prod
-#        ports: [ ]
-#        depends_on:
-#        - web
-#        - rabbitmq
-#        - celery_worker
-#      command: sh -c "celery -A config beat --loglevel=info"
+  photoon_celery:
+    container_name: photoon_celery
+    build:
+      context: ./backend
+    restart: unless-stopped
+    depends_on:
+      - photoon_backend
+      - photoon_rabbitmq
+    volumes:
+      - ./backend:/backend
+    networks:
+      - photoon
+    command: sh -c "celery -A config worker --loglevel=info"
 
 
 networks:
