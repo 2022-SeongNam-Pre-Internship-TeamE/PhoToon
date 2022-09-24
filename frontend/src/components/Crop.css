@@ -16,8 +16,8 @@
 .cropped-image {
   display: block;
   border-radius: 5px;
-  height: 300px;
-  width: 300px;
+  height: 50%;
+  width: 50%;
   margin: auto;
 }
 .cropped-image-container {

@@ -20,6 +20,7 @@ export default function Start() {
 
   const cancelImage = () => {
     setImage("");
+    setCroppedImage(null);
   };
   const onChangeImage = (uploadedImage) => {
     setImage(URL.createObjectURL(uploadedImage));
@@ -37,6 +38,7 @@ export default function Start() {
         rotation
       );
       console.log("donee", { croppedImage });
+      console.log(croppedImage.width);
       setCroppedImage(croppedImage);
     } catch (e) {
       console.error(e);
@@ -88,8 +90,7 @@ export default function Start() {
         {image ? (
           <div
             style={{
-              width: "500px",
-              height: "420px",
+              width: "100%",
               display: "block",
               margin: "auto",
             }}
