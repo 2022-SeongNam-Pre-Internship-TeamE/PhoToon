@@ -1,4 +1,7 @@
 .label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   font-weight: bold;
   padding-left: 10px;
 }
@@ -11,9 +14,11 @@
   padding: 10px 0;
 } */
 .cropped-image {
+  display: block;
   border-radius: 5px;
-  height: 1/4;
-  width: 1/4;
+  height: 300px;
+  width: 300px;
+  margin: auto;
 }
 .cropped-image-container {
   margin-top: 20px;
@@ -39,8 +44,11 @@
 .controls {
   display: flex;
   flex-direction: column;
-  width: 30vw;
+  /* width: 30vw; */
+  width: 90%;
   position: absolute;
+  justify-content: center;
+  margin-left: 3%;
   bottom: -15px;
 }
 .cropButton {
@@ -59,7 +67,7 @@
   padding: 10px 0;
   z-index: 2;
   cursor: pointer;
-  width: 100%;
+  width: 50%;
   font-weight: 700;
 }
 

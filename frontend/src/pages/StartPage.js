@@ -74,11 +74,26 @@ export default function Start() {
         </div>
         <UserPageButton className="float-left" />
       </div>
-
-      <div className="block w-4/12 h-2/12 box-content p-4 m-auto border-0 rounded-2xl bg-gray-50 text-center">
-        <div className="text-center text-2xl pt-1 pb-2">사진을 선택하세요.</div>
+      <div
+        className="text"
+        style={{
+          marginBottom: "30px",
+          fontFamily: "font",
+        }}
+      >
+        이미지를 선택하세요.
+      </div>
+      <div className="block w-4/12 box-content p-4 m-auto border-0 rounded-2xl bg-gray-50 text-center">
+        {/* <div className="text-center text-2xl pt-1 pb-2">사진을 선택하세요.</div> */}
         {image ? (
-          <div className="h-1/12">
+          <div
+            style={{
+              width: "500px",
+              height: "420px",
+              display: "block",
+              margin: "auto",
+            }}
+          >
             <div
               className="container"
               style={{
@@ -96,7 +111,7 @@ export default function Start() {
                   maxZoom={3}
                   zoomWithScroll={true}
                   showGrid={true}
-                  aspect={4 / 3}
+                  aspect={3 / 3}
                   onCropChange={setCrop}
                   onCropComplete={onCropComplete}
                   onZoomChange={setZoom}
@@ -161,7 +176,9 @@ export default function Start() {
             </div>
           </div>
         ) : (
-          <Dropzone onChangeImage={onChangeImage} />
+          <div className="inline-block w-11/12 justify-center items-center">
+            <Dropzone onChangeImage={onChangeImage} />
+          </div>
         )}
         <div className="flex w-11/12 m-auto justify-end">
           <button
