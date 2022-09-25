@@ -5,6 +5,7 @@ import io
 from config.settings import AWS_REGION
 from config.settings import AWS_STORAGE_BUCKET_NAME
 from s3bucket.s3_connection import s3_connection
+from .ai_init import *
 
 def ai_execute(email, origin_image, style, background, uuid):
     """
@@ -12,7 +13,7 @@ def ai_execute(email, origin_image, style, background, uuid):
     background: 배경선택 여부 : 1,2,3 : 1: 인물만, 2: 배경만, 3: 둘다.
     """
 
-    origin_image = './images/face2.jpg'
+    # origin_image = './images/face2.jpg'
     
     def get_prediction(img, threshold):
         transform = T.Compose([T.ToTensor()])
@@ -37,6 +38,7 @@ def ai_execute(email, origin_image, style, background, uuid):
     try:
         masks, pred_boxes, pred_class = get_prediction(origin_image,0.7)
     except Exception as e:
+        print(e)
         return "파일 없음"
     
     segmentation = np.zeros_like(masks[0])
@@ -67,6 +69,15 @@ def ai_execute(email, origin_image, style, background, uuid):
     
     output = ( (((output[0].permute((1,2,0)).numpy()+1)/2)*255).astype('uint8') )
     
+    #####
+    h_,w_,d = np.array(output.shape) - segmentation.shape
+    output = output[:-h_,:,:] if h_ >= 1 else output
+    output = output[:,:-w_,:] if w_ >= 1 else output
+    
+    segmentation = segmentation[:-h_,:,:] if h_ <= -1 else segmentation
+    segmentation = segmentation[:,:-w_,:] if w_ <= -1 else segmentation
+    #####
+
     # 배경 설정
     if background == 1:
         output = output * segmentation
@@ -93,8 +104,9 @@ def ai_execute(email, origin_image, style, background, uuid):
     buffer_.seek(0)
     img_byte = buffer_.read()
 
-    s3_url = f'result/{email}/{uuid}.jpg'
-    s3_connection.put_object(Body=img_byte, Bucket=AWS_STORAGE_BUCKET_NAME, 
+    s3_url = f'{email}/result/{uuid}.jpg'
+    s3 = s3_connection()
+    s3.put_object(Body=img_byte, Bucket=AWS_STORAGE_BUCKET_NAME, 
               Key = s3_url)
     result_url = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_REGION}.amazonaws.com/{s3_url}'
     

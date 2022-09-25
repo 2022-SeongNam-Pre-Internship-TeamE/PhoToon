@@ -9,6 +9,9 @@ import Dropzone from "../components/Dropzone";
 import axios from "axios";
 import "../components/Crop.css";
 import { v4 as uuidv4 } from "uuid";
+
+import * as tf from '@tensorflow/tfjs'
+
 export default function Start() {
   const [image, setImage] = useState("");
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -16,6 +19,7 @@ export default function Start() {
   const [rotation, setRotation] = useState(0);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
+  const [image_url, setURLImage] = useState(null);
   const uuid = uuidv4();
 
   const cancelImage = () => {
@@ -37,6 +41,18 @@ export default function Start() {
         rotation
       );
       console.log("donee", { croppedImage });
+
+      let w = croppedImage.width;
+      let h = croppedImage.height;
+      let canvas = document.createElement("canvas");
+      canvas.width = w;
+      canvas.height = h;
+      console.log(canvas)
+      let ctx = canvas.getContext("2d");
+      ctx.putImageData(croppedImage, 0, 0);
+      console.log(ctx)
+      setURLImage(canvas.toDataURL())
+
       setCroppedImage(croppedImage);
     } catch (e) {
       console.error(e);
@@ -48,16 +64,38 @@ export default function Start() {
   }, []);
 
   console.log(uuid);
+
+
   const uploadImg = () => {
-    console.log(croppedImage);
+    let shape = [];
+    shape[0] = croppedImage.height;
+    shape[1] = croppedImage.width;
+    shape[2] = 3;
+    
+    const tensor = tf.browser.fromPixels(croppedImage).asType('float32');
+    const values = tensor.dataSync();
+    const arr = Array.from(values)
+
+    
     const data = {
       email: "test@naver.com",
       condition: "origin",
       uuid: uuid,
-      image: croppedImage,
+      image: arr,
+      shape: tensor.shape,
+      style: 1,
+      background : 1,
     };
     axios
       .post("http://127.0.0.1:8000/api/v1/s3", data)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    axios
+      .post("http://127.0.0.1:8000/api/v1/style_transfer", data)
       .then(function (response) {
         console.log(response);
       })
@@ -144,10 +182,10 @@ export default function Start() {
             </div>
 
             <div className="cropped-image-container">
-              {croppedImage && (
+              {image_url && (
                 <img
                   className="cropped-image"
-                  src={croppedImage}
+                  src={image_url}
                   alt="cropped"
                 />
               )}
