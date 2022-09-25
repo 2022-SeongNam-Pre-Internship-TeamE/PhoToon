@@ -21,6 +21,11 @@ from .pagination import ImagesPageNumberPagination
 import numpy as np
 from PIL import Image
 
+from PIL import Image
+import numpy as np
+import io
+import  os
+
 @csrf_exempt
 @api_view(['POST'])
 def TransferAPIView(request):
@@ -28,17 +33,20 @@ def TransferAPIView(request):
     email = data['email']
     uuid = data['uuid']
     style = data['style']
-    origin_image = data['origin_image']
+    image = data['image']
     background = data['background']
+    shape = data['shape']
+
+    image = np.array(image)
+    image = np.reshape(image,shape)
+
+    image = image.astype('uint8')
 
     if request.method == 'POST':
         
-        img_byte, style, background, is_converted, result_url = ai_execute(email, origin_image, style, background, uuid)
-        
+        img_byte, style, background, is_converted, result_url = ai_execute(email, image, style, background, uuid)
         return Response({
-            "img_byte" : img_byte,
-            "result_url" : result_url,
-            "is_converted" : is_converted,
+            'datas':'성공!!!',
         }, status=status.HTTP_201_CREATED)
         
 
@@ -77,30 +85,36 @@ class RegisterAPIView(APIView):
 @api_view(['POST'])
 def S3APIView(request):
     data = JSONParser().parse(request)
-    email = data['email'].split('@')[0]
+    email = data['email']
     condition = data['condition'] # origin인지 result인지
     uuid = data['uuid']
-    image = data['image']
+    image = data['image'] # byte file
     shape = data['shape']
     text = data['text']
 
     image = np.array(image)
     image = np.reshape(image,shape)
+
     image = image.astype('uint8')
     image_pil = Image.fromarray(image)
-    image_pil.save('./ai_model/images/front_images.png')
-
     print("문자자:")
     print(text)
 
+    buffer_ = io.BytesIO()
+    image_pil.save(buffer_, format='PNG')
+    buffer_.seek(0)
+    image = buffer_.read()
+    
+
     if request.method == 'POST':
         try:
-            # s3_upload(condition, email, uuid, image)
+            s3_upload(condition, email, uuid, image)
             print('success!!')
             # return Response에 어떤거 들어가야할지 연동해보고 결정
             return Response({"status" : "성공"}, status=status.HTTP_201_CREATED)
         except Exception as e:
             print(e)
+            
             return Response(status=status.HTTP_400_BAD_REQUEST)       
 
 class AuthAPIView(APIView):
