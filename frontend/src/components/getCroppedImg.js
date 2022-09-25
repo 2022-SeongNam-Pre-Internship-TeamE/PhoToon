@@ -32,6 +32,8 @@ export default async function getCroppedImg(
 ) {
   const image = await createImage(imageSrc);
   const canvas = document.createElement("canvas");
+  const imgBase64 = canvas.toDataURL("image/jpeg", "image/octet-stream");
+
   const ctx = canvas.getContext("2d");
 
   if (!ctx) {
@@ -66,13 +68,16 @@ export default async function getCroppedImg(
 
   canvas.width = pixelCrop.width;
   canvas.height = pixelCrop.height;
+
   const tensor = tf.browser.fromPixels(data);
   ctx.putImageData(data, 0, 0);
   return new Promise((resolve, reject) => {
+
     // canvas.toBlob((file) => {
     //   console.log('파일:'+file)
     //   resolve(URL.createObjectURL(file));
     // }, "image/jpeg");
-    resolve(data );
+    resolve(data);
+
   });
 }

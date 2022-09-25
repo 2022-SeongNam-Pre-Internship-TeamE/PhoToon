@@ -15,12 +15,12 @@ function Dropzone({ onChangeImage }) {
     <div {...getRootProps()}>
       <input {...getInputProps()} />
       {isDragActive ? (
-        <div className="inline-block w-9/12 h-36 box-content p-4 border-3 border-dashed border-red-400 rounded-2xl bg-gray justify-center items-center my-2">
+        <div className="box-content p-4 border-3 border-dashed border-red-400 rounded-2xl bg-gray my-2">
           <label
             htmlFor="dropzone-file"
             className="cursor-pointer block w-full h-36 m-auto my-4"
           >
-            <div className="flex justify-center flex-column items-center">
+            <div className="flex justify-center flex-column items-center pt-4 pb-4">
               <img
                 src="images/imageupload.svg"
                 alt="파일 아이콘"
@@ -31,12 +31,12 @@ function Dropzone({ onChangeImage }) {
           </label>
         </div>
       ) : (
-        <div className="inline-block w-9/12 h-36 box-content p-4 border-1 border-dashed border-black rounded-2xl bg-white justify-center items-center my-2">
+        <div className="box-content p-4 border-1 border-dashed border-black rounded-2xl bg-white my-2">
           <label
             htmlFor="dropzone-file"
             className="cursor-pointer block w-full h-36 m-auto my-4"
           >
-            <div className="flex justify-center flex-column items-center">
+            <div className="flex justify-center flex-column items-center pt-4 pb-4">
               <img
                 src="images/imageupload.svg"
                 alt="파일 아이콘"

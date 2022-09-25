@@ -4,6 +4,7 @@ import UserPageButton from "../components/UserPageButton";
 import style from "./MainPage.module.css";
 import CartoonOptions from "../components/CartoonOptions";
 import "../components/Options.css";
+
 export default function ChoiceCartoon() {
   return (
     <div className="min-h-screen">

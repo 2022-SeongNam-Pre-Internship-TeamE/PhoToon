@@ -13,7 +13,9 @@ package-lock.json
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 .idea
+
 .env
+
 
 # User-specific stuff
 .idea/**/workspace.xml
