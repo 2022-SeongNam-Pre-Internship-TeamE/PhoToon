@@ -1,0 +1,104 @@
+.SpeechBubbleModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* modal창 */
+.modalBody {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  padding: 40px;
+  text-align: center;
+  background-color: rgb(208, 154, 144);
+  border-radius: 10px;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+  color: white;
+  font-family: font;
+}
+
+#modalCloseBtn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  background-color: transparent;
+  font-size: 20px;
+}
+
+#modalSelectBtn {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 22rem;
+  right: 11.5rem;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  background-color: transparent;
+  font-size: 20px;
+}
+
+#modalCloseBtn:hover {
+  cursor: pointer;
+}
+
+.chk_box {
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  /* margin-bottom: 5px; */
+  cursor: pointer;
+  font-size: 14px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-size: 1.2rem;
+  font-family: font;
+}
+
+.chk_box input[type="checkbox"] {
+  display: none;
+}
+/* 선택되지 않은 체크박스 스타일 꾸미기 */
+.on {
+  width: 20px;
+  height: 20px;
+  background: #ddd;
+  position: absolute;
+  top: 0.2em;
+  left: 6rem;
+}
+
+/* 선택된 체크박스 스타일 꾸미기 */
+.chk_box input[type="checkbox"]:checked + .on {
+  background: #f86480;
+}
+.on:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.chk_box input[type="checkbox"]:checked + .on:after {
+  display: block;
+}
+.on:after {
+  width: 6px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  left: 6px;
+  top: 2px;
+}

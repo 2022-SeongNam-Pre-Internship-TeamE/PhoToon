@@ -1,0 +1,84 @@
+.label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-weight: bold;
+  padding-left: 10px;
+}
+/* .button {
+  z-index: 2;
+  cursor: pointer;
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  padding: 10px 0;
+} */
+.cropped-image {
+  display: block;
+  border-radius: 5px;
+  height: 50%;
+  width: 50%;
+  margin: auto;
+}
+.cropped-image-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+._coverImage-holder {
+  padding: 25px 40px;
+  background-color: black;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.crop-container {
+  height: 40vh;
+  width: 50vw;
+}
+.controls {
+  display: flex;
+  flex-direction: column;
+  /* width: 30vw; */
+  width: 90%;
+  position: absolute;
+  justify-content: center;
+  margin-left: 3%;
+  bottom: -15px;
+}
+.cropButton {
+  display: flex;
+  background-color: rgba(213, 190, 198, 1);
+  margin: 20px auto;
+  /* width: 7%; */
+  height: 50px;
+  overflow: hidden;
+  text-align: center;
+  transition: 0.2s;
+  cursor: pointer;
+  border-radius: 3px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  color: white;
+  padding: 10px 0;
+  /* z-index: 2; */
+  cursor: pointer;
+  width: 50%;
+  font-weight: 700;
+}
+
+.btnText {
+  color: white;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.button:hover {
+  /*Clicked and held*/
+  box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.3);
+  background-color: rgb(203, 101, 137);
+}
