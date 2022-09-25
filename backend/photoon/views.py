@@ -18,6 +18,7 @@ import jwt
 from config.settings import SECRET_KEY
 from rest_framework.permissions import IsAuthenticated
 from .pagination import ImagesPageNumberPagination
+
 import numpy as np
 from PIL import Image
 
@@ -49,7 +50,6 @@ def TransferAPIView(request):
             'datas':'성공!!!',
         }, status=status.HTTP_201_CREATED)
         
-
 
 class RegisterAPIView(APIView):
     def post(self, request):
@@ -145,13 +145,16 @@ class AuthAPIView(APIView):
                 res.set_cookie('refresh', refresh)
                 return res
             raise jwt.exceptions.InvalidTokenError
+            
         except jwt.exceptions.InvalidTokenError:
+
             # 사용 불가능한 토큰일 때
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
     # 로그인
     def post(self, request):
         # 유저 인증
+
         user = authenticate(
             email=request.data.get("email"), password=request.data.get("password")
         )
@@ -186,10 +189,10 @@ class AuthAPIView(APIView):
         response = Response({
             "message": "Logout success"
         }, status=status.HTTP_202_ACCEPTED)
+
         response.delete_cookie("access")
         response.delete_cookie("refresh")
         return response
-
 
 # jwt 토근 인증 확인용 뷰셋
 # Header - Authorization : Bearer <발급받은토큰>
@@ -202,7 +205,6 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
 
 class OriginViewset(viewsets.ModelViewSet):
     queryset = OriginImage.objects.all()
@@ -243,3 +245,4 @@ class StyleViewset(viewsets.ModelViewSet):
 class SpeechViewset(viewsets.ModelViewSet):
     queryset = SpeechBubble.objects.all()
     serializer_class = SpeechSerializer
+
