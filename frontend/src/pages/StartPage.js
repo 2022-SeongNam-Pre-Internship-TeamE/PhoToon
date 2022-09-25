@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 import * as tf from "@tensorflow/tfjs";
 import { getThemeProps } from "@material-ui/styles";
 import SpeechBubbleModal from "../components/SpeechBubbleModal";
-
+import "../components/SpeechBubbleModal.css";
 export default function Start() {
   const [image, setImage] = useState("");
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -23,6 +23,7 @@ export default function Start() {
   const [text, setText] = useState("");
   const [image_url, setURLImage] = useState(null);
   const uuid = uuidv4();
+  const [checkButton, setCheckButton] = useState([]);
   const [speechBubble, setSpeechBubble] = useState(false);
   const [inputs, setInputs] = useState({ speech: "" });
   const { speech } = inputs;
@@ -102,6 +103,17 @@ export default function Start() {
       });
   };
 
+  const changeHandler = (checked, id) => {
+    if (checked) {
+      setCheckButton([...checkButton, id]);
+      console.log("체크");
+    } else {
+      setCheckButton(checkButton.filter((button) => button !== id));
+      console.log("체크박스 해제");
+    }
+  };
+  const isChecked = checkButton.length === 1;
+  const disabled = !isChecked;
   return (
     <div className="min-h-screen">
       <div className="flex">
@@ -194,10 +206,10 @@ export default function Start() {
             </div>
 
             <div className="cropped-image-container">
-              {image_url && (
+              {image_url && croppedImage && (
                 <img className="cropped-image" src={image_url} alt="cropped" />
               )}
-              {croppedImage && (
+              {image_url && croppedImage && (
                 <div className="flex justify-center">
                   <button onClick={onClose} className="cropButton">
                     <p className="block m-auto">CANCEL</p>
@@ -228,26 +240,35 @@ export default function Start() {
         </div>
       </div>
 
-      <div className="Main">
+      <div className="Main pt-2">
         <input
           type="button"
-          value="말풍선"
-          className="blueBtn"
+          value="말풍선 추가"
+          className="block m-auto w-32 h-12 border-4 rounded-3xl border-red-300 bg-red-300 text-white font-semibold"
           onClick={() => setSpeechBubble(!speechBubble)}
         />
         {speechBubble && (
           <SpeechBubbleModal closeModal={() => setSpeechBubble(!speechBubble)}>
-            {/* <div className="flex flex-column justify-center">
-              <input onChange={onChange} value={text} className="w-1/3" />
-              <button onClick={onReset}>초기화</button>
-
-              <div className="block m-auto">{text}</div>
-            </div> */}
             <form>
               <div className="modalFormDiv">
-                <label htmlFor="choice">선택</label>
-                <input type="radio" id="choice" name="choice" />
-                <label htmlFor="speech">말풍선</label>
+                <label htmlFor="choice" className="chk_box">
+                  <input
+                    type="checkbox"
+                    id="choice"
+                    name="choice"
+                    onChange={(e) => {
+                      changeHandler(e.currentTarget.checked, "check");
+                    }}
+                    checked={checkButton.includes("check") ? true : false}
+                  />
+                  <span className="on"></span>
+                  말풍선 추가
+                </label>
+                <br />
+                <label htmlFor="speech" className="text-xl pb-2">
+                  말풍선에 넣을 텍스트를 입력하세요
+                </label>
+                <br />
                 <input
                   type="text"
                   id="speech"
@@ -255,9 +276,17 @@ export default function Start() {
                   value={text}
                   onChange={onChange}
                   required
+                  disabled={disabled}
+                  style={
+                    disabled
+                      ? { backgroundColor: "rgb(146, 142, 142, 0.698)" }
+                      : { backgroundColor: "rgb(253, 221, 200)" }
+                  }
+                  className="w-10/12 h-44 text-black text-center"
                 />
+                <br />
                 <button onClick={onReset}>초기화</button>
-                <div className="block m-auto">{text}</div>
+                {/* <div className="block m-auto">{text}</div> */}
               </div>
             </form>
           </SpeechBubbleModal>

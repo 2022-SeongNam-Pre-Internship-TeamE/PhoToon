@@ -11,6 +11,9 @@ function SpeechBubbleModal(props) {
           x
         </button>
         {props.children}
+        <button id="modalSelectBtn" onClick={closeModal}>
+          확인
+        </button>
       </div>
     </div>
   );
