@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Options.css";
 
 export default function CartoonOptions() {
-  const [x, setX] = useState([]);
+  const [cartoon, setCartoon] = useState([]);
   const cartoonsKind = [
     { name: "first", img: "images/abstract01.jpg" },
     { name: "second", img: "images/abstract02.jpg" },
@@ -11,7 +11,7 @@ export default function CartoonOptions() {
 
   const handleClickRadioButton = (e) => {
     console.log(e.target.value);
-    setX(e.target.value);
+    setCartoon(e.target.value);
   };
   return (
     <div style={{ marginRight: "6px" }}>
@@ -31,7 +31,7 @@ export default function CartoonOptions() {
               type="radio"
               className="input-hidden"
               value={kind.name}
-              checked={x === `${kind.name}`}
+              checked={cartoon === `${kind.name}`}
               onChange={handleClickRadioButton}
             />
             <img src={kind.img} className="Image" alt="만화선택" />

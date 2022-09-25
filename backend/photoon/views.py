@@ -18,6 +18,8 @@ import jwt
 from config.settings import SECRET_KEY
 from rest_framework.permissions import IsAuthenticated
 from .pagination import ImagesPageNumberPagination
+import numpy as np
+from PIL import Image
 
 @csrf_exempt
 @api_view(['POST'])
@@ -78,7 +80,18 @@ def S3APIView(request):
     email = data['email'].split('@')[0]
     condition = data['condition'] # origin인지 result인지
     uuid = data['uuid']
-    # image = data['image'] # byte file
+    image = data['image']
+    shape = data['shape']
+    text = data['text']
+
+    image = np.array(image)
+    image = np.reshape(image,shape)
+    image = image.astype('uint8')
+    image_pil = Image.fromarray(image)
+    image_pil.save('./ai_model/images/front_images.png')
+
+    print("문자자:")
+    print(text)
 
     if request.method == 'POST':
         try:

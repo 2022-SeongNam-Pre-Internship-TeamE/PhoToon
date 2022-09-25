@@ -9,6 +9,10 @@ import Dropzone from "../components/Dropzone";
 import axios from "axios";
 import "../components/Crop.css";
 import { v4 as uuidv4 } from "uuid";
+import * as tf from "@tensorflow/tfjs";
+import { getThemeProps } from "@material-ui/styles";
+import SpeechBubbleModal from "../components/SpeechBubbleModal";
+
 export default function Start() {
   const [image, setImage] = useState("");
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -16,7 +20,20 @@ export default function Start() {
   const [rotation, setRotation] = useState(0);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
+  const [text, setText] = useState("");
+  const [image_url, setURLImage] = useState(null);
   const uuid = uuidv4();
+  const [speechBubble, setSpeechBubble] = useState(false);
+  const [inputs, setInputs] = useState({ speech: "" });
+  const { speech } = inputs;
+  const onChange = (e) => {
+    console.log(e.target);
+    console.log(e.target.value);
+    setText(e.target.value);
+  };
+  const onReset = () => {
+    setText("");
+  };
 
   const cancelImage = () => {
     setImage("");
@@ -38,7 +55,16 @@ export default function Start() {
         rotation
       );
       console.log("donee", { croppedImage });
-      console.log(croppedImage.width);
+
+      let w = croppedImage.width;
+      let h = croppedImage.height;
+      let canvas = document.createElement("canvas");
+      canvas.width = w;
+      canvas.height = h;
+      let ctx = canvas.getContext("2d");
+      ctx.putImageData(croppedImage, 0, 0);
+      setURLImage(canvas.toDataURL());
+
       setCroppedImage(croppedImage);
     } catch (e) {
       console.error(e);
@@ -52,12 +78,20 @@ export default function Start() {
   console.log(uuid);
   const uploadImg = () => {
     console.log(croppedImage);
+
+    const tensor = tf.browser.fromPixels(croppedImage).asType("float32");
+    const values = tensor.dataSync();
+    const arr = Array.from(values);
+
     const data = {
       email: "test@naver.com",
       condition: "origin",
       uuid: uuid,
-      image: croppedImage,
+      image: arr,
+      shape: tensor.shape,
+      text: text,
     };
+
     axios
       .post("http://127.0.0.1:8000/api/v1/s3", data)
       .then(function (response) {
@@ -160,12 +194,8 @@ export default function Start() {
             </div>
 
             <div className="cropped-image-container">
-              {croppedImage && (
-                <img
-                  className="cropped-image"
-                  src={croppedImage}
-                  alt="cropped"
-                />
+              {image_url && (
+                <img className="cropped-image" src={image_url} alt="cropped" />
               )}
               {croppedImage && (
                 <div className="flex justify-center">
@@ -198,6 +228,41 @@ export default function Start() {
         </div>
       </div>
 
+      <div className="Main">
+        <input
+          type="button"
+          value="말풍선"
+          className="blueBtn"
+          onClick={() => setSpeechBubble(!speechBubble)}
+        />
+        {speechBubble && (
+          <SpeechBubbleModal closeModal={() => setSpeechBubble(!speechBubble)}>
+            {/* <div className="flex flex-column justify-center">
+              <input onChange={onChange} value={text} className="w-1/3" />
+              <button onClick={onReset}>초기화</button>
+
+              <div className="block m-auto">{text}</div>
+            </div> */}
+            <form>
+              <div className="modalFormDiv">
+                <label htmlFor="choice">선택</label>
+                <input type="radio" id="choice" name="choice" />
+                <label htmlFor="speech">말풍선</label>
+                <input
+                  type="text"
+                  id="speech"
+                  name="speech"
+                  value={text}
+                  onChange={onChange}
+                  required
+                />
+                <button onClick={onReset}>초기화</button>
+                <div className="block m-auto">{text}</div>
+              </div>
+            </form>
+          </SpeechBubbleModal>
+        )}
+      </div>
       <MoveButton
         url1=""
         url2="/choicecartoon"
