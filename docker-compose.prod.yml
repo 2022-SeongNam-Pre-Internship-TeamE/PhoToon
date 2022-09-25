@@ -1,0 +1,127 @@
+# 도커파일은 빌드할때 반영
+# 도커컴포즈는 업할때 반영
+version: "3"
+
+services: 
+
+  frontend:
+    build: ./frontend
+    command: ["npm", "start"]
+  
+    container_name: photoon_frontend
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/frontend
+      - build_folder:/frontend/build
+      - ./frontend/node_modules/:/frontend/node_modules
+    environment:
+      - CI=true
+      - CHOKIDAR_USEPOLLING=true    # HMR을 위해 필요한 설정
+      - REACT_APP_BACKEND_URL=http://localhost:8000
+    stdin_open: true      # react-script 3.4.1 부터 필요
+    tty: true
+    # 가상 네트워크 연결
+    networks:
+      - photoon
+
+  backend:
+    container_name: photoon_backend
+    build:
+    # context : 현재 폴더의 backend 폴더에 있는 도커파일을 쓰겠다.
+      context: ./backend
+      args:
+        DJANGO_ALLOWED_HOSTS: "*"
+        DJANGO_SECRET_KEY: "*"
+        DJANGO_CORS_ORIGIN_WHITELIST: "*"
+      
+    # command : 컨테이너가 띄워질 때 실행하는 명령어 / 서버실행
+    command: gunicorn config.wsgi --preload --bind 0.0.0.0:8000 --timeout 240
+    # ai_init.py, makemigrations, migrate 따로 해야함
+    
+    # restart : 실패하면 재시작
+    restart: on-failure
+    ports:
+    # 왼쪽이 도커 바깥(외부에서 접근할 포트번호) / 오른쪽이 도커 내부(컨테이너 내부)
+      - 8000:8000
+    volumes:
+     # 왼쪽이 우리 컴퓨터, 오른쪽이 도커 컨테이너
+     # 리눅스 컨테이너의 백엔드 폴더에 우리 컴퓨터의 백엔드 폴더를 공유하겠다.
+     # 서로 바뀐 부분 적용됨
+      - ./backend:/backend
+      - static_volume:/backend/staticfiles
+    depends_on:
+      - photoon_mysql
+    expose:
+      - 8000
+    # 가상 네트워크 연결
+    networks:
+      - photoon
+
+  photoon_mysql:
+    image: mysql
+    command: --lower_case_table_names=1
+    container_name: photoon_mysql # 컨테이너 이름 설정
+    ports:
+      - "3306:3306"
+    env_file:
+      - ./backend/.env
+    # environment: # -e 옵션
+    #   - MYSQL_DATABASE=${MYSQL_DATABASE}
+    #   # - MYSQL_USER=${MYSQL_USER}
+    #   - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}  # MYSQL 패스워드 설정 옵션
+    #   - TZ=${TZ}
+    # 가상 네트워크 연결
+    networks:
+      - photoon
+
+  
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    ports:
+      - 80:8080
+    restart: unless-stopped
+    volumes:
+      - static_volume:/backend/staticfiles
+      - media_volume:/backend/mediafiles
+      - build_folder:/var/www/frontend
+    depends_on:
+      - backend
+    # 가상 네트워크 연결
+    networks:
+      - photoon
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    container_name: photoon_prometheus
+    ports:
+      - 9090:9090
+    # 가상 네트워크 연결
+    networks:
+      - photoon
+
+
+  grafana:
+    image: grafana/grafana
+    container_name: photoon_grafana
+    ports:
+      - 3001:3001
+    depends_on:
+      - prometheus
+    # 가상 네트워크 연결
+    networks:
+      - photoon
+
+networks:
+  photoon:
+    driver: bridge
+
+volumes:
+  static_volume: null
+  media_volume: null
+  build_folder: null
+  prometheus_data: {}
+  grafana_data: {}

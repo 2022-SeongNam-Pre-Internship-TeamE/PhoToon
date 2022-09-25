@@ -1,15 +1,16 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
 import MainPage from "./pages/MainPage";
-import AfterLogin from "./pages/AfterLogin";
+import AfterLogin from "./pages/AfterLoginPage";
 import Login from "./pages/Login";
 import Join from "./pages/Join";
 import Mypage from "./pages/Mypage";
-import Start from "./pages/Start";
-import ChoiceCartoon from "./pages/ChoiceCartooon";
-import Background from "./pages/Background";
-import Result from "./pages/Result";
+import Start from "./pages/StartPage";
+import ChoiceCartoon from "./pages/ChoiceCartooonPage";
+import Background from "./pages/BackgroundPage";
+import Result from "./pages/ResultPage";
+
 function App() {
   return (
     <BrowserRouter>

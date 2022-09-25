@@ -74,10 +74,10 @@
 }
 .txt {
   position: absolute;
-  top: 90%;
+  top: 95%;
   left: 50%;
-  transform: translate(-50%, -30%);
-  font-size: 1.3rem;
-  color: black;
+  transform: translate(-50%, -20%);
+  font-size: 1.5vw;
+  color: white;
   font-weight: 500;
 }

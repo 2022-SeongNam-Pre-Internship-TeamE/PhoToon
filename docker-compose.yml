@@ -4,18 +4,19 @@ version: "3"
 
 services: 
 
-  # frontend:
-  #   build: ./frontend
-  #   command: ["npm", "start"]
-  #   environment:
-  #     - REACT_APP_BACKEND_URL=http://localhost:8000
-  #   ports:
-  #     - 3000:3000
-  #   networks:
-  #     - photoon
-  #   volumes:
-  #     - ./frontend:/frontend
-  #   tty: true
+  frontend:
+    build: ./frontend
+    command: ["npm", "start"]
+    container_name: photoon_frontend
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:8000
+    ports:
+      - 3000:3000
+    networks:
+      - photoon
+    volumes:
+      - ./frontend:/frontend
+    tty: true
 
   backend:
     build:
@@ -25,9 +26,9 @@ services:
         DJANGO_ALLOWED_HOSTS: "*"
         DJANGO_SECRET_KEY: "*"
         DJANGO_CORS_ORIGIN_WHITELIST: "*"
-      
+    container_name: photoon_backend  
     # command : 컨테이너가 띄워질 때 실행하는 명령어 / 서버실행
-    command: sh -c "/wait & python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: sh -c "/wait & python ./ai_model/ai_init.py & python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     
     # restart : 실패하면 재시작
     restart: on-failure
@@ -51,11 +52,13 @@ services:
     container_name: photoon_mysql # 컨테이너 이름 설정
     ports:
       - "3306:3306"
-    environment: # -e 옵션
-      - MYSQL_DATABASE=photoon
-      - MYSQL_USER = root
-      - MYSQL_ROOT_PASSWORD=1234  # MYSQL 패스워드 설정 옵션
-      - TZ=Asia/Seoul
+    env_file:
+      - ./backend/.env
+    # environment: # -e 옵션
+    #   - MYSQL_DATABASE=${MYSQL_DATABASE}
+    #   # - MYSQL_USER=${MYSQL_USER}
+    #   - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}  # MYSQL 패스워드 설정 옵션
+    #   - TZ=${TZ}
     # 가상 네트워크 연결
     networks:
       - photoon

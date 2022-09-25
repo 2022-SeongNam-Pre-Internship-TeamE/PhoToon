@@ -1,26 +1,27 @@
 import React from "react";
 import MoveButton from "../components/MoveButton";
-import style from "./MainPage.module.css";
 import UserPageButton from "../components/UserPageButton";
-import Previews from "../components/Previews";
+import style from "./MainPage.module.css";
+import CartoonOptions from "../components/CartoonOptions";
+import "../components/Options.css";
 
-export default function Start() {
+export default function ChoiceCartoon() {
   return (
-    <>
+    <div className="min-h-screen">
       <div className="flex">
         <div className={`${style.box1}`}>
           <img className={`${style.logo2}`} src="images/logo.png" alt="logo" />
         </div>
         <UserPageButton className="float-left" />
       </div>
+      <CartoonOptions></CartoonOptions>
 
-      <Previews />
       <MoveButton
-        url1=""
-        url2="/choicecartoon"
-        style1="hidden w-12"
+        url1="/start"
+        url2="/background"
+        style1="w-12"
         style2="w-12"
       />
-    </>
+    </div>
   );
 }
