@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import "./Options.css";
-
+import MoveButton from "../components/MoveButton";
 export default function CartoonOptions() {
   const [x, setX] = useState([]);
   const backgroundsKind = [
-    { name: "first", img: "images/ice-2.jpg" },
-    { name: "second", img: "images/ice-2.jpg" },
-    { name: "third", img: "images/ice-2.jpg" },
+    { name: "1", img: "images/ice-2.jpg" },
+    { name: "2", img: "images/ice-2.jpg" },
+    { name: "3", img: "images/ice-2.jpg" },
   ];
 
   const handleClickRadioButton = (e) => {
+    sessionStorage.setItem('background', JSON.stringify({"background": e.target.value}));
+    JSON.parse(localStorage.getItem('json'));
     console.log(e.target.value);
     setX(e.target.value);
   };
+
   return (
     <div style={{ marginRight: "6px" }}>
       <div
@@ -38,17 +41,13 @@ export default function CartoonOptions() {
           </label>
         ))}
       </div>
-      {/* <div className="parent">
-      <div className="first">
-      <img className= "Image" src="images/ice-2.jpg" alt="" />
-      </div>
-      <div className="second">
-      <img className= "Image" src="images/ice-1.jpg" alt="" />
-      </div>
-      <div className="third">
-      <img className= "Image" src="images/ice-2.jpg" alt="" />
-      </div>
-    </div> */}
+      <MoveButton
+
+        url1="/choicecartoon"
+        url2="/result"
+        style1="w-12"
+        style2="w-12"
+      />
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import React from "react";
-import MoveButton from "../components/MoveButton";
 import UserPageButton from "../components/UserPageButton";
 import style from "./MainPage.module.css";
 import CartoonOptions from "../components/BackgroundOptions";
@@ -14,12 +13,6 @@ export default function Background() {
         <UserPageButton className="float-left" />
       </div>
       <CartoonOptions></CartoonOptions>
-      <MoveButton
-        url1="/choicecartoon"
-        url2="/result"
-        style1="w-12"
-        style2="w-12"
-      />
     </div>
   );
 }

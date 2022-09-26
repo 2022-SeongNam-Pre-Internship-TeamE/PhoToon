@@ -13,6 +13,7 @@ import * as tf from "@tensorflow/tfjs";
 import { getThemeProps } from "@material-ui/styles";
 import SpeechBubbleModal from "../components/SpeechBubbleModal";
 import "../components/SpeechBubbleModal.css";
+
 export default function Start() {
   const [image, setImage] = useState("");
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -62,9 +63,10 @@ export default function Start() {
       let canvas = document.createElement("canvas");
       canvas.width = w;
       canvas.height = h;
+
       let ctx = canvas.getContext("2d");
       ctx.putImageData(croppedImage, 0, 0);
-      setURLImage(canvas.toDataURL());
+      setURLImage(canvas.toDataURL())
 
       setCroppedImage(croppedImage);
     } catch (e) {
@@ -77,13 +79,13 @@ export default function Start() {
   }, []);
 
   console.log(uuid);
+
+
   const uploadImg = () => {
-    console.log(croppedImage);
-
-    const tensor = tf.browser.fromPixels(croppedImage).asType("float32");
+    
+    const tensor = tf.browser.fromPixels(croppedImage).asType('float32');
     const values = tensor.dataSync();
-    const arr = Array.from(values);
-
+    const arr = Array.from(values)
     const data = {
       email: "test@naver.com",
       condition: "origin",
@@ -91,6 +93,9 @@ export default function Start() {
       image: arr,
       shape: tensor.shape,
       text: text,
+      // style: 1,
+      // background : 1,
+
     };
 
     axios
@@ -101,6 +106,14 @@ export default function Start() {
       .catch(function (error) {
         console.log(error);
       });
+    // axios
+    //   .post("http://127.0.0.1:8000/api/v1/style_transfer", data)
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
   };
 
   const changeHandler = (checked, id) => {
@@ -208,6 +221,7 @@ export default function Start() {
             <div className="cropped-image-container">
               {image_url && croppedImage && (
                 <img className="cropped-image" src={image_url} alt="cropped" />
+
               )}
               {image_url && croppedImage && (
                 <div className="flex justify-center">

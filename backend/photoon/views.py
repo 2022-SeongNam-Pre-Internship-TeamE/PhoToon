@@ -18,8 +18,14 @@ import jwt
 from config.settings import SECRET_KEY
 from rest_framework.permissions import IsAuthenticated
 from .pagination import ImagesPageNumberPagination
+
 import numpy as np
 from PIL import Image
+
+from PIL import Image
+import numpy as np
+import io
+import  os
 
 @csrf_exempt
 @api_view(['POST'])
@@ -28,20 +34,22 @@ def TransferAPIView(request):
     email = data['email']
     uuid = data['uuid']
     style = data['style']
-    origin_image = data['origin_image']
+    image = data['image']
     background = data['background']
+    shape = data['shape']
+
+    image = np.array(image)
+    image = np.reshape(image,shape)
+
+    image = image.astype('uint8')
 
     if request.method == 'POST':
         
-        img_byte, style, background, is_converted, result_url = ai_execute(email, origin_image, style, background, uuid)
-        
+        img_byte, style, background, is_converted, result_url = ai_execute(email, image, style, background, uuid)
         return Response({
-            "img_byte" : img_byte,
-            "result_url" : result_url,
-            "is_converted" : is_converted,
+            'datas':'성공!!!',
         }, status=status.HTTP_201_CREATED)
         
-
 
 class RegisterAPIView(APIView):
     def post(self, request):
@@ -77,30 +85,36 @@ class RegisterAPIView(APIView):
 @api_view(['POST'])
 def S3APIView(request):
     data = JSONParser().parse(request)
-    email = data['email'].split('@')[0]
+    email = data['email']
     condition = data['condition'] # origin인지 result인지
     uuid = data['uuid']
-    image = data['image']
+    image = data['image'] # byte file
     shape = data['shape']
     text = data['text']
 
     image = np.array(image)
     image = np.reshape(image,shape)
+
     image = image.astype('uint8')
     image_pil = Image.fromarray(image)
-    image_pil.save('./ai_model/images/front_images.png')
-
     print("문자자:")
     print(text)
 
+    buffer_ = io.BytesIO()
+    image_pil.save(buffer_, format='PNG')
+    buffer_.seek(0)
+    image = buffer_.read()
+    
+
     if request.method == 'POST':
         try:
-            # s3_upload(condition, email, uuid, image)
+            s3_upload(condition, email, uuid, image)
             print('success!!')
             # return Response에 어떤거 들어가야할지 연동해보고 결정
             return Response({"status" : "성공"}, status=status.HTTP_201_CREATED)
         except Exception as e:
             print(e)
+            
             return Response(status=status.HTTP_400_BAD_REQUEST)       
 
 class AuthAPIView(APIView):
@@ -131,13 +145,16 @@ class AuthAPIView(APIView):
                 res.set_cookie('refresh', refresh)
                 return res
             raise jwt.exceptions.InvalidTokenError
+            
         except jwt.exceptions.InvalidTokenError:
+
             # 사용 불가능한 토큰일 때
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
     # 로그인
     def post(self, request):
         # 유저 인증
+
         user = authenticate(
             email=request.data.get("email"), password=request.data.get("password")
         )
@@ -172,10 +189,10 @@ class AuthAPIView(APIView):
         response = Response({
             "message": "Logout success"
         }, status=status.HTTP_202_ACCEPTED)
+
         response.delete_cookie("access")
         response.delete_cookie("refresh")
         return response
-
 
 # jwt 토근 인증 확인용 뷰셋
 # Header - Authorization : Bearer <발급받은토큰>
@@ -188,7 +205,6 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
 
 class OriginViewset(viewsets.ModelViewSet):
     queryset = OriginImage.objects.all()
@@ -229,3 +245,4 @@ class StyleViewset(viewsets.ModelViewSet):
 class SpeechViewset(viewsets.ModelViewSet):
     queryset = SpeechBubble.objects.all()
     serializer_class = SpeechSerializer
+

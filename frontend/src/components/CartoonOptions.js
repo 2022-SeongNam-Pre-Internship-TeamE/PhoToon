@@ -2,17 +2,23 @@ import React, { useState } from "react";
 import "./Options.css";
 
 export default function CartoonOptions() {
-  const [cartoon, setCartoon] = useState([]);
+  const [x, setX] = useState([]);
+
+
   const cartoonsKind = [
-    { name: "first", img: "images/abstract01.jpg" },
-    { name: "second", img: "images/abstract02.jpg" },
-    { name: "third", img: "images/abstract03.jpg" },
+    { name: 1, img: "images/abstract01.jpg" },
+    { name: 2, img: "images/abstract02.jpg" },
+    { name: 3, img: "images/abstract03.jpg" },
   ];
 
   const handleClickRadioButton = (e) => {
+    sessionStorage.setItem('style', JSON.stringify({"style": e.target.value}));
+    JSON.parse(localStorage.getItem('json'));
+    console.log()
     console.log(e.target.value);
-    setCartoon(e.target.value);
+    setX(e.target.value);
   };
+  
   return (
     <div style={{ marginRight: "6px" }}>
       <div
@@ -31,21 +37,13 @@ export default function CartoonOptions() {
               type="radio"
               className="input-hidden"
               value={kind.name}
-              checked={cartoon === `${kind.name}`}
+              checked={x === `${kind.name}`}
               onChange={handleClickRadioButton}
             />
             <img src={kind.img} className="Image" alt="만화선택" />
           </label>
         ))}
-        {/* <div className="first">
-          <img className="Image" src="images/abstract01.jpg" alt="" />
-        </div>
-        <div className="second">
-          <img className="Image" src="images/abstract02.jpg" alt="" />
-        </div>
-        <div className="third">
-          <img className="Image" src="images/abstract03.jpg" alt="" />
-        </div>*/}
+        
       </div>
     </div>
   );

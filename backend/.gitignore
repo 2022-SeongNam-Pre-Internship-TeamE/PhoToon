@@ -1,6 +1,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/django,macos,windows
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,macos,windows
 
+staticfiles/
+
 # pth 파일 용량 큰거
 mask_rcnn.pth
 

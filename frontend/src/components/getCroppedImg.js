@@ -1,3 +1,5 @@
+import * as tf from '@tensorflow/tfjs'
+
 export const createImage = (url) =>
   new Promise((resolve, reject) => {
     const image = new Image();
@@ -66,16 +68,16 @@ export default async function getCroppedImg(
 
   canvas.width = pixelCrop.width;
   canvas.height = pixelCrop.height;
-  console.log(pixelCrop.width);
-  ctx.putImageData(data, 0, 0);
 
+  const tensor = tf.browser.fromPixels(data);
+  ctx.putImageData(data, 0, 0);
   return new Promise((resolve, reject) => {
-    // canvas.toDataURL((file) => {
-    //   resolve(URL.createObjectURL(file));
-    // }, "image/jpeg");
+
     // canvas.toBlob((file) => {
+    //   console.log('파일:'+file)
     //   resolve(URL.createObjectURL(file));
     // }, "image/jpeg");
     resolve(data);
+
   });
 }
