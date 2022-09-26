@@ -102,13 +102,13 @@ services:
 #    env_file:
 #      - ./.env
     depends_on:
-      - "photoon_backend"
-      - "photoon_rabbitmq"
+      - photoon_backend
+      - photoon_rabbitmq
     volumes:
       - ./backend:/backend
     networks:
       - photoon
-    command: ["python3", "-m", "celery","-A", "config", "worker", "--loglevel=info"]   
+    command: "celery -A config.celery worker --loglevel=info"
 
   nginx:
     build: ./nginx
