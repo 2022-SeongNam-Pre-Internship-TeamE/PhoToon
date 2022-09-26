@@ -4,6 +4,6 @@ from celery import Celery
 app = Celery('config',
              broker='amqp://photoon:photoon123@photoon_host/photoon_host',
              backend='rpc://',
-             include=['photoon.tasks'])
+             include=['photoon.tasks','ai_model.photoon_ai_execute'])
 
 app.autodiscover_tasks()
