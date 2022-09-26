@@ -35,6 +35,9 @@ RUN cmake --build .
 WORKDIR /backend/ai_model/dlib
 RUN python3 setup.py install
 
+RUN pip install face-recognition=1.3.0
+RUN pip install face-recognition-models=0.3.0
+
 # wait-for 적용
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.9.0/wait /wait
 RUN chmod +x /wait

@@ -54,11 +54,6 @@ services:
       - "3306:3306"
     env_file:
       - ./backend/.env
-    environment: # -e 옵션
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}  # MYSQL 패스워드 설정 옵션
-      - TZ=${TZ}
     # 가상 네트워크 연결
     networks:
       - photoon
@@ -101,7 +96,7 @@ services:
       - ./backend:/backend
     networks:
       - photoon
-    command: ["python3", "-m", "celery","-A", "config", "worker", "--loglevel=info"]
+    command: ["celery", "-A", "config", "worker", "--loglevel=info"]
 
 
 networks:

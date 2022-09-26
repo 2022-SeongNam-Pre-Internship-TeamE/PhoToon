@@ -66,16 +66,50 @@ services:
       - "3306:3306"
     env_file:
       - ./backend/.env
-    # environment: # -e 옵션
-    #   - MYSQL_DATABASE=${MYSQL_DATABASE}
-    #   # - MYSQL_USER=${MYSQL_USER}
-    #   - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}  # MYSQL 패스워드 설정 옵션
-    #   - TZ=${TZ}
     # 가상 네트워크 연결
     networks:
       - photoon
 
-  
+  photoon_rabbitmq:
+    hostname: photoon_host
+    container_name: photoon_rabbitmq
+    image: rabbitmq:3-management
+    command: rabbitmq-server
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
+      - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_VHOST}
+    ports:
+      - 5672:5672 # Default Port
+      - 15672:15672 # For UI
+    volumes:
+      - ./backend:/backend
+    networks:
+      - photoon
+    depends_on:
+      - photoon_backend
+    expose:
+      - "15672"
+
+  photoon_celery:
+    container_name: photoon_celery
+    build:
+      context: ./backend
+    restart: unless-stopped
+#    env_file:
+#      - ./.env
+    depends_on:
+      - "photoon_backend"
+      - "photoon_rabbitmq"
+    volumes:
+      - ./backend:/backend
+    networks:
+      - photoon
+    command: ["python3", "-m", "celery","-A", "config", "worker", "--loglevel=info"]   
+
   nginx:
     build: ./nginx
     container_name: nginx
