@@ -66,19 +66,22 @@ services:
     container_name: photoon_rabbitmq
     image: rabbitmq:3-management
     command: rabbitmq-server
+    restart: unless-stopped
+    env_file:
+      - ./.env
     environment:
-      - RABBITMQ_DEFAULT_USER=photoon
-      - RABBITMQ_DEFAULT_PASS=photoon123
-      - RABBITMQ_DEFAULT_VHOST=photoon_host
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
+      - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_VHOST}
     ports:
-      - "5672:5672" # Default Port
-      - "15672:15672" # For UI
+      - 5672:5672 # Default Port
+      - 15672:15672 # For UI
     volumes:
       - ./backend:/backend
     networks:
       - photoon
     depends_on:
-      - "photoon_backend"
+      - photoon_backend
     expose:
       - "15672"
 
@@ -87,14 +90,16 @@ services:
     build:
       context: ./backend
     restart: unless-stopped
+#    env_file:
+#      - ./.env
     depends_on:
-      - photoon_backend
-      - photoon_rabbitmq
+      - "photoon_backend"
+      - "photoon_rabbitmq"
     volumes:
       - ./backend:/backend
     networks:
       - photoon
-    command: sh -c "celery -A config worker --loglevel=info"
+    command: ["python3", "-m", "celery","-A", "config", "worker", "--loglevel=info"]
 
 
 networks:
