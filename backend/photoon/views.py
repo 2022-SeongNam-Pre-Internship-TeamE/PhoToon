@@ -1,3 +1,4 @@
+import time
 from ai_model.photoon_ai_execute import ai_execute
 from s3bucket.s3_upload import s3_upload
 from s3bucket.s3_connection import s3_connection
@@ -44,10 +45,24 @@ def TransferAPIView(request):
     image = image.astype('uint8')
 
     if request.method == 'POST':
+        print("전")
+        # print(image)
+        # img_byte, style, background, is_converted, result_url = ai_execute(email, image, style, background, uuid)
         
-        img_byte, style, background, is_converted, result_url = ai_execute(email, image, style, background, uuid)
+        a = ai_execute.delay(email, image, style, background, uuid)
+        
+        
+
+        print("후")
+        print(a)
+
+        # while True:
+        #     if a.ready()==False:
+        #         time.sleep(5)
+        #         continue
+        #     else:
         return Response({
-            'datas':'성공!!!',
+            "result" : "성공"
         }, status=status.HTTP_201_CREATED)
         
 

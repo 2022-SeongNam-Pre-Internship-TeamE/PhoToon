@@ -6,13 +6,16 @@ from config.settings import AWS_REGION
 from config.settings import AWS_STORAGE_BUCKET_NAME
 from s3bucket.s3_connection import s3_connection
 from .ai_init import *
+from config.celery import app
 
+@app.task(name="ai_model.photoon_ai_execute.ai_execute")
 def ai_execute(email, origin_image, style, background, uuid):
     """
     style: 만화 선택: 1,2,3 : 1: 신카이_v1, 2:신카이_v2, 3:미야자키_v2
     background: 배경선택 여부 : 1,2,3 : 1: 인물만, 2: 배경만, 3: 둘다.
     """
 
+    print("smaking")
     # origin_image = './images/face2.jpg'
     
     def get_prediction(img, threshold):
@@ -20,6 +23,7 @@ def ai_execute(email, origin_image, style, background, uuid):
         img = transform(img)
 
         pred = model([img])
+        print('뭐야이거')
         pred_score = list(pred[0]['scores'].detach().numpy())
 
         pred_t = [pred_score.index(x) for x in pred_score if x>threshold][-1]
@@ -41,6 +45,7 @@ def ai_execute(email, origin_image, style, background, uuid):
         print(e)
         return "파일 없음"
     
+    print("koread")
     segmentation = np.zeros_like(masks[0])
     for i, value in enumerate(pred_class):
         if value =='person':
@@ -53,6 +58,7 @@ def ai_execute(email, origin_image, style, background, uuid):
     tf = T.ToTensor()
     pre_image = (tf(origin_image)*2 - 1).unsqueeze(0)
 
+    print("china")
     if style == 1:
         output = shinkaiv1_generator(pre_image).detach()
     elif style == 2:
@@ -60,13 +66,16 @@ def ai_execute(email, origin_image, style, background, uuid):
     elif style == 3:
         output = hayao_v2_generator(pre_image).detach()
     else:
+        print("hello changminkim")
         img_pil = Image.fromarray(origin_image)
         buffer_ = io.BytesIO()
         img_pil.save(buffer_, format='PNG')
         buffer_.seek(0)
         img_byte = buffer_.read()
+        print("changs")
         return (img_byte, style, background, is_converted, uuid)
     
+    print("usa")
     output = ( (((output[0].permute((1,2,0)).numpy()+1)/2)*255).astype('uint8') )
     
     #####
@@ -110,7 +119,6 @@ def ai_execute(email, origin_image, style, background, uuid):
               Key = s3_url)
     result_url = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_REGION}.amazonaws.com/{s3_url}'
     
-
-    return (img_byte, style, background, is_converted, result_url)
+    return result_url
 
 

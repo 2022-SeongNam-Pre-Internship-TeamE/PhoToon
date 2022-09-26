@@ -69,7 +69,8 @@ class OriginImage(BaseModel):
     origin_id = models.AutoField(primary_key=True)  # pk
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=False)  # fk
     is_deleted = models.BooleanField(null=False, default=False)
-    image_url = models.CharField(max_length=100, null=False)
+    image_url = models.CharField(max_length=100, null=False, default='')
+    uuid = models.CharField(null=False, max_length=100, default='')
 
     def __str__(self):
         origin_id = str(self.origin_id)
@@ -104,6 +105,7 @@ class ResultImage(BaseModel):
     is_converted = models.BooleanField(null=False, default=False)
     is_deleted = models.BooleanField(null=False, default=False)
     image_url = models.CharField(null=False, max_length=100)
+    uuid = models.CharField(null=False, max_length=100, default='')
 
     def __str__(self):
         result_id = str(self.result_id)
