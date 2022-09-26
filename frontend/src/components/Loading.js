@@ -3,29 +3,31 @@ import styled from "styled-components";
 
 export const Loading = () => {
   return (
-    <Background>
+    <LoadingBackground>
       <LoadingText>잠시만 기다려 주세요.</LoadingText>
-      <img src="images/loading.gif" alt="로딩중" width="6%" />
-    </Background>
+      <img src="images/loading.gif" alt="로딩중" width="8%" />
+    </LoadingBackground>
   );
 };
 
-const Background = styled.div`
+const LoadingBackground = styled.div`
   position: absolute;
   width: 100vw;
   height: 100vh;
   top: 0;
   left: 0;
-  background: #ffffffb7;
-  z-index: 999;
+  // background: transparent;
+  background: rgba(253, 221, 200, 0.7);
+  z-index: 99;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
+// background: #ffffffb7;
 
 const LoadingText = styled.div`
-  font: 2rem "Noto Sans KR";
+  font: 2rem font;
   text-align: center;
 `;
 

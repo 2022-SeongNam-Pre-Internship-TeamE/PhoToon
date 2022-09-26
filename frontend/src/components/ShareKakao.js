@@ -20,7 +20,6 @@ function ShareKakao({ resultImage }) {
         kakao.init(process.env.REACT_APP_KAKAO_KEY);
         isShare.current = true;
       }
-
       kakao.Link.sendCustom({
         templateId: 83338,
         templateArgs: {
