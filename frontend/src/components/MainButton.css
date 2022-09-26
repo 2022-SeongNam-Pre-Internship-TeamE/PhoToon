@@ -1,6 +1,6 @@
 .buttonBox {
   display: block;
-  margin: auto;
+  margin: 0 auto;
 }
 
 .box {
@@ -266,27 +266,27 @@
   -webkit-transform: rotate3d(0, 0, 1, 0deg);
   transform: rotate3d(0, 0, 1, 0deg);
 }
-.parent{
+.parent {
   width: 87%;
   margin: 10px auto;
 }
 
 .first {
   float: left;
-  width:29%;
+  width: 29%;
   box-sizing: border-box;
 }
 
-.second{
+.second {
   float: left;
   margin-left: 5%;
-  width:29%;
+  width: 29%;
   box-sizing: border-box;
 }
 
-.third{
+.third {
   float: right;
-  width:30%;
+  width: 30%;
   box-sizing: border-box;
 }
 .modal-button {

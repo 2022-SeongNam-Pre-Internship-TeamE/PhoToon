@@ -58,9 +58,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'storages',  # S3
     'django_celery_results',       # celery
-
-
-
+    'django_prometheus',
+    
 ]
 
 # user 앱에서 내가 설정한 User를 사용하겠다고 설정한다.
@@ -112,7 +111,8 @@ SIMPLE_JWT = {
 }
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # cors 설정, 제일 위에 있어야함
+    'corsheaders.middleware.CorsMiddleware', # cors 설정, 제일 위에 있어야함
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -120,10 +120,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    
 ]
 
-CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:3000', 'http://localhost:3000', 'http://0.0.0.0:3000', 'http://localhost',
-                         'http://0.0.0.0', ]
+CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:3000', 'http://localhost:3000', 'http://0.0.0.0:3000',
+                         'http://127.0.0.1:8000', 'http://localhost:8000', 'http://0.0.0.0:8000',
+                         'http://127.0.0.1:81', 'http://localhost:81', 'http://0.0.0.0:81',
+                         'http://127.0.0.1:80', 'http://localhost:80', 'http://0.0.0.0:80',
+                         'http://localhost', 'http://0.0.0.0', 'http://127.0.0.1',]
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -181,8 +187,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # AWS
@@ -200,3 +204,11 @@ AWS_S3_OBJECT_PARAMETERS = {
 AWS_PUBLIC_MEDIA_LOCATION = 'media/public'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
+WSGI_APPLICATION = 'config.wsgi.application'
+
+STATIC_URL = '/staticfiles/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA_URL = '/mediafiles/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'

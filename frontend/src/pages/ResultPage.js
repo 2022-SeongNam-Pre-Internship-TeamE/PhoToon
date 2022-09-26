@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MoveButton from "../components/MoveButton";
 import style from "./MainPage.module.css";
 import UserPageButton from "../components/UserPageButton";
-
+import Share from "../components/ShareKakao.js";
 export default function Result() {
   return (
-    <>
+    <div className="min-h-screen">
       <div className="flex">
         <div className={`${style.box1}`}>
           <img className={`${style.logo2}`} src="images/logo.png" alt="logo" />
         </div>
         <UserPageButton className="float-left" />
       </div>
-      {/* <div className="block m-auto"> */}
+      <div
+        className="text"
+        style={{
+          marginBottom: "30px",
+          fontFamily: "font",
+        }}
+      >
+        결과 이미지
+      </div>
       <div
         className="block w-5/12 box-content p-3 border-0 m-auto rounded-2xl text-center mt-2"
         style={{ backgroundColor: "rgb(249,248,250)" }}
@@ -41,21 +49,7 @@ export default function Result() {
               </span>
             </button>
           </a>
-
-          <button
-            className="flex w-28 border-2 rounded-3xl"
-            style={{
-              backgroundColor: "rgb(213,190,198)",
-              borderColor: "rgb(213,190,198)",
-            }}
-          >
-            <span className="flex leading-6 m-auto">
-              <img src="images/share.svg" alt="share" className="w-5 mr-2" />
-              <span className="items-center text-white text-xl font-medium leading-9">
-                Share
-              </span>
-            </span>
-          </button>
+          <Share resultImage="images/ice-1.jpg"></Share>
         </div>
       </div>
       {/* <span className="flex relative -translate-x-52 -translate-y-1/2">
@@ -74,6 +68,6 @@ export default function Result() {
         style1="w-12"
         style2="hidden w-12"
       />
-    </>
+    </div>
   );
 }

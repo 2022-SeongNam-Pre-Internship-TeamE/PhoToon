@@ -3,7 +3,6 @@ from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from datetime import datetime
 
-
 class BaseModel(models.Model):  # 수정시간, 생성시간 모델
     created_at = models.DateTimeField(default=datetime.now)  # 해당 레코드 생성시 현재 시간 자동저장
     updated_at = models.DateTimeField(auto_now=True)  # 해당 레코드 갱신시 현재 시간 자동저장
@@ -70,7 +69,8 @@ class OriginImage(BaseModel):
     origin_id = models.AutoField(primary_key=True)  # pk
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=False)  # fk
     is_deleted = models.BooleanField(null=False, default=False)
-    image_url = models.CharField(max_length=100, null=False)
+    image_url = models.CharField(max_length=100, null=False, default='')
+    uuid = models.CharField(null=False, max_length=100, default='')
 
     def __str__(self):
         origin_id = str(self.origin_id)
@@ -105,6 +105,7 @@ class ResultImage(BaseModel):
     is_converted = models.BooleanField(null=False, default=False)
     is_deleted = models.BooleanField(null=False, default=False)
     image_url = models.CharField(null=False, max_length=100)
+    uuid = models.CharField(null=False, max_length=100, default='')
 
     def __str__(self):
         result_id = str(self.result_id)
