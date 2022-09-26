@@ -37,6 +37,7 @@ def TransferAPIView(request):
     image = data['image']
     background = data['background']
     shape = data['shape']
+    text = data['text']
 
     image = np.array(image)
     image = np.reshape(image,shape)
@@ -45,7 +46,7 @@ def TransferAPIView(request):
 
     if request.method == 'POST':
         
-        img_byte, style, background, is_converted, result_url = ai_execute(email, image, style, background, uuid)
+        img_byte, style, background, is_converted, result_url = ai_execute(email, image, style, background, uuid,text)
         return Response({
             'datas':'성공!!!',
         }, status=status.HTTP_201_CREATED)

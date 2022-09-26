@@ -93,8 +93,8 @@ export default function Start() {
       image: arr,
       shape: tensor.shape,
       text: text,
-      // style: 1,
-      // background : 1,
+      style: 3,
+      background : 3,
 
     };
 
@@ -106,14 +106,14 @@ export default function Start() {
       .catch(function (error) {
         console.log(error);
       });
-    // axios
-    //   .post("http://127.0.0.1:8000/api/v1/style_transfer", data)
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+    axios
+      .post("http://127.0.0.1:8000/api/v1/style_transfer", data)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const changeHandler = (checked, id) => {
