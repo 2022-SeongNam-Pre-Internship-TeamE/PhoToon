@@ -1,7 +1,7 @@
 import React from "react";
 import UserPageButton from "../components/UserPageButton";
 import style from "./MainPage.module.css";
-import CartoonOptions from "../components/BackgroundOptions";
+import BackgroundOptions from "../components/BackgroundOptions";
 
 export default function Background() {
   return (
@@ -12,7 +12,7 @@ export default function Background() {
         </div>
         <UserPageButton className="float-left" />
       </div>
-      <CartoonOptions></CartoonOptions>
+      <BackgroundOptions></BackgroundOptions>
     </div>
   );
 }

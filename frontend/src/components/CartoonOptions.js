@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "./Options.css";
+import { useSelectContentStore } from "../components/store";
+
 
 export default function CartoonOptions() {
-  const [x, setX] = useState([]);
-
-
+  const { style , setStyle } = useSelectContentStore(); //zustand 전역변수
+  
   const cartoonsKind = [
     { name: 1, img: "images/abstract01.jpg" },
     { name: 2, img: "images/abstract02.jpg" },
@@ -12,11 +13,9 @@ export default function CartoonOptions() {
   ];
 
   const handleClickRadioButton = (e) => {
-    sessionStorage.setItem('style', JSON.stringify({"style": e.target.value}));
-    JSON.parse(localStorage.getItem('json'));
     console.log()
     console.log(e.target.value);
-    setX(e.target.value);
+    setStyle(e.target.value);
   };
   
   return (
@@ -37,8 +36,9 @@ export default function CartoonOptions() {
               type="radio"
               className="input-hidden"
               value={kind.name}
-              checked={x === `${kind.name}`}
+              checked={style === `${kind.name}`}
               onChange={handleClickRadioButton}
+              
             />
             <img src={kind.img} className="Image" alt="만화선택" />
           </label>
