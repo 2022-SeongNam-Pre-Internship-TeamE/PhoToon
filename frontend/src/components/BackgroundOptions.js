@@ -13,6 +13,7 @@ export default function CartoonOptions() {
     console.log(e.target.value);
     setX(e.target.value);
   };
+
   return (
     <div style={{ marginRight: "6px" }}>
       <div

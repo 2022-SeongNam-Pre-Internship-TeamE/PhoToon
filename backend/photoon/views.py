@@ -34,15 +34,18 @@ def TransferAPIView(request):
     email = data['email']
     uuid = data['uuid']
     style = data['style']
-    image = data['image']
     background = data['background']
-    shape = data['shape']
     text = data['text']
 
-    image = np.array(image)
-    image = np.reshape(image,shape)
+    try:
+        image = data['image']
+        shape = data['shape']
+        image = np.array(image)
+        image = np.reshape(image,shape)
 
-    image = image.astype('uint8')
+        image = image.astype('uint8')
+    except Exception as e:
+        image = None;
 
     if request.method == 'POST':
         

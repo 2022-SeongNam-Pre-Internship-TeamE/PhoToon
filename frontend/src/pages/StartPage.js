@@ -78,8 +78,7 @@ export default function Start() {
     setCroppedImage(null);
   }, []);
 
-  console.log(uuid);
-
+  //console.log(uuid);
 
   const uploadImg = () => {
     
@@ -98,6 +97,19 @@ export default function Start() {
 
     };
 
+    // 다음 페이지로 값 전달
+    let style = 3;
+    let background = 3;
+    let email = "test@naver.com"
+    
+    localStorage.setItem('email',email)
+    localStorage.setItem('uuid',uuid);
+    localStorage.setItem('text',text);
+    localStorage.setItem('style',style);
+    localStorage.setItem('background',background);
+    //#######################
+
+
     axios
       .post("http://127.0.0.1:8000/api/v1/s3", data)
       .then(function (response) {
@@ -106,14 +118,14 @@ export default function Start() {
       .catch(function (error) {
         console.log(error);
       });
-    axios
-      .post("http://127.0.0.1:8000/api/v1/style_transfer", data)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    // axios
+    //   .post("http://127.0.0.1:8000/api/v1/style_transfer", data)
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
   };
 
   const changeHandler = (checked, id) => {
