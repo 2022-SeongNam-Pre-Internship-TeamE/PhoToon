@@ -37,7 +37,7 @@ function ButtonThree({ text, deleteFun }) {
     deleteFun(imgId);
   };
   return (
-    <div className="parent">
+    <div className="parent" style={{ fontFamily: "font" }}>
       <a
         href="images/ice-1.jpg"
         className="Modalfirst modal-button button button--saqui button--round-l button--text-thick"

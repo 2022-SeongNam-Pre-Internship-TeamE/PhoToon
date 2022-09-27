@@ -5,7 +5,7 @@ import Slide from "./Slide";
 import axios from "axios";
 
 function MypageModal(props) {
-  const [userImageList, setUserImageList] = useState(["images/ice-1.jpg"]);
+  const [userImageList, setUserImageList] = useState([]);
 
   const deleteImgList = (imgId) => {
     setUserImageList(userImageList.filter((userImg) => userImg.id !== imgId));
@@ -24,14 +24,14 @@ function MypageModal(props) {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      style={{ fontFamily: "font" }}
     >
-      <Modal.Header closeButton>임시 이미지 삽입하였습니다.</Modal.Header>
+      <Modal.Header closeButton></Modal.Header>
 
       <Modal.Body>
         <closeButton />
         {/* 임시로 사진 넣음 */}
         <div style={{ textAlign: "center" }}>
-          {/* <Slide img="images/ice-1.jpg"></Slide> */}
           <img
             src="images/ice-1.jpg"
             alt="마이페이지"
