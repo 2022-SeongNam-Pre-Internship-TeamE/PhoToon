@@ -23,7 +23,13 @@ export default function CartoonOptions() {
   
   const formData = new FormData()
   formData.append('style', style)
-  formData.append('background', 'background')
+  formData.append('background', background)
+  formData.append('user_id', 1)
+  formData.append('origin_id', 3)
+  formData.append('speech_bubble', 1)
+  formData.append('image_url', 'aslkfj')
+  
+  
   
 
   const options = () => {
