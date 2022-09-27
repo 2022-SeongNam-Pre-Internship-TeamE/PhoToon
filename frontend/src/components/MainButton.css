@@ -271,20 +271,20 @@
   margin: 10px auto;
 }
 
-.first {
+.Modalfirst {
   float: left;
   width: 29%;
   box-sizing: border-box;
 }
 
-.second {
+.Modalsecond {
   float: left;
   margin-left: 5%;
   width: 29%;
   box-sizing: border-box;
 }
 
-.third {
+.Modalthird {
   float: right;
   width: 30%;
   box-sizing: border-box;

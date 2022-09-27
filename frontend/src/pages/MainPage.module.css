@@ -33,3 +33,11 @@
   height: 9rem;
   transform: translate(20%, 0);
 }
+.imageListComponent {
+  display: block;
+  position: relative;
+  width: 80%;
+  margin: auto;
+  place-items: center;
+  margin-top: 4rem;
+}
