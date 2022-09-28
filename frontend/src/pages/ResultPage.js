@@ -8,8 +8,8 @@ import Loading from "../components/Loading";
 export default function Result() {
   const [result, setResult] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  let image_url = localStorage.getItem('image_url');
-
+  let image_url = localStorage.getItem("image_url");
+  console.log(image_url);
   useEffect(() => {
     axios
       .get("http://127.0.0.1:8000/api/v1/results")
@@ -48,47 +48,43 @@ export default function Result() {
         >
           결과 이미지
         </div>
-        {result &&
-          result.map((img) => (
-            <div
-              className="block w-4/12 box-content p-3 border-0 m-auto rounded-2xl text-center mt-2"
-              style={{ backgroundColor: "rgb(249,248,250)" }}
-            >
-              <div
-                key={img.user_id}
-                className="inline-block h-4/6 box-content justify-center items-center mt-3 mb-1"
+        <img src={image_url} alt="dd" />
+        <div
+          className="block w-4/12 box-content p-3 border-0 m-auto rounded-2xl text-center mt-2"
+          style={{ backgroundColor: "rgb(249,248,250)" }}
+        >
+          <div className="inline-block h-4/6 box-content justify-center items-center mt-3 mb-1">
+            <img
+              src={image_url}
+              alt="결과 이미지"
+              className="block m-auto w-10/12 border-1 border-dashed border-black rounded-2xl"
+            />
+          </div>
+          <div className="flex w-10/12 m-auto justify-end">
+            <a href={image_url} download>
+              <button
+                className="flex w-36 h-full rounded-3xl mr-2 hover:"
+                style={{
+                  backgroundColor: "rgb(213,190,198)",
+                  borderColor: "rgb(213,190,198)",
+                }}
               >
-                <img
-                  src={img.image_url}
-                  alt="결과 이미지"
-                  className="block m-auto w-10/12 border-1 border-dashed border-black rounded-2xl"
-                />
-              </div>
-              <div className="flex w-10/12 m-auto justify-end">
-                <a href={img.image_url} download>
-                  <button
-                    className="flex w-36 h-full rounded-3xl mr-2 hover:"
-                    style={{
-                      backgroundColor: "rgb(213,190,198)",
-                      borderColor: "rgb(213,190,198)",
-                    }}
-                  >
-                    <span className="flex leading-6 m-auto">
-                      <img
-                        src="images/download.svg"
-                        alt="download"
-                        className="w-7"
-                      />
-                      <span className="items-center text-white text-xl font-medium leading-9">
-                        Download
-                      </span>
-                    </span>
-                  </button>
-                </a>
-                <Share resultImage={img.image_url}></Share>
-              </div>
-            </div>
-          ))}
+                <span className="flex leading-6 m-auto">
+                  <img
+                    src="images/download.svg"
+                    alt="download"
+                    className="w-7"
+                  />
+                  <span className="items-center text-white text-xl font-medium leading-9">
+                    Download
+                  </span>
+                </span>
+              </button>
+            </a>
+            <Share resultImage={image_url}></Share>
+          </div>
+        </div>
+
         {/* <span className="flex relative -translate-x-52 -translate-y-1/2">
         <button>
           <img src="images/speechbubble.svg" alt="speechbubble" />
