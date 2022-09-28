@@ -84,23 +84,11 @@ class Style(BaseModel):
         style = str(self.style)
         return style
 
-
-class SpeechBubble(BaseModel):
-    speech_bubble = models.AutoField(primary_key=True)  # pk
-    text = models.CharField(max_length=10, null=True)
-
-    def __str__(self):
-        speech_bubble = str(self.speech_bubble)
-        return speech_bubble
-
-
 class ResultImage(BaseModel):
     result_id = models.AutoField(primary_key=True)  # pk
     origin_id = models.OneToOneField(OriginImage, on_delete=models.CASCADE, null=False)  # 1:1 관계
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=False)  # fk
     style = models.ForeignKey(Style, on_delete=models.CASCADE, null=False)  # fk
-    speech_bubble = models.ForeignKey(SpeechBubble, on_delete=models.CASCADE, null=True)  # fk
-    # text = models.ForeignKey(SpeechBubble, on_delete=models.CASCADE, null=True)  # fk
     background = models.IntegerField(null=False, default='')
     is_converted = models.BooleanField(null=False, default=False)
     is_deleted = models.BooleanField(null=False, default=False)

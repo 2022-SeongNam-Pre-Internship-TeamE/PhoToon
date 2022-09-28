@@ -21,6 +21,7 @@ export default function Background() {
     let background = localStorage.getItem('background');
     let email = localStorage.getItem('email');
     let user_id = localStorage.getItem('user_id');
+    let origin_id = localStorage.getItem('origin_id');
 
 
     let image_url = 'https://photoon-bucket.s3.ap-northeast-2.amazonaws.com/'+email+'/result/'+uuid+'.jpg';
@@ -30,24 +31,9 @@ export default function Background() {
     formData.append('style', style)
     formData.append('background', background)
     formData.append('user_id', user_id)
-    formData.append('origin_id', 3)
-    formData.append('speech_bubble', text)
+    formData.append('origin_id', origin_id)
     formData.append('image_url', image_url)
-
-    
-    axios
-      .post('http://127.0.0.1:8000/api/v1/results/', formData,
-      )
-      .then(response => {
-        // Handle success.
-        console.log('만화 선택 옵션', response.data.style);
-        console.log('배경 선택 옵션', response.data.background);
-      })
-      .catch(error => {
-        // Handle error.
-        console.log('An error occurred:', error.response);
-      });
-    
+    formData.append('uuid',uuid)
     
     const data = {
       email: email,
@@ -63,9 +49,23 @@ export default function Background() {
       .post("http://127.0.0.1:8000/api/v1/style_transfer", data)
       .then(function (response) {
         console.log(response);
+        formData.append('is_converted',response.data.is_converted)
       })
       .catch(function (error) {
         console.log(error);
+      });
+
+    axios
+      .post('http://127.0.0.1:8000/api/v1/results/', formData,
+      )
+      .then(response => {
+        // Handle success.
+        console.log('만화 선택 옵션', response.data.style);
+        console.log('배경 선택 옵션', response.data.background);
+      })
+      .catch(error => {
+        // Handle error.
+        console.log('An error occurred:', error.response);
       });
 
   };

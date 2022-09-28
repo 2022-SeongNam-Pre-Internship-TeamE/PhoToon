@@ -99,35 +99,43 @@ export default function Start() {
     // localStorage.setItem('background',background);
     //#######################
 
-    const data = {
+    const s3data = {
       email: email,
       condition: "origin",
       uuid: uuid,
       image: arr,
       shape: tensor.shape,
       text: text,
-      // style: 3,
-      // background : 3,
 
     };
 
+    const originsdata = {
+      user_id : localStorage.getItem('user_id'),
+      image_url : 'https://photoon-bucket.s3.ap-northeast-2.amazonaws.com/'+email+'/origin/'+uuid+'.jpg',
+      uuid : uuid
+    }
+
+    console.log("유저 id:",localStorage.getItem('user_id'));
 
     axios
-      .post("http://127.0.0.1:8000/api/v1/s3", data)
+      .post("http://127.0.0.1:8000/api/v1/s3", s3data)
       .then(function (response) {
         console.log(response);
       })
       .catch(function (error) {
         console.log(error);
       });
-    // axios
-    //   .post("http://127.0.0.1:8000/api/v1/style_transfer", data)
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+    
+
+    axios
+      .post("http://127.0.0.1:8000/api/v1/origins/", originsdata)
+      .then(function (response) {
+        console.log(response);
+        localStorage.setItem('origin_id',response.data.origin_id);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const changeHandler = (checked, id) => {

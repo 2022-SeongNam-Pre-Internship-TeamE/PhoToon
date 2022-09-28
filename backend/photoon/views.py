@@ -51,18 +51,19 @@ def TransferAPIView(request):
 
     if request.method == 'POST':
         
-        result = photoon_ai_execute.delay(email, image, style, background, uuid, text)
-        print(result.result)
+        result = photoon_ai_execute(email, image, style, background, uuid, text)
+        # print(result.result)
 
-        while True:
-            if result.ready()==False:
-                time.sleep(5)
-                continue
-            else:
-                print(result.result)
-                return Response({
-                    "result" : "성공"
-                }, status=status.HTTP_201_CREATED)
+        # while True:
+        #     if result.ready()==False:
+        #         time.sleep(5)
+        #         continue
+        #     else:
+                # print(result.result)
+        return Response({
+            "result" : result,
+            "is_converted" : True
+        }, status=status.HTTP_201_CREATED)
                 
         
 
@@ -258,8 +259,4 @@ class StyleViewset(viewsets.ModelViewSet):
     queryset = Style.objects.all()
     serializer_class = StyleSerializer
 
-
-class SpeechViewset(viewsets.ModelViewSet):
-    queryset = SpeechBubble.objects.all()
-    serializer_class = SpeechSerializer
 
