@@ -4,7 +4,7 @@ version: "3"
 
 services: 
 
-  frontend:
+  photoon_frontend:
     build: ./frontend
     command: ["npm", "start"]
     container_name: photoon_frontend
@@ -18,7 +18,7 @@ services:
       - ./frontend:/frontend
     tty: true
 
-  backend:
+  photoon_backend:
     build:
     # context : 현재 폴더의 backend 폴더에 있는 도커파일을 쓰겠다.
       context: ./backend
