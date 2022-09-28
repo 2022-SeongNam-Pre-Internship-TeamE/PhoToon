@@ -85,29 +85,31 @@ export default function Start() {
     const tensor = tf.browser.fromPixels(croppedImage).asType('float32');
     const values = tensor.dataSync();
     const arr = Array.from(values)
+
+
+    // 다음 페이지로 값 전달
+    // let style = 3;
+    // let background = 3;
+    let email = localStorage.getItem('email');
+
+    //localStorage.setItem('email',email)
+    localStorage.setItem('uuid',uuid);
+    localStorage.setItem('text',text);
+    // localStorage.setItem('style',style);
+    // localStorage.setItem('background',background);
+    //#######################
+
     const data = {
-      email: "test@naver.com",
+      email: email,
       condition: "origin",
       uuid: uuid,
       image: arr,
       shape: tensor.shape,
       text: text,
-      style: 3,
-      background : 3,
+      // style: 3,
+      // background : 3,
 
     };
-
-    // 다음 페이지로 값 전달
-    let style = 3;
-    let background = 3;
-    let email = "test@naver.com"
-    
-    localStorage.setItem('email',email)
-    localStorage.setItem('uuid',uuid);
-    localStorage.setItem('text',text);
-    localStorage.setItem('style',style);
-    localStorage.setItem('background',background);
-    //#######################
 
 
     axios

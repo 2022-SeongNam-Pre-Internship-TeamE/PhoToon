@@ -24,8 +24,15 @@ axios
   .then(response => {
     // Handle success.
     console.log('로그인 완료');
+    console.log('email:',email);
     console.log('User token', response.data.jwt);
+    console.log('User profile', response.data.user);
+    console.log("사랑");
+    console.log(response.data.user.id);
+    
+    localStorage.setItem('email',email);
     localStorage.setItem("token" , response.data.jwt);
+    localStorage.setItem('user_id',response.data.user.id);
   })
   .catch(error => {
     // Handle error.

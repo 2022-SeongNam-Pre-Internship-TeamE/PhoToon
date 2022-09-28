@@ -2,7 +2,7 @@ import React from "react";
 import MoveButton from "../components/MoveButton";
 import UserPageButton from "../components/UserPageButton";
 import style from "./MainPage.module.css";
-import CartoonOptions from "../components/BackgroundOptions";
+import BackgroundOptions from "../components/BackgroundOptions";
 import axios from "axios";
 
 export default function Background() {
@@ -18,11 +18,39 @@ export default function Background() {
     let uuid = localStorage.getItem('uuid');
     let text = localStorage.getItem('text');
     let style = localStorage.getItem('style');
-    let background = localStorage.getItem('background')
+    let background = localStorage.getItem('background');
+    let email = localStorage.getItem('email');
+    let user_id = localStorage.getItem('user_id');
+
+
+    let image_url = 'https://photoon-bucket.s3.ap-northeast-2.amazonaws.com/'+email+'/result/'+uuid+'.jpg';
+    localStorage.setItem('image_url',image_url);
+
+    const formData = new FormData()
+    formData.append('style', style)
+    formData.append('background', background)
+    formData.append('user_id', user_id)
+    formData.append('origin_id', 3)
+    formData.append('speech_bubble', text)
+    formData.append('image_url', image_url)
 
     
+    axios
+      .post('http://127.0.0.1:8000/api/v1/results/', formData,
+      )
+      .then(response => {
+        // Handle success.
+        console.log('만화 선택 옵션', response.data.style);
+        console.log('배경 선택 옵션', response.data.background);
+      })
+      .catch(error => {
+        // Handle error.
+        console.log('An error occurred:', error.response);
+      });
+    
+    
     const data = {
-      email: "test@naver.com",
+      email: email,
       condition: "origin",
       uuid: uuid,
       text: text,
@@ -39,6 +67,7 @@ export default function Background() {
       .catch(function (error) {
         console.log(error);
       });
+
   };
 
 
@@ -50,7 +79,7 @@ export default function Background() {
         </div>
         <UserPageButton className="float-left" />
       </div>
-      <CartoonOptions></CartoonOptions>
+      <BackgroundOptions></BackgroundOptions>
       <MoveButton
         url1="/choicecartoon"
         url2="/result"

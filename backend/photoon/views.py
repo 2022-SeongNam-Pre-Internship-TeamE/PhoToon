@@ -58,6 +58,8 @@ def TransferAPIView(request):
 class RegisterAPIView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
+        print("자장면")
+        print(serializer)
         if serializer.is_valid():
             user = serializer.save()
 
