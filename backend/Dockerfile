@@ -35,7 +35,6 @@ RUN cmake --build .
 WORKDIR /backend/ai_model/dlib
 RUN python3 setup.py install
 
-# face-recognition
 RUN pip install face-recognition==1.3.0
 
 # wait-for 적용

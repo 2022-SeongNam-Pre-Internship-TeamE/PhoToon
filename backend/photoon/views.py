@@ -1,4 +1,6 @@
-from ai_model.photoon_ai_execute import ai_execute
+import time
+from turtle import delay
+from ai_model.photoon_ai_execute import photoon_ai_execute
 from s3bucket.s3_upload import s3_upload
 from s3bucket.s3_connection import s3_connection
 from config.settings import *
@@ -45,14 +47,23 @@ def TransferAPIView(request):
 
         image = image.astype('uint8')
     except Exception as e:
-        image = None;
+        image = None
 
     if request.method == 'POST':
         
-        img_byte, style, background, is_converted, result_url = ai_execute(email, image, style, background, uuid,text)
-        return Response({
-            'datas':'성공!!!',
-        }, status=status.HTTP_201_CREATED)
+        result = photoon_ai_execute.delay(email, image, style, background, uuid, text)
+        print(result.result)
+
+        while True:
+            if result.ready()==False:
+                time.sleep(5)
+                continue
+            else:
+                print(result.result)
+                return Response({
+                    "result" : "성공"
+                }, status=status.HTTP_201_CREATED)
+                
         
 
 class RegisterAPIView(APIView):

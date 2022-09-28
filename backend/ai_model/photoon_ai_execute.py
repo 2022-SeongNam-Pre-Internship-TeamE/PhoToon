@@ -8,8 +8,10 @@ from .ai_init import *
 from .ai_sub_module import get_prediction, patch_bubble
 import face_recognition
 from PIL import Image
+from config.celery import *
 
-def ai_execute(email, origin_image, style, background, uuid, text):
+@app.task(name="photoon_ai_execute")
+def photoon_ai_execute(email, origin_image, style, background, uuid, text):
     """
     style: 만화 선택: 1,2,3 : 1: 신카이마코토, 2:미야자키, 3:웹툰
     background: 배경선택 여부 : 1,2,3 : 1: 인물만, 2: 배경만, 3: 둘다.
@@ -136,7 +138,7 @@ def ai_execute(email, origin_image, style, background, uuid, text):
     result_url = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_REGION}.amazonaws.com/{s3_url}'
     
 
-    return (result_image, style, background, is_converted, result_url)
+    return result_url
 
 
 
