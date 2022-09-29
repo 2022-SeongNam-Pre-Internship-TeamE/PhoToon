@@ -6,9 +6,9 @@ export default function CartoonOptions() {
   // x setX
   const [background, setBackground] = useState([]);
   const backgroundsKind = [
-    { name: "1", img: "images/ice-2.jpg" },
-    { name: "2", img: "images/ice-2.jpg" },
-    { name: "3", img: "images/ice-2.jpg" },
+    { name: "1", img: "images/spongebob1.png" },
+    { name: "2", img: "images/spongebob2.png" },
+    { name: "3", img: "images/spongebob3.png" },
   ];
 
   const handleClickRadioButton = (e) => {
