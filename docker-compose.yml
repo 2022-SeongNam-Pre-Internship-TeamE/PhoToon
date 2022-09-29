@@ -101,8 +101,8 @@ services:
       - ./backend:/backend
     networks:
       - photoon
-    command: "celery -A config.celery worker --loglevel=info"
-
+    command: "celery -A config.celery worker --loglevel=info --pool=solo"
+    
 networks:
   photoon:
     driver: bridge
