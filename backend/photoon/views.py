@@ -81,10 +81,10 @@ def TransferAPIView(request):
             else:
                 print(result.result)
                 print(result.ready())
-                print(result.Traceback)
+                # print(result.Traceback)
                 print("야후")
                 return Response({
-                    "result" : "성공"
+                    "is_converted" : True
                 }, status=status.HTTP_201_CREATED)
                 
         
