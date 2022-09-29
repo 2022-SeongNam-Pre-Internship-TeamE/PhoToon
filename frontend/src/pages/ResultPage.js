@@ -8,7 +8,7 @@ import Loading from "../components/Loading";
 export default function Result() {
   const [result, setResult] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  let image_url = localStorage.getItem("image_url");
+  let image_url = sessionStorage.getItem("image_url");
   console.log(image_url);
   useEffect(() => {
     axios

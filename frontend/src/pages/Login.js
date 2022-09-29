@@ -30,9 +30,9 @@ axios
     console.log("사랑");
     console.log(response.data.user.id);
     
-    localStorage.setItem('email',email);
-    localStorage.setItem("token" , response.data.jwt);
-    localStorage.setItem('user_id',response.data.user.id);
+    sessionStorage.setItem('email',email);
+    sessionStorage.setItem("token" , response.data.jwt);
+    sessionStorage.setItem('user_id',response.data.user.id);
   })
   .catch(error => {
     // Handle error.

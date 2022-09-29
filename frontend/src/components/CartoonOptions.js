@@ -16,16 +16,15 @@ export default function CartoonOptions() {
   const handleClickRadioButton = (e) => {
     console.log(e.target.value);
     setStyle(e.target.value);
-    localStorage.setItem('style',e.target.value);
+    sessionStorage.setItem('style',e.target.value);
   };
 
   console.log("드래곤");
-  if(localStorage.getItem('uuid')){
-    console.log(localStorage.getItem('email'));
-    console.log(localStorage.getItem('uuid'));
-    console.log(localStorage.getItem('text'));
-    console.log(localStorage.getItem('style'));
-    console.log(localStorage.getItem('background'));
+  if(sessionStorage.getItem('uuid')){
+    console.log(sessionStorage.getItem('email'));
+    console.log(sessionStorage.getItem('uuid'));
+    console.log(sessionStorage.getItem('text'));
+    console.log(sessionStorage.getItem('style'));
   }
 
 

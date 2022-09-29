@@ -90,11 +90,10 @@ export default function Start() {
     // 다음 페이지로 값 전달
     // let style = 3;
     // let background = 3;
-    let email = localStorage.getItem('email');
-
+    let email = sessionStorage.getItem('email');
     //localStorage.setItem('email',email)
-    localStorage.setItem('uuid',uuid);
-    localStorage.setItem('text',text);
+    sessionStorage.setItem('uuid',uuid);
+    sessionStorage.setItem('text',text);
     // localStorage.setItem('style',style);
     // localStorage.setItem('background',background);
     //#######################
@@ -110,12 +109,12 @@ export default function Start() {
     };
 
     const originsdata = {
-      user_id : localStorage.getItem('user_id'),
+      user_id : sessionStorage.getItem('user_id'),
       image_url : 'https://photoon-bucket.s3.ap-northeast-2.amazonaws.com/'+email+'/origin/'+uuid+'.jpg',
       uuid : uuid
     }
 
-    console.log("유저 id:",localStorage.getItem('user_id'));
+    console.log("유저 id:",sessionStorage.getItem('user_id'));
 
     axios
       .post("http://127.0.0.1:8000/api/v1/s3", s3data)
@@ -131,7 +130,7 @@ export default function Start() {
       .post("http://127.0.0.1:8000/api/v1/origins/", originsdata)
       .then(function (response) {
         console.log(response);
-        localStorage.setItem('origin_id',response.data.origin_id);
+        sessionStorage.setItem('origin_id',response.data.origin_id);
       })
       .catch(function (error) {
         console.log(error);

@@ -23,7 +23,7 @@ export default function Join() {
     console.log('회원가입 완료!');
     console.log('User profile', response.data.user);
     console.log('User token', response.data.jwt);
-    localStorage.setItem('token', response.data.jwt);
+    sessionStorage.setItem('token', response.data.jwt);
     navigate("/login");
   })
   .catch(error => {

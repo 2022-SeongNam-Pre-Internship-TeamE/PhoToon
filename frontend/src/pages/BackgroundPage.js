@@ -7,25 +7,25 @@ import axios from "axios";
 
 export default function Background() {
   console.log("드래곤 볼 맨2");
-  if(localStorage.getItem('uuid')){
-    console.log(localStorage.getItem('uuid'));
-    console.log(localStorage.getItem('text'));
-    console.log(localStorage.getItem('style'));
-    console.log(localStorage.getItem('background'));
+  if(sessionStorage.getItem('uuid')){
+    console.log(sessionStorage.getItem('uuid'));
+    console.log(sessionStorage.getItem('text'));
+    console.log(sessionStorage.getItem('style'));
+    console.log(sessionStorage.getItem('background'));
   }
   
   const uploadImg = () => {
-    let uuid = localStorage.getItem('uuid');
-    let text = localStorage.getItem('text');
-    let style = localStorage.getItem('style');
-    let background = localStorage.getItem('background');
-    let email = localStorage.getItem('email');
-    let user_id = localStorage.getItem('user_id');
-    let origin_id = localStorage.getItem('origin_id');
+    let uuid = sessionStorage.getItem('uuid');
+    let text = sessionStorage.getItem('text');
+    let style = sessionStorage.getItem('style');
+    let background = sessionStorage.getItem('background');
+    let email = sessionStorage.getItem('email');
+    let user_id = sessionStorage.getItem('user_id');
+    let origin_id = sessionStorage.getItem('origin_id');
 
 
     let image_url = 'https://photoon-bucket.s3.ap-northeast-2.amazonaws.com/'+email+'/result/'+uuid+'.jpg';
-    localStorage.setItem('image_url',image_url);
+    sessionStorage.setItem('image_url',image_url);
 
     const formData = new FormData()
     formData.append('style', style)
