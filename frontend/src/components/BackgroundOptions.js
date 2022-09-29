@@ -14,7 +14,7 @@ export default function CartoonOptions() {
   const handleClickRadioButton = (e) => {
     console.log(e.target.value);
     setBackground(e.target.value);
-    localStorage.setItem('background',e.target.value);
+    sessionStorage.setItem('background',e.target.value);
   };
 
   return (

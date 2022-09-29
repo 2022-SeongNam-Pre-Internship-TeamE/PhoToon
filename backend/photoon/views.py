@@ -51,6 +51,7 @@ def TransferAPIView(request):
 
     if request.method == 'POST':
         
+        """
         result = photoon_ai_execute(email, image, style, background, uuid, text)
         # print(result.result)
 
@@ -64,6 +65,27 @@ def TransferAPIView(request):
             "result" : result,
             "is_converted" : True
         }, status=status.HTTP_201_CREATED)
+        """
+
+        print("각시탈")
+        result = photoon_ai_execute.delay(email, image, style, background, uuid, text)
+        print(result)
+        print(result.result)
+        print("에멘")
+
+        while True:
+            if result.ready()==False:
+                time.sleep(5)
+                print("야")
+                continue
+            else:
+                print(result.result)
+                print(result.ready())
+                print(result.Traceback)
+                print("야후")
+                return Response({
+                    "result" : "성공"
+                }, status=status.HTTP_201_CREATED)
                 
         
 
