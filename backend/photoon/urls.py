@@ -25,7 +25,6 @@ router = routers.DefaultRouter()
 router.register(r'origins', OriginViewset)
 router.register(r'results', ResultViewset)
 router.register(r'styles', StyleViewset)
-router.register(r'speech-bubbles', SpeechViewset)
 router.register(r'users', UserViewSet) # header에 Authorize : Bearer <access 토큰> ### 테스트용
 
 # postman으로 router에 있는 것을 테스트할 때 '/' 유무 안 중요함
@@ -38,7 +37,7 @@ urlpatterns = [
 
     path("s3", S3APIView),
 
-    path("style_transfer", TransferAPIView),
+    path("style_transfer", TransferAPIView.as_view()),
 
     # drf-yasg
     path('swagger<str:format>', schema_view.without_ui(cache_timeout=0), name='schema-json'),

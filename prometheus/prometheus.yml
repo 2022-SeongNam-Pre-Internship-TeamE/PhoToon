@@ -1,0 +1,18 @@
+global:
+  # 프로젝트에서 내보내는 데이터의 스크래핑 및 평가 빈도를 지정
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+scrape_configs:
+# 데이터를 스크랩할 위치를 나타내는 scrape_config
+  - job_name: 'backend'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: 
+        - backend:8000
+    
+  - job_name: 'cadvisor'
+    scrape_interval: 5s
+    static_configs:
+      - targets: 
+        - cadvisor:8080

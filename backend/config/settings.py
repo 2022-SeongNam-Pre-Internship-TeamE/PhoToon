@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'storages', # S3
     'django_prometheus',
+    'django_celery_results',
     
 ]
 

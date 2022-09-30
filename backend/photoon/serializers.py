@@ -29,8 +29,3 @@ class StyleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Style
         fields = '__all__'
-
-class SpeechSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SpeechBubble
-        fields = '__all__'

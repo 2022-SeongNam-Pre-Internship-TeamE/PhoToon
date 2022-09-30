@@ -1,6 +1,7 @@
 # pull official base image
 # 우분투
 FROM python:3.8.3
+#FROM python:3.10-slim-bullseye
 USER root 
 # environment 환경변수 지정, 컨테이너 안에서 실행중일 때 사용가능
 # ex) django의 settings.py에서 secret_key = os.getenv('SECRET_KEY', 'foo')
@@ -34,6 +35,8 @@ RUN cmake ..
 RUN cmake --build .
 WORKDIR /backend/ai_model/dlib
 RUN python3 setup.py install
+
+RUN pip install face-recognition==1.3.0
 
 # wait-for 적용
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.9.0/wait /wait

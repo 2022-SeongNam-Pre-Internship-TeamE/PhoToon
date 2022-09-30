@@ -8,7 +8,7 @@ services:
     build: ./frontend
     command: ["npm", "start"]
   
-    container_name: photoon_frontend
+    container_name: frontend
     ports:
       - 3000:3000
     volumes:
@@ -26,7 +26,7 @@ services:
       - photoon
 
   backend:
-    container_name: photoon_backend
+    container_name: backend
     build:
     # context : 현재 폴더의 backend 폴더에 있는 도커파일을 쓰겠다.
       context: ./backend
@@ -51,29 +51,69 @@ services:
       - ./backend:/backend
       - static_volume:/backend/staticfiles
     depends_on:
-      - photoon_mysql
+      - mysql
     expose:
       - 8000
     # 가상 네트워크 연결
     networks:
       - photoon
 
-  photoon_mysql:
-    image: mysql
-    command: --lower_case_table_names=1
-    container_name: photoon_mysql # 컨테이너 이름 설정
-    ports:
-      - "3306:3306"
+  # mysql:
+  #   image: mysql
+  #   command: --lower_case_table_names=1
+  #   container_name: mysql # 컨테이너 이름 설정
+  #   ports:
+  #     - "3306:3306"
+  #   env_file:
+  #     - ./backend/.env
+  #   # environment: # -e 옵션
+  #   #   - MYSQL_DATABASE=${MYSQL_DATABASE}
+  #   #   # - MYSQL_USER=${MYSQL_USER}
+  #   #   - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}  # MYSQL 패스워드 설정 옵션
+  #   #   - TZ=${TZ}
+  #   # 가상 네트워크 연결
+  #   networks:
+  #     - photoon
+
+  rabbitmq:
+    hostname: photoon_host
+    container_name: rabbitmq
+    image: rabbitmq:3-management
+    command: rabbitmq-server
+    restart: unless-stopped
     env_file:
-      - ./backend/.env
-    # environment: # -e 옵션
-    #   - MYSQL_DATABASE=${MYSQL_DATABASE}
-    #   # - MYSQL_USER=${MYSQL_USER}
-    #   - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}  # MYSQL 패스워드 설정 옵션
-    #   - TZ=${TZ}
-    # 가상 네트워크 연결
+      - ./.env
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
+      - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_VHOST}
+    ports:
+      - 5672:5672 # Default Port
+      - 15672:15672 # For UI
+    volumes:
+      - ./backend:/backend
     networks:
       - photoon
+    depends_on:
+      - backend
+    expose:
+      - "15672"
+
+  celery:
+    container_name: celery
+    build:
+      context: ./backend
+    restart: unless-stopped
+#    env_file:
+#      - ./.env
+    depends_on:
+      - backend
+      - rabbitmq
+    volumes:
+      - ./backend:/backend
+    networks:
+      - photoon
+    command: "celery -A config.celery worker --loglevel=info --pool=solo"
 
   
   nginx:
@@ -95,8 +135,16 @@ services:
   prometheus:
     image: prom/prometheus:latest
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    container_name: photoon_prometheus
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    container_name: prometheus
     ports:
       - 9090:9090
     # 가상 네트워크 연결
@@ -106,12 +154,42 @@ services:
 
   grafana:
     image: grafana/grafana
-    container_name: photoon_grafana
+    container_name: grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
     ports:
-      - 3001:3001
+      - 3001:3000
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
     depends_on:
       - prometheus
     # 가상 네트워크 연결
+    expose:
+      - 3001
+    networks:
+      - photoon
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.45.0
+    container_name: cadvisor
+    privileged: true
+    devices:
+      - /dev/kmsg:/dev/kmsg
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+      - /etc/machine-id:/etc/machine-id:ro
+      - /var/lib/dbus/machine-id:/var/lib/dbus/machine-id:ro
+      #- /cgroup:/cgroup:ro #doesn't work on MacOS only for Linux
+    restart: unless-stopped
+    expose:
+      - 8080
     networks:
       - photoon
 

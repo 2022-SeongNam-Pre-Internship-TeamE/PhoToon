@@ -73,11 +73,12 @@
   }
 }
 .txt {
+  font-family: font;
   position: absolute;
-  top: 95%;
-  left: 50%;
+  top: -8%;
+  left: 20%;
   transform: translate(-50%, -20%);
-  font-size: 1.5vw;
-  color: white;
-  font-weight: 500;
+  font-size: 0.8vw;
+  color: dfdfdf;
+  font-weight: 1000;
 }

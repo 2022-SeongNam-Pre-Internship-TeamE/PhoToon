@@ -66,7 +66,7 @@ export default function Start() {
 
       let ctx = canvas.getContext("2d");
       ctx.putImageData(croppedImage, 0, 0);
-      setURLImage(canvas.toDataURL())
+      setURLImage(canvas.toDataURL());
 
       setCroppedImage(croppedImage);
     } catch (e) {
@@ -78,42 +78,60 @@ export default function Start() {
     setCroppedImage(null);
   }, []);
 
-  console.log(uuid);
-
+  //console.log(uuid);
 
   const uploadImg = () => {
-    
-    const tensor = tf.browser.fromPixels(croppedImage).asType('float32');
+    const tensor = tf.browser.fromPixels(croppedImage).asType("float32");
     const values = tensor.dataSync();
-    const arr = Array.from(values)
-    const data = {
-      email: "test@naver.com",
+    const arr = Array.from(values);
+
+    // 다음 페이지로 값 전달
+    // let style = 3;
+    // let background = 3;
+    let email = sessionStorage.getItem("email");
+    //localStorage.setItem('email',email)
+    sessionStorage.setItem("uuid", uuid);
+    sessionStorage.setItem("text", text);
+    // localStorage.setItem('style',style);
+    // localStorage.setItem('background',background);
+    //#######################
+
+    const s3data = {
+      email: email,
       condition: "origin",
       uuid: uuid,
       image: arr,
       shape: tensor.shape,
       text: text,
-      // style: 1,
-      // background : 1,
-
     };
 
+    const originsdata = {
+      user_id: sessionStorage.getItem("user_id"),
+      image_url:
+        process.env.REACT_APP_IMAGE_URL + email + "/origin/" + uuid + ".jpg",
+      uuid: uuid,
+    };
+
+    console.log("유저 id:", sessionStorage.getItem("user_id"));
+
     axios
-      .post("http://127.0.0.1:8000/api/v1/s3", data)
+      .post("http://127.0.0.1:8000/api/v1/s3", s3data)
       .then(function (response) {
         console.log(response);
       })
       .catch(function (error) {
         console.log(error);
       });
-    // axios
-    //   .post("http://127.0.0.1:8000/api/v1/style_transfer", data)
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+
+    axios
+      .post("http://127.0.0.1:8000/api/v1/origins/", originsdata)
+      .then(function (response) {
+        console.log(response);
+        sessionStorage.setItem("origin_id", response.data.origin_id);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const changeHandler = (checked, id) => {
@@ -221,7 +239,6 @@ export default function Start() {
             <div className="cropped-image-container">
               {image_url && croppedImage && (
                 <img className="cropped-image" src={image_url} alt="cropped" />
-
               )}
               {image_url && croppedImage && (
                 <div className="flex justify-center">
