@@ -4,7 +4,7 @@
 <hr>
 
 ## 1. System Architecture
-![image](https://user-images.githubusercontent.com/70627982/192965644-cfb74b42-e7f9-4d49-903a-eb0e1a8945a1.png)
+![image](https://user-images.githubusercontent.com/70627982/193271388-0d63f839-09d1-485c-af35-e7e94f6c19e0.png)
 
 <hr>
 
@@ -145,6 +145,8 @@
         </td>
         <td width="150" align="center">
             AI<br>
+            frontend<br>
+            backend<br>
         </td>
     </tr>
     <tr>
