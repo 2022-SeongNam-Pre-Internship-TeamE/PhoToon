@@ -83,7 +83,7 @@ AWS_S3_SECRET_ACCESS_KEY=''
 AWS_STORAGE_BUCKET_NAME=''
 
 ## RDS 연동 시 하단 부분은 필요없습니다.
-## Mysql 컨테이너 연동 시 필요합니다.
+## Mysql 컨테이너 연동 시 하단 부분 작성하고 docker-compose.prod.yml 파일에서 mysql 컨테이너 부분 주석 해제해야합니다.
 MYSQL_DATABASE=
 MYSQL_ROOT_PASSWORD=  
 TZ=Asia/Seoul
