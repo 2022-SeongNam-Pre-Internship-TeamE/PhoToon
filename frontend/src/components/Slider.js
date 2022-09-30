@@ -8,20 +8,20 @@ export default function Slider() {
         <div className="icon-cards__content">
           <div className="icon-cards__item">
             <span>
-              <Slide img="images/uploadguide.gif" />
+              <Slide img="images/guide1.gif" />
               <div className="txt">1. 사진 업로드하기</div>
             </span>
           </div>
           <div className="icon-cards__item">
             <span>
-              <Slide img="images/optionguide.gif" />
-              <div className="txt">2. 옵션 선택하기</div>
+              <Slide img="images/guide2.gif" />
+              <div className="txt">2. 말풍선 추가하기</div>
             </span>
           </div>
           <div className="icon-cards__item">
             <span>
-              <Slide img="images/giphy.gif" />
-              <div className="txt">3. 말풍선 추가하기</div>
+              <Slide img="images/guide3.gif" />
+              <div className="txt">3. 옵션 선택하기</div>
             </span>
           </div>
         </div>
