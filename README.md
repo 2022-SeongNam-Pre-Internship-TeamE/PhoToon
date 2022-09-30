@@ -142,31 +142,45 @@ docker-compose -f docker-compose.prod.yml up —build
 
 <hr>
 
+
 ## 6. Demo
 <table  style="text-align: center; width=950px">
     <tbody>
         <tr>
+          <th style="text-align: center;">메인 화면</th>
+          <th style="text-align: center;">로그인</th>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <th><img src="https://user-images.githubusercontent.com/70627982/193301713-d92f57bf-fe98-4e07-9e04-67b81e2c770a.gif"  width="450px" height="450px"/></th>
+          <th><img src="https://user-images.githubusercontent.com/70627982/193300976-777f7438-ba12-409f-8629-e552ed661e6e.png"  width="450px" height="450px"/></th>
+        </tr>
+      </tbody>
+      <tbody>
+      <tr>
           <th style="text-align: center;">이미지 업로드 & 크롭</th>
-          <th style="text-align: center;">말풍선 추가</th>
+          <th style="text-align: center;">말풍선 입력</th>
         </tr>
       </tbody>
       <tbody>
         <tr>
-          <th><img src="https://user-images.githubusercontent.com/70627982/193268436-395ec5f8-b6ee-4069-9693-d61944817a79.gif"  width="450px" height="450px"/></th>
-          <th><img src="https://user-images.githubusercontent.com/70627982/193268465-e5a69c77-72a5-4a58-8f86-af2bf91f2090.gif"  width="450px" height="450px"/></th>
+          <th><img src="https://user-images.githubusercontent.com/70627982/193301350-85228039-79d2-4823-a711-d5e893e59560.gif"  width="450px" height="450px"/></th>
+          <th><img src="https://user-images.githubusercontent.com/70627982/193301447-420b1fc1-88c0-4774-a940-1f006dfed809.gif"  width="450px" height="450px"/></th>
         </tr>
       </tbody>
-      <!-- <tr>
-          <th style="text-align: center;">스타일 & 배경 선택</th>
-          <th style="text-align: center;">없음</th>
+      <tbody>
+      <tr>
+          <th style="text-align: center;">옵션 선택</th>
+          <th style="text-align: center;">결과 이미지</th>
         </tr>
       </tbody>
       <tbody>
         <tr>
-          <th><img src="https://user-images.githubusercontent.com/70627982/193268436-395ec5f8-b6ee-4069-9693-d61944817a79.gif"  width="450px" height="450px"/></th>
-          <th><img src="https://user-images.githubusercontent.com/70627982/193268465-e5a69c77-72a5-4a58-8f86-af2bf91f2090.gif"  width="450px" height="450px"/></th>
+          <th><img src="https://user-images.githubusercontent.com/70627982/193304079-7c868028-7279-4c83-b076-46f6c71bb4a6.gif"  width="450px" height="450px"/></th>
+          <th><img src="https://user-images.githubusercontent.com/70627982/193304484-e86654b5-338e-449f-802e-0a4348a6618f.png"  width="450px" height="450px"/></th>
         </tr>
-      </tbody> -->
+      </tbody>
     </table>
 
 <hr>
