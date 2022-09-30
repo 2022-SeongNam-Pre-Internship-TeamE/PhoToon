@@ -282,3 +282,6 @@ docker-compose -f docker-compose.prod.yml up —build
 ## 8. Reference
 
 - [AnimeGan-v2](https://github.com/TachibanaYoshino/AnimeGANv2)
+
+## 9. Copyright
+Distributed under the Apache-2.0 License. See `LICENSE` for more information.
