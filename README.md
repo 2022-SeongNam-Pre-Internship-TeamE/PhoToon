@@ -68,6 +68,13 @@
 
 ## 6. Demo
 
+### 사진 업로드
+![사진업로드](https://user-images.githubusercontent.com/70627982/193268436-395ec5f8-b6ee-4069-9693-d61944817a79.gif)
+
+### 말풍선 추가
+![말풍선추가](https://user-images.githubusercontent.com/70627982/193268465-e5a69c77-72a5-4a58-8f86-af2bf91f2090.gif)
+
+
 <hr>
 
 
