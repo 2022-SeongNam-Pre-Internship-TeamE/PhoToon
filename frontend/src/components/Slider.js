@@ -8,7 +8,11 @@ export default function Slider() {
         <div className="icon-cards__content">
           <div className="icon-cards__item">
             <span>
+              <div style={{
+    width: '400px', 
+}}>
               <Slide img="images/guide1.gif" />
+              </div>
               <div className="txt">1. 사진 업로드하기</div>
             </span>
           </div>
