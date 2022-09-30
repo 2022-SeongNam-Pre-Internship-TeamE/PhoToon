@@ -44,7 +44,7 @@
   visibility: hidden;
 }
 label > input[type="radio"]:checked + img {
-  border: 5px solid rgb(219, 7, 7);
+  border: 8px solid #db8383;
 }
 
 @font-face {
