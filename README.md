@@ -153,7 +153,7 @@ docker-compose -f docker-compose.prod.yml up —build
       </tbody>
       <tbody>
         <tr>
-          <th><img src="https://user-images.githubusercontent.com/70627982/193301713-d92f57bf-fe98-4e07-9e04-67b81e2c770a.gif"  width="350px" height="350px"/></th>
+          <th><img src="https://user-images.githubusercontent.com/70627982/193320309-930c708a-e170-44dd-b6aa-fb3ed0f13316.gif"  width="350px" height="350px"/></th>
           <th><img src="https://user-images.githubusercontent.com/70627982/193300976-777f7438-ba12-409f-8629-e552ed661e6e.png"  width="350px" height="350px"/></th>
         </tr>
       </tbody>
