@@ -110,7 +110,7 @@ export default function Start() {
 
     const originsdata = {
       user_id : sessionStorage.getItem('user_id'),
-      image_url : 'https://photoon-bucket.s3.ap-northeast-2.amazonaws.com/'+email+'/origin/'+uuid+'.jpg',
+      image_url : REACT_APP_IMAGE_URL+email+'/origin/'+uuid+'.jpg',
       uuid : uuid
     }
 

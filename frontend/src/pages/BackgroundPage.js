@@ -24,7 +24,7 @@ export default function Background() {
     let origin_id = sessionStorage.getItem('origin_id');
 
 
-    let image_url = 'https://photoon-bucket.s3.ap-northeast-2.amazonaws.com/'+email+'/result/'+uuid+'.jpg';
+    let image_url = REACT_APP_IMAGE_URL+email+'/result/'+uuid+'.jpg';
     sessionStorage.setItem('image_url',image_url);
 
     const formData = new FormData()
