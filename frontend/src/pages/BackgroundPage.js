@@ -45,15 +45,24 @@ export default function Background() {
 
     };
 
-    axios
-      .post("http://127.0.0.1:8000/api/v1/style_transfer", data)
-      .then(function (response) {
-        console.log(response);
-        formData.append('is_converted',response.data.is_converted)
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    // axios
+    //   .post("http://127.0.0.1:8000/api/v1/style_transfer", data)
+    //   .then(function (response) {
+    //     console.log(response);
+    //     formData.append('is_converted',response.data.is_converted)
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+    // try{
+    //   const response = await axios.post("http://127.0.0.1:8000/api/v1/style_transfer",data);
+      
+    //   console.log(response)
+    //   formData.append('is_converted',response.data.is_converted)
+    // }catch (e) {
+    //   console.log(e);
+    // }
+    
 
     axios
       .post('http://127.0.0.1:8000/api/v1/results/', formData,
