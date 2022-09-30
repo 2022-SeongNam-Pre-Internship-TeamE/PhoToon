@@ -37,7 +37,7 @@ urlpatterns = [
 
     path("s3", S3APIView),
 
-    path("style_transfer", TransferAPIView),
+    path("style_transfer", TransferAPIView.as_view()),
 
     # drf-yasg
     path('swagger<str:format>', schema_view.without_ui(cache_timeout=0), name='schema-json'),

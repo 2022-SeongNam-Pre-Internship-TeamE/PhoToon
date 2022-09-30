@@ -29,63 +29,127 @@ import numpy as np
 import io
 import  os
 
-@csrf_exempt
-@api_view(['POST'])
-def TransferAPIView(request):
-    data = JSONParser().parse(request)
-    email = data['email']
-    uuid = data['uuid']
-    style = data['style']
-    background = data['background']
-    text = data['text']
-
-    try:
-        image = data['image']
-        shape = data['shape']
-        image = np.array(image)
-        image = np.reshape(image,shape)
-
-        image = image.astype('uint8')
-    except Exception as e:
-        image = None
-
-    if request.method == 'POST':
-        
-        """
-        result = photoon_ai_execute(email, image, style, background, uuid, text)
-        # print(result.result)
-
-        # while True:
-        #     if result.ready()==False:
-        #         time.sleep(5)
-        #         continue
-        #     else:
-                # print(result.result)
+class TransferAPIView(APIView):
+    def get(self, request):
+        print("나는 get 이로소이다.")
         return Response({
-            "result" : result,
-            "is_converted" : True
+            "result" : "성공"
         }, status=status.HTTP_201_CREATED)
-        """
 
-        print("각시탈")
-        result = photoon_ai_execute.delay(email, image, style, background, uuid, text)
-        print(result)
-        print(result.result)
-        print("에멘")
+    @csrf_exempt
+    def post(self, request):
+        data = JSONParser().parse(request)
+        email = data['email']
+        uuid = data['uuid']
+        style = data['style']
+        background = data['background']
+        text = data['text']
 
-        while True:
-            if result.ready()==False:
-                time.sleep(5)
-                print("야")
-                continue
-            else:
-                print(result.result)
-                print(result.ready())
-                print(result.Traceback)
-                print("야후")
-                return Response({
-                    "result" : "성공"
-                }, status=status.HTTP_201_CREATED)
+        try:
+            image = data['image']
+            shape = data['shape']
+            image = np.array(image)
+            image = np.reshape(image,shape)
+
+            image = image.astype('uint8')
+        except Exception as e:
+            image = None
+
+        if request.method == 'POST':
+            
+            """
+            result = photoon_ai_execute(email, image, style, background, uuid, text)
+            # print(result.result)
+
+            # while True:
+            #     if result.ready()==False:
+            #         time.sleep(5)
+            #         continue
+            #     else:
+                    # print(result.result)
+            return Response({
+                "result" : result,
+                "is_converted" : True
+            }, status=status.HTTP_201_CREATED)
+            """
+
+            print("각시탈")
+            result = photoon_ai_execute.delay(email, image, style, background, uuid, text)
+            print(result)
+            print(result.result)
+            print("에멘")
+
+            while True:
+                if result.ready()==False:
+                    time.sleep(5)
+                    print("야")
+                    continue
+                else:
+                    print(result.result)
+                    print(result.ready())
+                    #print(result.Traceback)
+                    print("야후")
+                    return Response({
+                        "result" : "성공"
+                    }, status=status.HTTP_201_CREATED)
+
+# @csrf_exempt
+# @api_view(['POST'])
+# def TransferAPIView(request):
+#     data = JSONParser().parse(request)
+#     email = data['email']
+#     uuid = data['uuid']
+#     style = data['style']
+#     background = data['background']
+#     text = data['text']
+
+#     try:
+#         image = data['image']
+#         shape = data['shape']
+#         image = np.array(image)
+#         image = np.reshape(image,shape)
+
+#         image = image.astype('uint8')
+#     except Exception as e:
+#         image = None
+
+#     if request.method == 'POST':
+        
+#         """
+#         result = photoon_ai_execute(email, image, style, background, uuid, text)
+#         # print(result.result)
+
+#         # while True:
+#         #     if result.ready()==False:
+#         #         time.sleep(5)
+#         #         continue
+#         #     else:
+#                 # print(result.result)
+#         return Response({
+#             "result" : result,
+#             "is_converted" : True
+#         }, status=status.HTTP_201_CREATED)
+#         """
+
+#         print("각시탈")
+#         result = photoon_ai_execute.delay(email, image, style, background, uuid, text)
+#         print(result)
+#         print(result.result)
+#         print("에멘")
+
+#         while True:
+#             if result.ready()==False:
+#                 time.sleep(5)
+#                 print("야")
+#                 continue
+#             else:
+#                 print(result.result)
+#                 print(result.ready())
+#                 print(result.Traceback)
+#                 print("야후")
+#                 return Response({
+#                     "result" : "성공"
+#                 }, status=status.HTTP_201_CREATED)
                 
         
 
@@ -100,7 +164,9 @@ class RegisterAPIView(APIView):
             # jwt 토큰 접근
             token = TokenObtainPairSerializer.get_token(user)
             refresh_token = str(token)
+            print(refresh_token)
             access_token = str(token.access_token)
+            print(access_token)
             res = Response(
                 {
                     "user": serializer.data,
@@ -162,6 +228,7 @@ class AuthAPIView(APIView):
     def get(self, request):
         try:
             # access token을 decode 해서 유저 id 추출 => 유저 식별
+            print("카레")
             access = request.COOKIES['access']
             payload = jwt.decode(access, SECRET_KEY, algorithms=['HS256'])
             pk = payload.get('user_id')
@@ -170,6 +237,7 @@ class AuthAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
 
         except(jwt.exceptions.ExpiredSignatureError):
+            print("만두")
             # 토큰 만료 시 토큰 갱신
             data = {'refresh': request.COOKIES.get('refresh', None)}
             serializer = TokenRefreshSerializer(data=data)
@@ -187,14 +255,14 @@ class AuthAPIView(APIView):
             raise jwt.exceptions.InvalidTokenError
             
         except jwt.exceptions.InvalidTokenError:
-
+            print("토마토")
             # 사용 불가능한 토큰일 때
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
     # 로그인
     def post(self, request):
         # 유저 인증
-
+        print("사과")
         user = authenticate(
             email=request.data.get("email"), password=request.data.get("password")
         )
@@ -205,6 +273,9 @@ class AuthAPIView(APIView):
             token = TokenObtainPairSerializer.get_token(user)
             refresh_token = str(token)
             access_token = str(token.access_token)
+
+            print(refresh_token)
+            print(access_token)
             res = Response(
                 {
                     "user": serializer.data,

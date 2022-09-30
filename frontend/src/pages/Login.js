@@ -12,8 +12,10 @@ const navigate = useNavigate();
 
 const checkUser = () => {
   if (email === "" || password === "") {
-    alert("아이디와 비밀번호를 입력해주세요");
-    return;
+    alert("아이디와 비밀번호를 입력해주세요!");
+  }
+  else{
+    navigate("/afterlogin");
   }
 }
 axios
@@ -25,13 +27,13 @@ axios
     // Handle success.
     console.log('로그인 완료');
     console.log('email:',email);
-    console.log('User token', response.data.jwt);
+    console.log('User token', response.data.token);
     console.log('User profile', response.data.user);
     console.log("사랑");
     console.log(response.data.user.id);
     
     sessionStorage.setItem('email',email);
-    sessionStorage.setItem("token" , response.data.jwt);
+    sessionStorage.setItem("token" , response.data.token.access);
     sessionStorage.setItem('user_id',response.data.user.id);
   })
   .catch(error => {
@@ -104,7 +106,7 @@ useEffect(() => {
         placeholder="PASSWORD"  />
         <div onClick={() => {
             checkUser();
-            navigate("/afterlogin");
+            
           }}>
         <div className="flex justify-center items-center">
           
