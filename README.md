@@ -1,10 +1,13 @@
 # Photoon 
-### 사진을 만화 그림체로 변경해주는 서비스
-
+<div align="center">
+사진을 만화 그림체로 변경해주는 서비스 <br>
+만화주인공이 되고싶은 어릴적 <b>꿈</b>을 이루어드리겠습니다.
+</div>
 <hr>
 
 ## 1. System Architecture
 ![image](https://user-images.githubusercontent.com/70627982/193271388-0d63f839-09d1-485c-af35-e7e94f6c19e0.png)
+
 
 <hr>
 
@@ -38,8 +41,81 @@
 <hr>
 
 ## 3. Installation
+>### Clone Repository
+
+```
+git clone https://github.com/2022-SeongNam-Pre-Internship-TeamE/PhoToon
+```
+
+>### Set environment file
+<!-- mask_rcnn.pth 설치여부 -->
+
+
+Path : `/Photoon/backend/config/my_settings.py`  
+Django secrect key & MySQL 환경변수
+```
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+MY_SECRET = {
+    "SECRET_KEY" : ''
+}
+
+MY_DATABASES = {
+    'default': {
+    	'ENGINE': 'django.db.backends.mysql',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': 'mysql',
+        'PORT': '3306',
+     }
+}
+```
+
+Path : `/Photoon/backend/.env`  
+S3 bucket 및 MySQL container 환경변수
+```
+DEBUG=False
+AWS_S3_ACCESS_KEY_ID=''
+AWS_S3_SECRET_ACCESS_KEY=''
+AWS_STORAGE_BUCKET_NAME=''
+
+## RDS 연동 시 하단 부분은 필요없습니다.
+## Mysql 컨테이너 연동 시 필요합니다.
+MYSQL_DATABASE=
+MYSQL_ROOT_PASSWORD=  
+TZ=Asia/Seoul
+```
+
+Path : `/Photoon/frontend/.env`  
+카카오톡 공유하기 환경변수
+```
+REACT_APP_KAKAO_KEY=''
+REACT_APP_IMAGE_URL='https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_STORAGE_BUCKET_REGION}.amazonaws.com/'
+```
+
+Path : `/Photoon/.env`   
+RabbitMQ 환경변수
+```
+RABBITMQ_HOST=
+RABBITMQ_USER=
+RABBITMQ_PASSWORD=
+RABBITMQ_VHOST=
+```
+
+>### Run
+```
+cd frontend
+npm install --legacy-peer-deps
+cd ..
+docker-compose -f docker-compose.prod.yml up —build
+```
+
 
 <hr>
+
 
 ## 4. ER Diagram
 ![photoon_erd](https://user-images.githubusercontent.com/70627982/192968756-168aa67c-e4e3-4dd4-8299-897eb37e2b78.png)
@@ -67,13 +143,31 @@
 <hr>
 
 ## 6. Demo
-
-### 사진 업로드
-![사진업로드](https://user-images.githubusercontent.com/70627982/193268436-395ec5f8-b6ee-4069-9693-d61944817a79.gif)
-
-### 말풍선 추가
-![말풍선추가](https://user-images.githubusercontent.com/70627982/193268465-e5a69c77-72a5-4a58-8f86-af2bf91f2090.gif)
-
+<table  style="text-align: center; width=950px">
+    <tbody>
+        <tr>
+          <th style="text-align: center;">이미지 업로드 & 크롭</th>
+          <th style="text-align: center;">말풍선 추가</th>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <th><img src="https://user-images.githubusercontent.com/70627982/193268436-395ec5f8-b6ee-4069-9693-d61944817a79.gif"  width="450px" height="450px"/></th>
+          <th><img src="https://user-images.githubusercontent.com/70627982/193268465-e5a69c77-72a5-4a58-8f86-af2bf91f2090.gif"  width="450px" height="450px"/></th>
+        </tr>
+      </tbody>
+      <!-- <tr>
+          <th style="text-align: center;">스타일 & 배경 선택</th>
+          <th style="text-align: center;">없음</th>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <th><img src="https://user-images.githubusercontent.com/70627982/193268436-395ec5f8-b6ee-4069-9693-d61944817a79.gif"  width="450px" height="450px"/></th>
+          <th><img src="https://user-images.githubusercontent.com/70627982/193268465-e5a69c77-72a5-4a58-8f86-af2bf91f2090.gif"  width="450px" height="450px"/></th>
+        </tr>
+      </tbody> -->
+    </table>
 
 <hr>
 
