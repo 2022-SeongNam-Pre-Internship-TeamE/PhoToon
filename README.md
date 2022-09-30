@@ -153,8 +153,8 @@ docker-compose -f docker-compose.prod.yml up —build
       </tbody>
       <tbody>
         <tr>
-          <th><img src="https://user-images.githubusercontent.com/70627982/193301713-d92f57bf-fe98-4e07-9e04-67b81e2c770a.gif"  width="450px" height="450px"/></th>
-          <th><img src="https://user-images.githubusercontent.com/70627982/193300976-777f7438-ba12-409f-8629-e552ed661e6e.png"  width="450px" height="450px"/></th>
+          <th><img src="https://user-images.githubusercontent.com/70627982/193301713-d92f57bf-fe98-4e07-9e04-67b81e2c770a.gif"  width="350px" height="350px"/></th>
+          <th><img src="https://user-images.githubusercontent.com/70627982/193300976-777f7438-ba12-409f-8629-e552ed661e6e.png"  width="350px" height="350px"/></th>
         </tr>
       </tbody>
       <tbody>
@@ -165,8 +165,8 @@ docker-compose -f docker-compose.prod.yml up —build
       </tbody>
       <tbody>
         <tr>
-          <th><img src="https://user-images.githubusercontent.com/70627982/193301350-85228039-79d2-4823-a711-d5e893e59560.gif"  width="450px" height="450px"/></th>
-          <th><img src="https://user-images.githubusercontent.com/70627982/193301447-420b1fc1-88c0-4774-a940-1f006dfed809.gif"  width="450px" height="450px"/></th>
+          <th><img src="https://user-images.githubusercontent.com/70627982/193301350-85228039-79d2-4823-a711-d5e893e59560.gif"  width="350px" height="350px"/></th>
+          <th><img src="https://user-images.githubusercontent.com/70627982/193301447-420b1fc1-88c0-4774-a940-1f006dfed809.gif"  width="350px" height="350px"/></th>
         </tr>
       </tbody>
       <tbody>
@@ -177,8 +177,8 @@ docker-compose -f docker-compose.prod.yml up —build
       </tbody>
       <tbody>
         <tr>
-          <th><img src="https://user-images.githubusercontent.com/70627982/193304079-7c868028-7279-4c83-b076-46f6c71bb4a6.gif"  width="450px" height="450px"/></th>
-          <th><img src="https://user-images.githubusercontent.com/70627982/193304484-e86654b5-338e-449f-802e-0a4348a6618f.png"  width="450px" height="450px"/></th>
+          <th><img src="https://user-images.githubusercontent.com/70627982/193304079-7c868028-7279-4c83-b076-46f6c71bb4a6.gif"  width="350px" height="350px"/></th>
+          <th><img src="https://user-images.githubusercontent.com/70627982/193304484-e86654b5-338e-449f-802e-0a4348a6618f.png"  width="350px" height="350px"/></th>
         </tr>
       </tbody>
     </table>
