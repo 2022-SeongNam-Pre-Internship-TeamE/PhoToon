@@ -1,7 +1,12 @@
-# Photoon 
-<div align="center">
-사진을 만화 그림체로 변경해주는 서비스 <br>
-만화주인공이 되고싶은 어릴적 <b>꿈</b>을 이루어드리겠습니다.
+
+<h1 align="center">
+    Photoon 
+</h1>
+
+
+<div align="center" style="font-size:18px">
+<b> 사진을 만화 그림체로 변경해주는 서비스 <br>
+만화주인공이 되고싶은 어릴적 <i>꿈</i> 을 이루어드리겠습니다. </b>
 </div>
 <hr>
 
@@ -23,15 +28,12 @@
   <img src="https://img.shields.io/badge/django-528DD7?style=for-the-badge&logo=django&logoColor=white">
   <img src="https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray">
   <img src="https://img.shields.io/badge/gunicorn-499848?style=for-the-badge&logo=gunicorn&logoColor=black">
-  <!-- <img src="https://img.shields.io/badge/gunicorn-499848?style=for-the-badge&logo=gunicorn&logoColor=black">
-  <img src="https://img.shields.io/badge/flask-000000?style=for-the-badge&logo=flask&logoColor=white"> -->
+  <img src="https://img.shields.io/badge/yolov5-EE4C2C?style=for-the-badge&logo=yolov5&logoColor=black">
   <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">
   <img src="https://img.shields.io/badge/rabbitMQ-FF6600?style=for-the-badge&logo=rabbitmq&logoColor=white">
   <img src="https://img.shields.io/badge/celery-37814A?style=for-the-badge&logo=celery&logoColor=black">
-  <!-- <img src="https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=black"> -->
   <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
   <img src="https://img.shields.io/badge/pytorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white">
-  <!-- <img src="https://img.shields.io/badge/google colaboratory-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=black"> -->
   <img src="https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=black">
   <img src="https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=Prometheus&logoColor=black">
   <img src="https://img.shields.io/badge/swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black">
@@ -48,8 +50,6 @@ git clone https://github.com/2022-SeongNam-Pre-Internship-TeamE/PhoToon
 ```
 
 >### Set environment file
-<!-- mask_rcnn.pth 설치여부 -->
-
 
 Path : `/Photoon/backend/config/my_settings.py`  
 Django secrect key & MySQL 환경변수
@@ -110,7 +110,7 @@ RABBITMQ_VHOST=
 cd frontend
 npm install --legacy-peer-deps
 cd ..
-docker-compose -f docker-compose.prod.yml up —build
+docker-compose -f docker-compose.prod.yml up --build
 ```
 
 
@@ -143,7 +143,7 @@ docker-compose -f docker-compose.prod.yml up —build
 <hr>
 
 
-## 6. Demo
+## 6. Features
 <table  style="text-align: center; width=950px">
     <tbody>
         <tr>
@@ -200,7 +200,7 @@ docker-compose -f docker-compose.prod.yml up —build
 
 
 ## 7. Team Member
-<table width="950">
+<table width="950px">
     <thead>
     </thead>
     <tbody>
@@ -306,9 +306,17 @@ docker-compose -f docker-compose.prod.yml up —build
 </table>
 <hr>
 
-## 8. Reference
+## 8. Demo
+
+- [데모영상](https://youtu.be/fSKvq28lOss)
+
+<hr>
+
+## 9. Reference
 
 - [AnimeGan-v2](https://github.com/TachibanaYoshino/AnimeGANv2)
 
-## 9. Copyright
+<hr>
+
+## 10. Copyright
 Distributed under the Apache-2.0 License. See `LICENSE` for more information.
