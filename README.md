@@ -52,7 +52,7 @@ git clone https://github.com/2022-SeongNam-Pre-Internship-TeamE/PhoToon
 >### Set environment file
 
 Path : `/Photoon/backend/config/my_settings.py`  
-Django secrect key & MySQL 환경변수
+Django secret key & MySQL 환경변수
 ```
 from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
